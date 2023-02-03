@@ -1,5 +1,5 @@
 [package]
-name = "valkyrie-std-io"
+name = "valkyrie-ffi"
 version = "0.0.0"
 authors = ["Aster <192607617@qq.com>"]
 description = "..."
@@ -11,11 +11,7 @@ edition = "2021"
 
 [dependencies]
 inwelling = "0.3.0"
-tokio = { version = "1.25.0", features = ["full"] }
 
-[dependencies.valkyrie-types]
-version = "0.0.0"
-path = "../valkyrie-types"
 
 [dev-dependencies]
 
