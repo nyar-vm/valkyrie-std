@@ -3,7 +3,7 @@ use std::hash::{Hash, Hasher};
 
 use itertools::Itertools;
 
-use crate::ValkyrieLiteralType;
+use crate::{ValkyrieLiteralType, ValkyrieVariantType};
 use crate::ValkyrieUnionType;
 
 pub mod class_type;
@@ -13,6 +13,7 @@ pub mod literal_type;
 pub mod variant_type;
 
 
+#[allow(clippy::wrong_self_convention)]
 pub trait ValkyrieType {
     // get namespace
     fn namespace(&self) -> Vec<String>;
@@ -26,13 +27,16 @@ pub trait ValkyrieType {
         if generics.is_empty() {
             return this;
         }
-        format!("{}[{}]", this, generics.iter().map(|f| f.as_ref().to_string()).join(", "))
+        format!("{}[{}]", this, generics.iter().map(|f| f.type_display(full_path)).join(", "))
     }
     // get namepath
     fn namepath(&self) -> Vec<String> {
         let mut namepath = self.namespace();
         namepath.push(self.type_name());
         namepath
+    }
+    fn new<T>(value: T) -> Box<dyn ValkyrieType> where Self: Sized , T: ValkyrieType +'static, {
+        Box::new(value)
     }
     fn generic_types(&self) -> Vec<Box<dyn ValkyrieType>> {
         Vec::new()
@@ -43,15 +47,19 @@ pub trait ValkyrieType {
         Vec::new()
     }
 
-    fn as_union_type(&self) -> Option<ValkyrieUnionType> {
-        None
+    fn is_union_type(&self) -> bool {
+        false
     }
-    fn as_variant_type(&self) -> Option<ValkyrieVariantType> {
-        None
+    fn as_union_type(self) -> ValkyrieUnionType where Self: Sized {
+        panic!("Can't convert `{}` to union type", self.type_display(true))
+    }
+    fn is_variant_type(&self) -> bool {
+        false
+    }
+    fn as_variant_type(self) -> ValkyrieVariantType where Self: Sized {
+        panic!("Can't convert `{}` to variant type", self.type_display(true))
     }
 }
-
-
 
 impl Display for dyn ValkyrieType {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

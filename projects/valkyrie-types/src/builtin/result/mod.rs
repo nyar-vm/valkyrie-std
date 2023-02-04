@@ -1,9 +1,4 @@
-use crate::ValkyrieVariant;
-
-pub enum ValkyrieResult<T, E> {
-    Success(ValkyrieSuccess<T>),
-    Failure(ValkyrieFailure<E>),
-}
+use crate::ValkyrieType;
 
 pub struct ValkyrieSuccess<T> {
     pub value: T,
@@ -14,10 +9,13 @@ pub struct ValkyrieFailure<E> {
 }
 
 
-impl<T, E> ValkyrieVariant for ValkyrieResult<T, E> {
-    fn type_names() -> Vec<String> {
-        todo!()
+impl<T, E> ValkyrieType for Result<T, E> {
+    fn namespace(&self) -> Vec<String> {
+        vec!["std".to_string(), "primitive".to_string()]
+    }
 
+    fn type_name(&self) -> String {
+        "Result".to_string()
     }
 }
 

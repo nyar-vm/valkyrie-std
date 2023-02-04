@@ -21,7 +21,11 @@ impl ValkyrieType for ValkyrieVariantType {
         self.name.clone()
     }
 
-    fn as_variant_type(&self) -> Option<&ValkyrieVariantType> {
-        Some(self)
+    fn is_variant_type(&self) -> bool {
+        return true;
+    }
+
+    fn as_variant_type(self) -> ValkyrieVariantType {
+        self
     }
 }
