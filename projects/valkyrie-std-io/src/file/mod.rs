@@ -1,7 +1,7 @@
 use std::fs;
 use std::future::Future;
 
-use valkyrie_types::{ValkyrieClassType, ValkyrieUnionType};
+use valkyrie_types::{ValkyrieType, ValkyrieUnionType};
 
 use crate::ValkyrieDirectory;
 
@@ -48,10 +48,10 @@ pub struct UTF8FileHandler {
 }
 
 pub struct ValkyrieClassWrapper {
-    _wrap: Box<dyn ValkyrieClassType>,
+    _wrap: Box<dyn ValkyrieType>,
 }
 
-impl ValkyrieClassType for ValkyrieFile {
+impl ValkyrieType for ValkyrieFile {
     const NAMESPACE: &'static str = "std.io";
     const CLASS_NAME: &'static str = "File";
 }
