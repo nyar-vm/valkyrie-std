@@ -2,6 +2,7 @@ use std::fmt::{Debug, Display, Write};
 use std::hash::{Hash, Hasher};
 
 use itertools::Itertools;
+
 use crate::ValkyrieLiteralType;
 use crate::ValkyrieUnionType;
 
@@ -9,6 +10,7 @@ pub mod class_type;
 pub mod union_type;
 pub mod tuple_type;
 pub mod literal_type;
+pub mod variant_type;
 
 
 pub trait ValkyrieType {
@@ -22,7 +24,7 @@ pub trait ValkyrieType {
         };
         let generics = self.generic_types();
         if generics.is_empty() {
-            return this
+            return this;
         }
         format!("{}[{}]", this, generics.iter().map(|f| f.as_ref().to_string()).join(", "))
     }
@@ -40,7 +42,15 @@ pub trait ValkyrieType {
     fn methods(&self) -> Vec<String> {
         Vec::new()
     }
+
+    fn as_union_type(&self) -> Option<ValkyrieUnionType> {
+        None
+    }
+    fn as_variant_type(&self) -> Option<ValkyrieVariantType> {
+        None
+    }
 }
+
 
 
 impl Display for dyn ValkyrieType {
@@ -54,6 +64,7 @@ impl Debug for dyn ValkyrieType {
         f.write_str(&self.type_display(true))
     }
 }
+
 impl Hash for dyn ValkyrieType + '_ {
     fn hash<H: Hasher>(&self, state: &mut H) {
         state.write(self.type_display(true).as_bytes());
