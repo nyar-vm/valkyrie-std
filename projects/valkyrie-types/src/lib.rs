@@ -1,33 +1,14 @@
+use std::fmt::{Display, Formatter};
+use crate::types::ValkyrieType;
+
+pub use self::types::class_type::ValkyrieClassType;
+pub use self::types::union_type::ValkyrieUnionType;
+
 pub use self::builtin::result::ValkyrieResult;
 
-mod result;
+mod types;
 mod builtin;
 
-pub trait ValkyrieClass {
-    // a namespace is a string split by `.`
-    // save bytes then Vec<String>
-    const NAMESPACE: &'static str;
-    // display class name
-    const CLASS_NAME: &'static str;
-    // get namespace
-    fn namespace() -> Vec<String> {
-        Self::NAMESPACE.split('.').map(|s| s.to_string()).collect()
-    }
-    // get namepath
-    fn namepath() -> Vec<String> {
-        let mut path = Self::namespace();
-        path.push(Self::CLASS_NAME.to_string());
-        path
-    }
-    fn generic_types(&self) -> Vec<String> {
-        Vec::new()
-    }
-
-    // get methods
-    fn methods() -> Vec<String> {
-        Vec::new()
-    }
-}
 
 pub trait ValkyrieFunction {}
 
@@ -37,10 +18,6 @@ pub trait ValkyrieVariant {
     fn type_names() -> Vec<String>;
 }
 
-
-pub trait ValkyrieUnionType {
-    fn type_names() -> Vec<String>;
-}
 
 // class Tensor[T, D] {
 // const D: Tuple[..u64]
@@ -66,7 +43,13 @@ impl<T> ValkyrieTensor<T> {
 }
 
 
-impl<T> ValkyrieClass for ValkyrieTensor<T> {
+impl<T> Display for ValkyrieTensor<T> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        f.write_str(&format!("Tensor<{}, {}>", std::any::type_name::<T>(), self.dimension.iter().map(|d| d.to_string()).collect::<Vec<String>>().join(", ")))
+    }
+}
+
+impl<T> ValkyrieClassType for ValkyrieTensor<T> {
     const NAMESPACE: &'static str = "std.tensor";
     const CLASS_NAME: &'static str = "Tensor";
     fn generic_types(&self) -> Vec<String> {
@@ -77,15 +60,12 @@ impl<T> ValkyrieClass for ValkyrieTensor<T> {
     }
 }
 
-pub enum ValkyrieType {
-    Class(Box<dyn ValkyrieClass>),
-}
 
 pub struct ValkyrieTuple {
     data: Vec<ValkyrieType>,
 }
 
-impl ValkyrieClass for ValkyrieTuple {
+impl ValkyrieClassType for ValkyrieTuple {
     const NAMESPACE: &'static str = "std.tuple";
     const CLASS_NAME: &'static str = "Tuple";
 
