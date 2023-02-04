@@ -14,7 +14,7 @@ pub struct ValkyrieFailure<E> {
 }
 
 
-impl ValkyrieVariant for ValkyrieResult<T, E> {
+impl<T, E> ValkyrieVariant for ValkyrieResult<T, E> {
     fn type_names() -> Vec<String> {
         todo!()
 
