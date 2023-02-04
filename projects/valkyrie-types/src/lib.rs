@@ -1,10 +1,10 @@
 use std::fmt::{Display, Formatter};
+
 use crate::types::ValkyrieType;
 
+pub use self::builtin::result::ValkyrieResult;
 pub use self::types::class_type::ValkyrieClassType;
 pub use self::types::union_type::ValkyrieUnionType;
-
-pub use self::builtin::result::ValkyrieResult;
 
 mod types;
 mod builtin;
@@ -50,8 +50,18 @@ impl<T> Display for ValkyrieTensor<T> {
 }
 
 impl<T> ValkyrieClassType for ValkyrieTensor<T> {
-    const NAMESPACE: &'static str = "std.tensor";
-    const CLASS_NAME: &'static str = "Tensor";
+    fn namespace(&self) -> Vec<String> {
+        vec!["std".to_string(), "tensor".to_string()]
+    }
+
+    fn class_name(&self) -> String {
+        "Tensor".to_string()
+    }
+
+    fn type_display(&self) -> String {
+        format!("{}[{}]", self.class_name(), self.generic_types().join(", "))
+    }
+
     fn generic_types(&self) -> Vec<String> {
         vec![
             std::any::type_name::<T>().to_string(),
@@ -61,24 +71,12 @@ impl<T> ValkyrieClassType for ValkyrieTensor<T> {
 }
 
 
-pub struct ValkyrieTuple {
-    data: Vec<ValkyrieType>,
-}
-
-impl ValkyrieClassType for ValkyrieTuple {
-    const NAMESPACE: &'static str = "std.tuple";
-    const CLASS_NAME: &'static str = "Tuple";
-
-    fn generic_types(&self) -> Vec<String> {
-        self.data.iter().map(|d| d.generic_types()).collect::<Vec<Vec<String>>>().join(", ")
-    }
-}
 
 #[test]
 fn test_broadcast() {
     let lhs: ValkyrieTensor<usize> = ValkyrieTensor::new(vec![2, 3, 4]);
     let rhs: ValkyrieTensor<usize> = ValkyrieTensor::new(vec![2, 1, 4]);
     let result = lhs.broadcast_add(&rhs);
-    println!("{:?}", result.generic_types());
+    println!("{:?}", result.type_display());
     assert_eq!(result.dimension, vec![2, 3, 4]);
 }
