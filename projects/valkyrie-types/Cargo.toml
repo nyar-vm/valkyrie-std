@@ -11,6 +11,7 @@ edition = "2021"
 
 [dependencies]
 inwelling = "0.3.0"
+itertools = "0.10.5"
 
 
 [dev-dependencies]
