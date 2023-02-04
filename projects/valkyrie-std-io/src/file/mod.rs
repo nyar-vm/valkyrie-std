@@ -47,10 +47,6 @@ pub struct UTF8FileHandler {
     _wrap: tokio::fs::File,
 }
 
-pub struct ValkyrieClassWrapper {
-    _wrap: Box<dyn ValkyrieType>,
-}
-
 impl ValkyrieType for ValkyrieFile {
     fn namespace(&self) -> Vec<String> {
         vec!["std".to_string(), "io".to_string()]
