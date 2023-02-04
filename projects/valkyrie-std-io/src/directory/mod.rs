@@ -1,16 +1,30 @@
-// #[v::namepath(std::io::Path)]
-pub struct ValkyriePath {
-    _wrap: std::path::PathBuf,
+use std::path::{Ancestors, PathBuf};
+
+pub struct ValkyrieDirectory {
+    _wrap: PathBuf,
 }
 
-impl ValkyriePath {
-    pub fn get_windows_form(&self) -> String {
-        self._wrap.to_str().unwrap().to_string()
+
+impl ValkyrieDirectory {
+    // parent returns the parent directory of the current directory.
+    pub fn parent(&self) -> Option<ValkyrieDirectory> {
+        self._wrap.parent().map(|p| ValkyrieDirectory { _wrap: p.to_path_buf() })
     }
-    pub fn get_url(&self) -> String {
-        self._wrap.to_str().unwrap().to_string()
+    pub fn ancestors(&self) -> Ancestors<'_> {
+        self._wrap.ancestors()
     }
-    pub fn get_unix_form(&self) -> String {
-        self._wrap.to_str().unwrap().to_string()
+
+    pub fn childrens(&self, depth: u32) -> Ancestors<'_> {
+        self._wrap.ancestors()
+    }
+    pub fn files(&self) -> Ancestors<'_> {
+        self._wrap.ancestors()
+    }
+    pub fn directories(&self) -> Ancestors<'_> {
+        self._wrap.ancestors()
+    }
+
+    pub fn descendants(&self) -> Ancestors<'_> {
+        self._wrap.ancestors()
     }
 }

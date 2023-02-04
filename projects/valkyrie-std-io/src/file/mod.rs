@@ -1,8 +1,8 @@
 use std::fs;
 use std::future::Future;
+use std::path::PathBuf;
 
 use valkyrie_types::{ValkyrieType, ValkyrieUnionType};
-
 use crate::ValkyrieDirectory;
 
 pub enum MaybeFile {
@@ -11,7 +11,7 @@ pub enum MaybeFile {
 }
 
 pub struct ValkyrieFile {
-    _path: std::fs::PathBuf,
+    _path: PathBuf,
 }
 
 
@@ -25,11 +25,11 @@ pub struct ValkyrieIOError {
 }
 
 impl ValkyrieFile {
-    pub fn exists(&self) -> Future {
-        self._path.set_len()
+    pub fn exists(&self) -> bool {
+        self._path.exists()
     }
     pub async fn delete(&self) -> std::io::Result<()> {
-        tokio::fs::remove_file(self._path.path()).await
+        tokio::fs::remove_file(&self._path).await
     }
     pub async fn open(&self) -> std::io::Result<ValkyrieFileHandler> {
         let file = tokio::fs::File::open(&self._path).await?;
@@ -52,12 +52,11 @@ pub struct ValkyrieClassWrapper {
 }
 
 impl ValkyrieType for ValkyrieFile {
-    const NAMESPACE: &'static str = "std.io";
-    const CLASS_NAME: &'static str = "File";
-}
+    fn namespace(&self) -> Vec<String> {
+        vec!["std".to_string(), "io".to_string()]
+    }
 
-impl ValkyrieUnionType for ValkyrieFile {
-    fn type_names() -> Vec<String> {
-        todo!()
+    fn type_name(&self) -> String {
+       "File".to_string()
     }
 }
