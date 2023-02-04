@@ -1,7 +1,9 @@
-use std::fmt::{Display, Formatter};
+use std::fmt::Display;
+
 use crate::types::tuple_type::ValkyrieTuple;
 
 pub use self::builtin::result::ValkyrieResult;
+pub use self::types::literal_type::ValkyrieLiteralType;
 pub use self::types::union_type::ValkyrieUnionType;
 pub use self::types::ValkyrieType;
 
@@ -21,14 +23,14 @@ pub trait ValkyrieVariant {
 // class Tensor[T, D] {
 // const D: Tuple[..u64]
 // }
-pub struct ValkyrieTensor<T: ValkyrieType> {
+pub struct ValkyrieTensor<T: ValkyrieType + Clone> {
     dimension: Vec<usize>,
-    data: Vec<T>,
+    default: T,
 }
 
-impl<T> ValkyrieTensor<T> where T: ValkyrieType {
-    pub fn new(dimension: Vec<usize>) -> Self {
-        Self { dimension, data: vec![] }
+impl<T> ValkyrieTensor<T> where T: ValkyrieType + Clone {
+    pub fn new(dimension: Vec<usize>, default: T) -> Self {
+        Self { dimension, default }
     }
     pub fn broadcast_add(&self, other: &Self) -> Self {
         let mut dimension = self.dimension.clone();
@@ -37,11 +39,11 @@ impl<T> ValkyrieTensor<T> where T: ValkyrieType {
                 dimension[i] = 1;
             }
         }
-        Self { dimension, data: vec![] }
+        Self { dimension, default: self.default.clone() }
     }
 }
 
-impl<T:ValkyrieType> ValkyrieType for ValkyrieTensor<T> {
+impl<T> ValkyrieType for ValkyrieTensor<T> where T: ValkyrieType + Clone + 'static {
     fn namespace(&self) -> Vec<String> {
         vec!["std".to_string(), "numeric".to_string()]
     }
@@ -52,8 +54,8 @@ impl<T:ValkyrieType> ValkyrieType for ValkyrieTensor<T> {
 
     fn generic_types(&self) -> Vec<Box<dyn ValkyrieType>> {
         vec![
-            // Box::new(T::type_name()),
-            Box::new(ValkyrieTuple::from_literal(self.dimension.iter().cloned()))
+            Box::new(self.default.clone()),
+            Box::new(ValkyrieTuple::from_literal(self.dimension.iter().cloned())),
         ]
     }
 }
@@ -61,8 +63,8 @@ impl<T:ValkyrieType> ValkyrieType for ValkyrieTensor<T> {
 
 #[test]
 fn test_broadcast() {
-    let lhs: ValkyrieTensor<usize> = ValkyrieTensor::new(vec![2, 3, 4]);
-    let rhs: ValkyrieTensor<usize> = ValkyrieTensor::new(vec![2, 1, 4]);
+    let lhs = ValkyrieTensor::new(vec![2, 3, 4], 0.0);
+    let rhs = ValkyrieTensor::new(vec![2, 1, 4], 0.0);
     let result: Box<dyn ValkyrieType> = Box::new(lhs.broadcast_add(&rhs));
     println!("{}", result);
     println!("{:?}", result);
