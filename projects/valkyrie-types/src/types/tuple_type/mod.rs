@@ -1,5 +1,3 @@
-use std::hash::Hash;
-
 use super::*;
 
 pub struct ValkyrieTuple {
@@ -20,30 +18,6 @@ impl ValkyrieTuple {
     }
 }
 
-pub struct ValkyrieLiteralType<T> {
-    data: T,
-}
-
-impl<T> ValkyrieLiteralType<T> {
-    pub fn new(data: T) -> Self {
-        Self { data }
-    }
-}
-
-impl<T: Display> ValkyrieType for ValkyrieLiteralType<T> {
-    fn namespace(&self) -> Vec<String> {
-        vec!["std".to_string(), "literal".to_string()]
-    }
-
-    fn type_name(&self) -> String {
-        self.data.to_string()
-    }
-
-    fn type_display(&self, full_path: bool) -> String {
-        self.data.to_string()
-    }
-}
-
 
 impl ValkyrieType for ValkyrieTuple {
     fn namespace(&self) -> Vec<String> {
@@ -54,6 +28,6 @@ impl ValkyrieType for ValkyrieTuple {
         "Tuple".to_string()
     }
     fn type_display(&self, full_path: bool) -> String {
-        format!("({})", self.generic_types().iter().map(|f| f.as_ref().to_string()).join(", "))
+        format!("({})", self.tuple.iter().map(|t| t.type_display(full_path)).join(", "))
     }
 }

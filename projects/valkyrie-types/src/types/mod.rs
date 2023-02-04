@@ -2,12 +2,13 @@ use std::fmt::{Debug, Display, Write};
 use std::hash::{Hash, Hasher};
 
 use itertools::Itertools;
-
+use crate::ValkyrieLiteralType;
 use crate::ValkyrieUnionType;
 
 pub mod class_type;
 pub mod union_type;
 pub mod tuple_type;
+pub mod literal_type;
 
 
 pub trait ValkyrieType {
@@ -19,7 +20,11 @@ pub trait ValkyrieType {
             true => { self.namepath().join("::") }
             false => { self.type_name() }
         };
-        format!("{}[{}]", this, self.generic_types().iter().map(|f| f.as_ref().to_string()).join(", "))
+        let generics = self.generic_types();
+        if generics.is_empty() {
+            return this
+        }
+        format!("{}[{}]", this, generics.iter().map(|f| f.as_ref().to_string()).join(", "))
     }
     // get namepath
     fn namepath(&self) -> Vec<String> {
