@@ -1,3 +1,7 @@
+mod result;
+mod builtin;
+
+pub use result::ValkyrieResult;
 
 pub trait ValkyrieClass {
     // a namespace is a string split by `.`
@@ -7,7 +11,7 @@ pub trait ValkyrieClass {
     const CLASS_NAME: &'static str;
     // get namespace
     fn namespace() -> Vec<String> {
-        Self::namespace().split(".").map(|s| s.to_string()).collect()
+        Self::NAMESPACE.split('.').map(|s| s.to_string()).collect()
     }
     // get namepath
     fn namepath() -> Vec<String> {
@@ -15,6 +19,19 @@ pub trait ValkyrieClass {
         path.push(Self::CLASS_NAME.to_string());
         path
     }
+    // get methods
+    fn methods() -> Vec<String> {
+        Vec::new()
+    }
+
+}
+
+pub trait ValkyrieFunction {
+
+}
+
+pub struct ValkyrieMethod {
+
 }
 
 pub trait ValkyrieVariant {

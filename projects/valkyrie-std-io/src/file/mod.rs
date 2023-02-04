@@ -1,6 +1,9 @@
 use std::fs;
+use std::future::Future;
 
-use crate::{ValkyrieDirectory, ValkyrieFile};
+use valkyrie_types::{ValkyrieClass, ValkyrieUnionType};
+
+use crate::ValkyrieDirectory;
 
 pub enum MaybeFile {
     File(ValkyrieFile),
@@ -22,23 +25,19 @@ pub struct ValkyrieIOError {
 }
 
 impl ValkyrieFile {
-    pub fn exists(&self) -> bool {
+    pub fn exists(&self) -> Future {
         self._path.set_len()
     }
-    pub fn delete(&self) -> std::io::Result<()> {
-        std::fs::remove_file(self._path.path())?;
-        Ok(())
+    pub async fn delete(&self) -> std::io::Result<()> {
+        tokio::fs::remove_file(self._path.path()).await
     }
-
-    pub fn open(&self) -> std::io::Result<ValkyrieFileHandler> {
-        let file = tokio::fs::File::open(path._wrap.clone())?;
+    pub async fn open(&self) -> std::io::Result<ValkyrieFileHandler> {
+        let file = tokio::fs::File::open(&self._path).await?;
         Ok(ValkyrieFileHandler { _file: file })
     }
-
-    pub fn read_all_bytes(&mut self) -> std::io::Result<Vec<u8>> {
-        return fs::read(&self._path)
+    pub async fn read_all_bytes(&mut self) -> std::io::Result<Vec<u8>> {
+        return tokio::fs::read(&self._path).await;
     }
-
     pub fn write_all_bytes(&mut self, buffer: &[u8]) -> std::io::Result<()> {
         fs::write(&self._path, buffer)
     }
@@ -55,33 +54,6 @@ pub struct ValkyrieClassWrapper {
 impl ValkyrieClass for ValkyrieFile {
     const NAMESPACE: &'static str = "std.io";
     const CLASS_NAME: &'static str = "File";
-}
-
-pub trait ValkyrieClass {
-    // a namespace is a string split by `.`
-    // save bytes then Vec<String>
-    const NAMESPACE: &'static str;
-    // display class name
-    const CLASS_NAME: &'static str;
-    // get namespace
-    fn namespace() -> Vec<String> {
-        Self::namespace().split(".").map(|s| s.to_string()).collect()
-    }
-    // get namepath
-    fn namepath() -> Vec<String> {
-        let mut path = Self::namespace();
-        path.push(Self::CLASS_NAME.to_string());
-        path
-    }
-}
-
-pub trait ValkyrieVariant {
-    fn type_names() -> Vec<String>;
-}
-
-
-pub trait ValkyrieUnionType {
-    fn type_names() -> Vec<String>;
 }
 
 impl ValkyrieUnionType for ValkyrieFile {
