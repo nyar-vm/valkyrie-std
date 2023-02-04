@@ -24,9 +24,11 @@ A is a vector
 | U+2A02  | `a ⨂ b` | `A.tensor_product(a)`    |             |
 | U+29BB  | `a ⦻ b` | `A.tensor_product(a)`    |             |
 | U+22C5  | `a ⋅ b` | `A.dot_product(a)`       |             |
+| U+2317  | `A ⌗ B` | `A.cartesian_product(B)` | recommended |
 | U+22C4  | `a ⊙ b` |                          | reserved    |
 | U+2A00  | `a ⨀ b` |                          | reserved    |
-| U+22A0  | `A ⊠ B` | A.cartesian_product(B)   | recommended |
+|
+| U+22A0  | `A ⊠ B` |                          | reserved    |
 | U+22C9  | `A ⋉ B` |                          | reserved    |
 | U+22CA  | `A ⋊ B` |                          | reserved    |
 | U+2A33  | `A ⨳ B` |                          | reserved    |
@@ -102,6 +104,35 @@ $±$
 | U+2208  | `a ∈ A` | `A.contains(a)`  |
 | U+2209  | `a ∉ A` | `!A.contains(a)` |
 
+## Degree
+
+| Unicode | Usage | Expand       |
+|:--------|:------|:-------------|
+| U+00B0  | `a°`  | `A.degree()` |
+| U+2032  | `a′`  | `A.minute()` |
+| U+2033  | `a″`  | `A.second()` |
+| U+2034  | `a‴`  | `A.third()`  |
+| U+2057  | `a⁗`  | `A.fourth()` |
+
+## Matrix
+
+```vk
+[
+    1, 2; 
+    3, 4;
+]
+a.[b]
+¶, §, ⸿, ፠, ๛
+
+≛
+
+
+
+⸿name.space
+¶
+¶module::S()
+```
+
 # Percent
 
 | Unicode | Usage | Expand               |
@@ -110,5 +141,11 @@ $±$
 | U+2030  | `a‰`  | `A.perthousand()`    |
 | U+2031  | `a‱`  | `A.pertenthousand()` |
 
+## Temperature
 
+| Unicode | Usage | Expand          |
+|:--------|:------|:----------------|
+| U+2103  | `n℃`  | `Celsius(n)`    |
+| U+2109  | `n℉`  | `Fahrenheit(n)` |
 
+2000℃ > 3000℉
