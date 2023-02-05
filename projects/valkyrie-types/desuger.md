@@ -148,4 +148,20 @@ a.[b]
 | U+2103  | `n℃`  | `Celsius(n)`    |
 | U+2109  | `n℉`  | `Fahrenheit(n)` |
 
-2000℃ > 3000℉
+
+
+
+
+
+with
+
+case A
+when A
+
+switch if {
+    a == b {
+    }
+}
+k <- a + b 
+a <~ b
+a <- b

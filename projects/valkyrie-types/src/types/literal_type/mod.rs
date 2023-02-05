@@ -1,8 +1,13 @@
-use std::marker::PhantomData;
 use super::*;
 
 pub struct ValkyrieLiteralType<T> {
     data: T,
+}
+
+pub struct ValkyriePhantomType<'r, T> {
+    namespace: Vec<String>,
+    name: String,
+    data: &'r T,
 }
 
 impl<T> ValkyrieLiteralType<T> {
@@ -10,6 +15,13 @@ impl<T> ValkyrieLiteralType<T> {
         Self { data }
     }
 }
+
+impl<T> ValkyriePhantomType<T> {
+    pub fn new(namespace: Vec<String>, name: String, data: &T) -> Self {
+        Self { namespace, name, data }
+    }
+}
+
 
 impl<T: Display> ValkyrieType for ValkyrieLiteralType<T> {
     fn namespace(&self) -> Vec<String> {
