@@ -8,14 +8,4 @@ pub struct ValkyrieFailure<E> {
     pub error: E,
 }
 
-
-impl<T, E> ValkyrieType for Result<T, E> {
-    fn namespace(&self) -> Vec<String> {
-        vec!["std".to_string(), "primitive".to_string()]
-    }
-
-    fn type_name(&self) -> String {
-        "Result".to_string()
-    }
-}
-
+impl<T, E> ValkyrieType for Result<T, E> {}

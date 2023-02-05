@@ -10,17 +10,4 @@ impl<T> ValkyrieLiteralType<T> {
     }
 }
 
-impl<T: Display> ValkyrieType for ValkyrieLiteralType<T> {
-    fn namespace(&self) -> Vec<String> {
-        vec!["std".to_string(), "literal".to_string()]
-    }
-
-    fn type_name(&self) -> String {
-        self.data.to_string()
-    }
-
-    fn type_display(&self, full_path: bool) -> String {
-        self.data.to_string()
-    }
-}
-
+impl<T: Display> ValkyrieType for ValkyrieLiteralType<T> {}

@@ -1,33 +1,18 @@
 use super::*;
 
 pub struct ValkyrieTuple {
-    tuple: Vec<Box<dyn ValkyrieType>>,
+    tuple: Vec<ValkyrieMetaType>,
 }
 
 impl ValkyrieTuple {
     pub fn from_literal<I, T>(data: I) -> Self
-        where
-            I: Iterator<Item=T>,
-            T: Display + 'static
+    where
+        I: Iterator<Item = T>,
+        T: Display + 'static,
     {
-        Self {
-            tuple: data
-                .map(|d| Box::new(ValkyrieLiteralType::new(d)) as Box<dyn ValkyrieType>)
-                .collect()
-        }
+        todo!()
+        // Self { tuple: data.map(|d| Box::new(ValkyrieLiteralType::new(d)) as ValkyrieMetaType).collect() }
     }
 }
 
-
-impl ValkyrieType for ValkyrieTuple {
-    fn namespace(&self) -> Vec<String> {
-        vec!["std".to_string(), "tuple".to_string()]
-    }
-
-    fn type_name(&self) -> String {
-        "Tuple".to_string()
-    }
-    fn type_display(&self, full_path: bool) -> String {
-        format!("({})", self.tuple.iter().map(|t| t.type_display(full_path)).join(", "))
-    }
-}
+impl ValkyrieType for ValkyrieTuple {}
