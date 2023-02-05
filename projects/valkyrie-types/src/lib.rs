@@ -1,5 +1,4 @@
 #![feature(trivial_bounds)]
-use std::fmt::Display;
 
 pub use self::{
     builtin::result::{ValkyrieFailure, ValkyrieSuccess},

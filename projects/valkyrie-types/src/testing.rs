@@ -5,7 +5,7 @@ pub fn assert_type<T>(value: T, short: &str, long: &str)
 where
     T: ValkyrieType + 'static,
 {
-    let v = Box::new(value).dynamic_type();
+    let v = value.dynamic_info();
     assert_eq!(format!("{}", v), short);
-    assert_eq!(format!("{:?}", v), long);
+    assert_eq!(v.display_type(true), long);
 }
