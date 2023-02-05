@@ -1,10 +1,10 @@
 use super::*;
 
 pub struct ValkyrieUnionType {
-    terms: Vec<Box<dyn ValkyrieTypeModule>>,
+    terms: Vec<Box<dyn ValkyrieType>>,
 }
 
-impl ValkyrieTypeModule for ValkyrieUnionType {
+impl ValkyrieType for ValkyrieUnionType {
     fn namespace(&self) -> Vec<String> {
         vec!["std".to_string(), "collection".to_string()]
     }
@@ -21,12 +21,5 @@ impl ValkyrieTypeModule for ValkyrieUnionType {
         result.pop();
         result.pop();
         result
-    }
-    fn is_union_type(&self) -> bool {
-        return true;
-    }
-
-    fn as_union_type(self) -> ValkyrieUnionType {
-        self
     }
 }

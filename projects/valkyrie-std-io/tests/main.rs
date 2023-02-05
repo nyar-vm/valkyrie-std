@@ -1,4 +1,4 @@
-use valkyrie_types::ValkyrieTypeModule;
+use valkyrie_types::ValkyrieType;
 use valkyrie_types::ValkyrieTuple;
 
 #[test]
@@ -11,12 +11,12 @@ fn ready() {
 // class Tensor[T, D] {
 // const D: Tuple[..u64]
 // }
-pub struct ValkyrieTensor<T: ValkyrieTypeModule + Clone> {
+pub struct ValkyrieTensor<T: ValkyrieType + Clone> {
     dimension: Vec<usize>,
     default: T,
 }
 
-impl<T> ValkyrieTensor<T> where T: ValkyrieTypeModule + Clone {
+impl<T> ValkyrieTensor<T> where T: ValkyrieType + Clone {
     pub fn new(dimension: Vec<usize>, default: T) -> Self {
         Self { dimension, default }
     }
@@ -31,7 +31,7 @@ impl<T> ValkyrieTensor<T> where T: ValkyrieTypeModule + Clone {
     }
 }
 
-impl<T> ValkyrieTypeModule for ValkyrieTensor<T> where T: ValkyrieTypeModule + Clone + 'static {
+impl<T> ValkyrieType for ValkyrieTensor<T> where T: ValkyrieType + Clone + 'static {
     fn namespace(&self) -> Vec<String> {
         vec!["std".to_string(), "numeric".to_string()]
     }
@@ -40,7 +40,7 @@ impl<T> ValkyrieTypeModule for ValkyrieTensor<T> where T: ValkyrieTypeModule + C
         "Tensor".to_string()
     }
 
-    fn generic_types(&self) -> Vec<Box<dyn ValkyrieTypeModule>> {
+    fn generic_types(&self) -> Vec<Box<dyn ValkyrieType>> {
         vec![
             Box::new(self.default.clone()),
             Box::new(ValkyrieTuple::from_literal(self.dimension.iter().cloned())),
@@ -53,7 +53,7 @@ impl<T> ValkyrieTypeModule for ValkyrieTensor<T> where T: ValkyrieTypeModule + C
 fn test_broadcast() {
     let lhs = ValkyrieTensor::new(vec![2, 3, 4], 0.0);
     let rhs = ValkyrieTensor::new(vec![2, 1, 4], 0.0);
-    let result: Box<dyn ValkyrieTypeModule> = Box::new(lhs.broadcast_add(&rhs));
+    let result: Box<dyn ValkyrieType> = Box::new(lhs.broadcast_add(&rhs));
     println!("{}", result);
     println!("{:?}", result);
 }

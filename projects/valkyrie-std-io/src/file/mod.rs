@@ -2,7 +2,7 @@ use std::fs;
 use std::future::Future;
 use std::path::PathBuf;
 
-use valkyrie_types::{ValkyrieTypeModule, ValkyrieUnionType};
+use valkyrie_types::{ValkyrieType, ValkyrieUnionType};
 use crate::ValkyrieDirectory;
 
 pub enum MaybeFile {
@@ -47,7 +47,7 @@ pub struct UTF8FileHandler {
     _wrap: tokio::fs::File,
 }
 
-impl ValkyrieTypeModule for ValkyrieFile {
+impl ValkyrieType for ValkyrieFile {
     fn namespace(&self) -> Vec<String> {
         vec!["std".to_string(), "io".to_string()]
     }

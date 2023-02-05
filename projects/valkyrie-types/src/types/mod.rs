@@ -1,41 +1,42 @@
-use std::fmt::{Debug, Display, };
-use std::hash::{Hash, Hasher};
+use std::{
+    fmt::{Debug, Display},
+    hash::{Hash, Hasher},
+};
 
 use itertools::Itertools;
 
-use crate::{ValkyrieLiteralType, ValkyrieVariantType};
-use crate::ValkyrieUnionType;
+use crate::{ValkyrieLiteralType, ValkyrieUnionType, ValkyrieVariantType};
 
 pub mod class_type;
-pub mod union_type;
-pub mod tuple_type;
 pub mod literal_type;
+pub mod tuple_type;
+pub mod union_type;
 pub mod variant_type;
-
-
 
 #[allow(clippy::wrong_self_convention)]
 pub trait ValkyrieVariantTrait {
     const NAME: &'static str;
 
-    fn as_type_module(self) -> ValkyrieType {
+    fn as_type_module(self) -> ValkyrieMetaType
+    where
+        Self: Sized,
+    {
         todo!()
     }
 }
 
-
-impl<T: ValkyrieTypeModule> ValkyrieVariantTrait for Option<T>{
-    const NAME: &'static str = "";
+impl<T: ValkyrieType> ValkyrieVariantTrait for Option<T> {
+    const NAME: &'static str = "Option";
 }
 
 // rtti of valktype
 #[derive(Default)]
-pub struct ValkyrieType {
+pub struct ValkyrieMetaType {
     namepath: Vec<String>,
 }
 
-impl ValkyrieType {
-    pub fn new(model: impl ValkyrieTypeModule) -> ValkyrieType {
+impl ValkyrieMetaType {
+    pub fn new(model: impl ValkyrieType) -> ValkyrieMetaType {
         let mut out = Self::default();
         out.namepath = model.namepath();
         return out;
@@ -50,14 +51,15 @@ impl ValkyrieType {
 }
 
 #[allow(clippy::wrong_self_convention)]
-pub trait ValkyrieTypeModule {
+
+pub trait ValkyrieType {
     // get namespace
     fn namespace(&self) -> Vec<String>;
     fn type_name(&self) -> String;
     fn type_display(&self, full_path: bool) -> String {
         let this = match full_path {
-            true => { self.namepath().join("::") }
-            false => { self.type_name() }
+            true => self.namepath().join("::"),
+            false => self.type_name(),
         };
         let generics = self.generic_types();
         if generics.is_empty() {
@@ -71,10 +73,14 @@ pub trait ValkyrieTypeModule {
         namepath.push(self.type_name());
         namepath
     }
-    fn new<T>(value: T) -> Box<dyn ValkyrieTypeModule> where Self: Sized , T: ValkyrieTypeModule +'static, {
+    fn new<T>(value: T) -> Box<dyn ValkyrieType>
+    where
+        Self: Sized,
+        T: ValkyrieType + 'static,
+    {
         Box::new(value)
     }
-    fn generic_types(&self) -> Vec<Box<dyn ValkyrieTypeModule>> {
+    fn generic_types(&self) -> Vec<Box<dyn ValkyrieType>> {
         Vec::new()
     }
 
@@ -83,33 +89,33 @@ pub trait ValkyrieTypeModule {
         Vec::new()
     }
 
-    fn is_union_type(&self) -> bool {
-        false
+    fn static_type() -> ValkyrieMetaType
+    where
+        Self: Sized,
+    {
+        ValkyrieMetaType { namepath: vec![] }
     }
-    fn as_union_type(self) -> ValkyrieUnionType where Self: Sized {
-        panic!("Can't convert `{}` to union type", self.type_display(true))
-    }
-    fn is_variant_type(&self) -> bool {
-        false
-    }
-    fn as_variant_type(self) -> ValkyrieVariantType where Self: Sized {
-        panic!("Can't convert `{}` to variant type", self.type_display(true))
+    fn dynamic_type(&self) -> ValkyrieMetaType
+    where
+        Self: Sized,
+    {
+        Self::static_type()
     }
 }
 
-impl Display for dyn ValkyrieTypeModule {
+impl Display for dyn ValkyrieType {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(&self.type_display(false))
     }
 }
 
-impl Debug for dyn ValkyrieTypeModule {
+impl Debug for dyn ValkyrieType {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(&self.type_display(true))
     }
 }
 
-impl Hash for dyn ValkyrieTypeModule + '_ {
+impl Hash for dyn ValkyrieType + '_ {
     fn hash<H: Hasher>(&self, state: &mut H) {
         state.write(self.type_display(true).as_bytes());
     }
