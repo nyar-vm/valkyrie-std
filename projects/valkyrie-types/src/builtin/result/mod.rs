@@ -1,4 +1,4 @@
-use crate::ValkyrieTypeModule;
+use crate::ValkyrieType;
 
 pub struct ValkyrieSuccess<T> {
     pub value: T,
@@ -9,7 +9,7 @@ pub struct ValkyrieFailure<E> {
 }
 
 
-impl<T, E> ValkyrieTypeModule for Result<T, E> {
+impl<T, E> ValkyrieType for Result<T, E> {
     fn namespace(&self) -> Vec<String> {
         vec!["std".to_string(), "primitive".to_string()]
     }
