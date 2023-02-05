@@ -3,16 +3,16 @@ use super::*;
 pub struct ValkyrieVariantType {
     pub namespace: Vec<String>,
     pub name: String,
-    pub types: Vec<Box<dyn ValkyrieType>>,
+    pub types: Vec<Box<dyn ValkyrieTypeModule>>,
 }
 
 impl ValkyrieVariantType {
-    pub fn new(namespace: Vec<String>, name: String, types: Vec<Box<dyn ValkyrieType>>) -> Self {
+    pub fn new(namespace: Vec<String>, name: String, types: Vec<Box<dyn ValkyrieTypeModule>>) -> Self {
         Self { namespace, name, types }
     }
 }
 
-impl ValkyrieType for ValkyrieVariantType {
+impl ValkyrieTypeModule for ValkyrieVariantType {
     fn namespace(&self) -> Vec<String> {
         self.namespace.clone()
     }

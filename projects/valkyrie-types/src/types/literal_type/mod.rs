@@ -23,7 +23,7 @@ impl<T> ValkyriePhantomType<T> {
 }
 
 
-impl<T: Display> ValkyrieType for ValkyrieLiteralType<T> {
+impl<T: Display> ValkyrieTypeModule for ValkyrieLiteralType<T> {
     fn namespace(&self) -> Vec<String> {
         vec!["std".to_string(), "literal".to_string()]
     }

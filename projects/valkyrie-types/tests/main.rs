@@ -1,5 +1,5 @@
 use valkyrie_types::testing::assert_type;
-use valkyrie_types::ValkyrieType;
+use valkyrie_types::ValkyrieTypeModule;
 
 #[test]
 fn ready() {
