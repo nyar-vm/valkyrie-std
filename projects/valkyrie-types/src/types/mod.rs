@@ -5,8 +5,6 @@ use std::{
 
 use itertools::Itertools;
 
-use crate::{ValkyrieLiteralType, ValkyrieUnionType, ValkyrieVariantType};
-
 pub mod class_type;
 pub mod literal_type;
 pub mod tuple_type;
@@ -30,7 +28,7 @@ impl<T: ValkyrieType> ValkyrieVariantTrait for Option<T> {
 }
 
 // rtti of valktype
-#[derive(Default)]
+#[derive(Debug, Default)]
 pub struct ValkyrieMetaType {
     namepath: Vec<String>,
     generic_types: Vec<ValkyrieMetaType>,
@@ -64,11 +62,11 @@ pub trait ValkyrieType
 where
     Self: Sized,
 {
-    fn static_type() -> ValkyrieMetaType {
+    fn static_info() -> ValkyrieMetaType {
         ValkyrieMetaType::default()
     }
-    fn dynamic_type(&self) -> ValkyrieMetaType {
-        Self::static_type()
+    fn dynamic_info(&self) -> ValkyrieMetaType {
+        Self::static_info()
     }
 }
 
@@ -77,8 +75,11 @@ impl ValkyrieMetaType {
         assert_ne!(self.namepath.len(), 0, "namepath `{:?}` is not valid", self.namepath);
         self.namepath.last().unwrap().to_owned()
     }
-
-    fn type_display(&self, full_path: bool) -> String {
+    pub fn namespace(&self) -> String {
+        assert_ne!(self.namepath.len(), 0, "namepath `{:?}` is not valid", self.namepath);
+        self.namepath[..self.namepath.len() - 1].join(".")
+    }
+    pub fn display_type(&self, full_path: bool) -> String {
         let this = match full_path {
             true => self.namepath.join("::"),
             false => self.name(),
@@ -86,25 +87,19 @@ impl ValkyrieMetaType {
         if self.generic_types.is_empty() {
             return this;
         }
-        format!("{}[{}]", this, self.generic_types.iter().map(|f| f.dynamic_type().type_display(full_path)).join(", "))
+        format!("{}[{}]", this, self.generic_types.iter().map(|f| f.dynamic_info().display_type(full_path)).join(", "))
     }
 }
 
 impl Display for ValkyrieMetaType {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(&self.type_display(false))
-    }
-}
-
-impl Debug for ValkyrieMetaType {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(&self.type_display(true))
+        f.write_str(&self.display_type(false))
     }
 }
 
 impl Hash for ValkyrieMetaType {
     fn hash<H: Hasher>(&self, state: &mut H) {
-        state.write(self.type_display(true).as_bytes());
+        state.write(self.display_type(true).as_bytes());
     }
 }
 
