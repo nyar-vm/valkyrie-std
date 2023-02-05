@@ -1,4 +1,4 @@
-use crate::{ ValkyrieType, ValkyrieVariantType};
+use crate::{ValkyrieTypeModule, ValkyrieVariantType};
 
 
 trait StaticType {
@@ -16,7 +16,7 @@ enum TypeWrapper {
 
 
 
-impl<T> ValkyrieType for Option<T> where T: ValkyrieType + Clone + Default + 'static {
+impl<T> ValkyrieTypeModule for Option<T> where T: ValkyrieTypeModule + Clone + Default + 'static {
     fn namespace(&self) -> Vec<String> {
         vec!["std".to_string(), "primitive".to_string()]
     }
@@ -25,7 +25,7 @@ impl<T> ValkyrieType for Option<T> where T: ValkyrieType + Clone + Default + 'st
         "Option".to_string()
     }
 
-    fn generic_types(&self) -> Vec<Box<dyn ValkyrieType>> {
+    fn generic_types(&self) -> Vec<Box<dyn ValkyrieTypeModule>> {
         match self {
             None => {
                 vec![Box::new(T::default())]

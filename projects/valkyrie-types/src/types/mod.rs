@@ -13,8 +13,44 @@ pub mod literal_type;
 pub mod variant_type;
 
 
+
 #[allow(clippy::wrong_self_convention)]
-pub trait ValkyrieType {
+pub trait ValkyrieVariantTrait {
+    const NAME: &'static str;
+
+    fn as_type_module(self) -> ValkyrieType {
+        todo!()
+    }
+}
+
+
+impl<T: ValkyrieTypeModule> ValkyrieVariantTrait for Option<T>{
+    const NAME: &'static str = "";
+}
+
+// rtti of valktype
+#[derive(Default)]
+pub struct ValkyrieType {
+    namepath: Vec<String>,
+}
+
+impl ValkyrieType {
+    pub fn new(model: impl ValkyrieTypeModule) -> ValkyrieType {
+        let mut out = Self::default();
+        out.namepath = model.namepath();
+        return out;
+    }
+
+    pub fn with_namepath(&mut self, namepath: &str) {
+        self.namepath.clear();
+        for s in namepath.split('.') {
+            self.namepath.push(s.to_string());
+        }
+    }
+}
+
+#[allow(clippy::wrong_self_convention)]
+pub trait ValkyrieTypeModule {
     // get namespace
     fn namespace(&self) -> Vec<String>;
     fn type_name(&self) -> String;
@@ -35,10 +71,10 @@ pub trait ValkyrieType {
         namepath.push(self.type_name());
         namepath
     }
-    fn new<T>(value: T) -> Box<dyn ValkyrieType> where Self: Sized , T: ValkyrieType +'static, {
+    fn new<T>(value: T) -> Box<dyn ValkyrieTypeModule> where Self: Sized , T: ValkyrieTypeModule +'static, {
         Box::new(value)
     }
-    fn generic_types(&self) -> Vec<Box<dyn ValkyrieType>> {
+    fn generic_types(&self) -> Vec<Box<dyn ValkyrieTypeModule>> {
         Vec::new()
     }
 
@@ -61,19 +97,19 @@ pub trait ValkyrieType {
     }
 }
 
-impl Display for dyn ValkyrieType {
+impl Display for dyn ValkyrieTypeModule {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(&self.type_display(false))
     }
 }
 
-impl Debug for dyn ValkyrieType {
+impl Debug for dyn ValkyrieTypeModule {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(&self.type_display(true))
     }
 }
 
-impl Hash for dyn ValkyrieType + '_ {
+impl Hash for dyn ValkyrieTypeModule + '_ {
     fn hash<H: Hasher>(&self, state: &mut H) {
         state.write(self.type_display(true).as_bytes());
     }

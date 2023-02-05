@@ -1,6 +1,6 @@
-use crate::ValkyrieType;
+use crate::ValkyrieTypeModule;
 
-impl ValkyrieType for f64 {
+impl ValkyrieTypeModule for f64 {
     fn namespace(&self) -> Vec<String> {
         vec!["std".to_string(), "primitive".to_string()]
     }
@@ -10,7 +10,7 @@ impl ValkyrieType for f64 {
     }
 }
 
-impl ValkyrieType for usize {
+impl ValkyrieTypeModule for usize {
     fn namespace(&self) -> Vec<String> {
         vec!["std".to_string(), "primitive".to_string()]
     }
@@ -20,7 +20,7 @@ impl ValkyrieType for usize {
     }
 }
 
-impl<T> ValkyrieType for Vec<T> {
+impl<T> ValkyrieTypeModule for Vec<T> {
     fn namespace(&self) -> Vec<String> {
         vec!["std".to_string(), "numeric".to_string()]
     }

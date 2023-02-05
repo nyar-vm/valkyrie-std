@@ -1,10 +1,10 @@
 use super::*;
 
 pub struct ValkyrieUnionType {
-    terms: Vec<Box<dyn ValkyrieType>>,
+    terms: Vec<Box<dyn ValkyrieTypeModule>>,
 }
 
-impl ValkyrieType for ValkyrieUnionType {
+impl ValkyrieTypeModule for ValkyrieUnionType {
     fn namespace(&self) -> Vec<String> {
         vec!["std".to_string(), "collection".to_string()]
     }

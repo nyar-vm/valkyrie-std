@@ -1,7 +1,7 @@
 use super::*;
 
 pub struct ValkyrieTuple {
-    tuple: Vec<Box<dyn ValkyrieType>>,
+    tuple: Vec<Box<dyn ValkyrieTypeModule>>,
 }
 
 impl ValkyrieTuple {
@@ -12,14 +12,14 @@ impl ValkyrieTuple {
     {
         Self {
             tuple: data
-                .map(|d| Box::new(ValkyrieLiteralType::new(d)) as Box<dyn ValkyrieType>)
+                .map(|d| Box::new(ValkyrieLiteralType::new(d)) as Box<dyn ValkyrieTypeModule>)
                 .collect()
         }
     }
 }
 
 
-impl ValkyrieType for ValkyrieTuple {
+impl ValkyrieTypeModule for ValkyrieTuple {
     fn namespace(&self) -> Vec<String> {
         vec!["std".to_string(), "tuple".to_string()]
     }
