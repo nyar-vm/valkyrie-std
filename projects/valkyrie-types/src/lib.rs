@@ -1,14 +1,15 @@
-
+#![feature(trivial_bounds)]
 use std::fmt::Display;
 
-pub use self::builtin::result::{ValkyrieSuccess, ValkyrieFailure};
-pub use self::types::literal_type::ValkyrieLiteralType;
-pub use self::types::union_type::ValkyrieUnionType;
-pub use self::types::ValkyrieType;
-pub use self::types::tuple_type::ValkyrieTuple;
-pub use self::types::variant_type::ValkyrieVariantType;
+pub use self::{
+    builtin::result::{ValkyrieFailure, ValkyrieSuccess},
+    types::{
+        literal_type::ValkyrieLiteralType, tuple_type::ValkyrieTuple, union_type::ValkyrieUnionType,
+        variant_type::ValkyrieVariantType, ValkyrieType,
+    },
+};
 
-mod types;
 mod builtin;
+mod types;
 // #[cfg(test)]
 pub mod testing;
