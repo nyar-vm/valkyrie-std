@@ -148,10 +148,34 @@ a.[b]
 | U+2103  | `n℃`  | `Celsius(n)`    |
 | U+2109  | `n℉`  | `Fahrenheit(n)` |
 
+## Logic
 
+| Unicode | Usage    | Expand       |    Comment     |
+|:--------|:---------|:-------------|:--------------:|
+| U+      | `!a`     | `a.not()`    |                |
+| U+00AC  | `¬a`     | `a.not()`    |  recommended   |
+| U+2228  | `a ∨ b`  | `a.or(b)`    |
+| U+22BB  | `a ⊻ b`  | `a.xor(b)`   |
+| U+22BD  | `a ⊽ b`  | `a.nor(b)`   |
+| ------  | reserved | `a.xnor(b)`  | same as `xand` |
+| U+2227  | `a ∧ b`  | `a.and(b)`   |
+| U+22BC  | `a ⊼ b`  | `a.nand(b)`  |
+| U+2A5F  | `a ⩟ b`  | `a.xand(b)`  |
+| ------  | reserved | `a.xnand(b)` | same as `xor`  |
 
+### Comparison
 
+| Unicode | Usage   | Expand    |
+|:--------|:--------|:----------|
+| U+2260  | `a ≠ b` | `a.ne(b)` |
+| U+2264  | `a ≤ b` | `a.le(b)` |
+| U+2265  | `a ≥ b` | `a.ge(b)` |
 
+### Empty set
+
+| Unicode | Usage | Expand |
+|:--------|:------|:-------|
+| U+2205  | `∅`   | `[]`   |
 
 with
 
@@ -159,9 +183,9 @@ case A
 when A
 
 switch if {
-    a == b {
-    }
+a == b {
 }
-k <- a + b 
+}
+k <- a + b
 a <~ b
 a <- b
