@@ -8,12 +8,17 @@ fn ready() {
 
 
 #[test]
-fn test_option() {
-    let a: Option<usize> = Some(0);
-    let b: Option<usize> = None;
+fn test_primitive() {
+    let value: usize = 0;
+    assert_type(value, "u64", "std::primitive::u64");
+}
 
-    assert_type(a, "Option[u64]", "std::primitive::Option[std::primitive::u64]");
-    format!("{}", Box::new(b) as Box<dyn ValkyrieType>);
-    format!("{:?}", Box::new(b) as Box<dyn ValkyrieType>);
+
+#[test]
+fn test_option() {
+    let value: Option<usize> = Some(0);
+    assert_type(value, "Option[u64]", "std::primitive::Option[std::primitive::u64]");
+    let value: Option<usize> = None;
+    assert_type(value, "Option[u64]", "std::primitive::Option[std::primitive::u64]");
 }
 

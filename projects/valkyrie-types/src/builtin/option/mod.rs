@@ -1,4 +1,20 @@
-use crate::{ValkyrieLiteralType, ValkyrieType, ValkyrieVariantType};
+use crate::{ ValkyrieType, ValkyrieVariantType};
+
+
+trait StaticType {
+    const NAME: &'static str;
+}
+trait DynamicType {
+    fn name(&self) -> String;
+}
+
+enum TypeWrapper {
+    Static(Box<dyn StaticType>),
+    Dynamic(Box<dyn DynamicType>),
+}
+
+
+
 
 impl<T> ValkyrieType for Option<T> where T: ValkyrieType + Clone + Default + 'static {
     fn namespace(&self) -> Vec<String> {
