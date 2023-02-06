@@ -1,20 +1,42 @@
-use indexmap::IndexMap;
-use std::ops::Not;
-
-use crate::{
-    types::{ValkyrieMetaType, ValkyrieValue},
-    ValkyrieType,
+use std::{
+    collections::hash_map::DefaultHasher,
+    hash::{Hash, Hasher},
+    ops::Not,
+    sync::Arc,
 };
+
+use indexmap::IndexMap;
+
+use crate::{types::ValkyrieMetaType, ValkyrieType, ValkyrieValue};
 
 impl ValkyrieType for bool {
     fn boxed(self) -> ValkyrieValue {
         ValkyrieValue::Boolean(self)
     }
 
-    fn static_info() -> ValkyrieMetaType {
+    fn type_info(&self) -> Arc<ValkyrieMetaType> {
         let mut meta = ValkyrieMetaType::default();
         meta.set_namepath("std.primitive.Boolean");
-        meta
+        Arc::new(meta)
+    }
+}
+
+pub struct TypeManager {
+    types: IndexMap<u64, Arc<ValkyrieMetaType>>,
+}
+
+impl TypeManager {
+    pub fn get_or_insert(&mut self, info: Arc<ValkyrieMetaType>) -> Arc<ValkyrieMetaType> {
+        let mut hasher = DefaultHasher::new();
+        info.hash(&mut hasher);
+        let hash = hasher.finish();
+        match self.types.get(&hash) {
+            Some(t) => t.clone(),
+            None => {
+                self.types.insert(hash, info.clone());
+                info
+            }
+        }
     }
 }
 
@@ -38,6 +60,9 @@ impl From<bool> for ValkyrieValue {
 
 // std.primitive.Boolean
 pub fn not(args: Vec<ValkyrieValue>, kws: IndexMap<String, ValkyrieValue>) -> ValkyrieValue {
+    if !kws.is_empty() {
+        panic!("Invalid keyword arguments");
+    }
     match args.get(0) {
         Some(ValkyrieValue::Boolean(p)) => return ValkyrieValue::from(p.not()),
         _ => panic!("Invalid type"),

@@ -1,6 +1,6 @@
 use std::sync::Arc;
 
-use crate::{types::ValkyrieValue, ValkyrieType};
+use crate::{types, types::ValkyrieMetaType, ValkyrieType, ValkyrieValue};
 
 pub struct ValkyrieSuccess<T> {
     pub value: T,
@@ -20,5 +20,9 @@ where
             Ok(o) => ValkyrieValue::Result(Ok(Arc::new(o.boxed()))),
             Err(e) => ValkyrieValue::Result(Err(Arc::new(e.boxed()))),
         }
+    }
+
+    fn type_info(&self) -> Arc<ValkyrieMetaType> {
+        todo!()
     }
 }

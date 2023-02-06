@@ -6,7 +6,7 @@ use std::{
 
 use itertools::Itertools;
 
-use crate::{ValkyrieTuple, ValkyrieVariantType};
+use crate::{ValkyrieList, ValkyrieValue, ValkyrieVariantType};
 
 pub mod class_type;
 pub mod literal_type;
@@ -34,32 +34,18 @@ impl<T: ValkyrieType> ValkyrieVariantTrait for Option<T> {
 #[derive(Debug, Default)]
 pub struct ValkyrieMetaType {
     namepath: Vec<String>,
-    generic_types: Vec<ValkyrieMetaType>,
-}
-
-pub enum ValkyrieValue {
-    Boolean(bool),
-    Unsigned8(u8),
-    Unsigned16(u16),
-    Unsigned32(u32),
-    Unsigned64(u64),
-    Unsigned128(u128),
-    Integer8(i8),
-    Integer16(i16),
-    Integer32(i32),
-    Integer64(i64),
-    Integer128(i128),
-    Float32(f32),
-    Float64(f64),
-    String(Arc<String>),
-    Tuple(Arc<ValkyrieTuple>),
-    Option(Option<Arc<ValkyrieValue>>),
-    Result(Result<Arc<ValkyrieValue>, Arc<ValkyrieValue>>),
+    generic_types: Vec<Arc<ValkyrieMetaType>>,
 }
 
 impl ValkyrieType for () {
     fn boxed(self) -> ValkyrieValue {
-        ValkyrieValue::Tuple(Arc::new(ValkyrieTuple::empty()))
+        ValkyrieValue::List(Arc::new(ValkyrieList::tuple()))
+    }
+
+    fn type_info(&self) -> Arc<ValkyrieMetaType> {
+        let mut this = ValkyrieMetaType::default();
+        this.set_namepath("std.primitive.Unit");
+        Arc::new(this)
     }
 }
 
@@ -68,8 +54,9 @@ impl ValkyrieType for ValkyrieValue {
         self
     }
 
-    fn type_info(&self) -> ValkyrieMetaType {
+    fn type_info(&self) -> Arc<ValkyrieMetaType> {
         match self {
+            ValkyrieValue::Null(v) => v.type_info(),
             ValkyrieValue::Boolean(v) => v.type_info(),
             ValkyrieValue::Unsigned8(v) => v.type_info(),
             ValkyrieValue::Unsigned16(v) => v.type_info(),
@@ -83,19 +70,16 @@ impl ValkyrieType for ValkyrieValue {
             ValkyrieValue::Integer128(v) => v.type_info(),
             ValkyrieValue::Float32(v) => v.type_info(),
             ValkyrieValue::Float64(v) => v.type_info(),
+            ValkyrieValue::Buffer(v) => v.type_info(),
             ValkyrieValue::String(v) => v.type_info(),
             ValkyrieValue::Option(v) => v.type_info(),
             ValkyrieValue::Result(v) => v.type_info(),
-            ValkyrieValue::Tuple(v) => v.type_info(),
+            ValkyrieValue::List(v) => v.type_info(),
         }
     }
 }
 
 impl ValkyrieMetaType {
-    pub fn new(model: impl ValkyrieType) -> ValkyrieMetaType {
-        let mut out = Self::default();
-        return out;
-    }
     pub fn set_namepath(&mut self, namepath: &str) {
         self.namepath.clear();
         for s in namepath.split('.') {
@@ -105,10 +89,7 @@ impl ValkyrieMetaType {
     pub fn mut_namepath(&mut self) -> &mut Vec<String> {
         &mut self.namepath
     }
-    pub fn set_generic_types(&mut self, generic_types: Vec<ValkyrieMetaType>) {
-        self.generic_types = generic_types;
-    }
-    pub fn mut_generic_types(&mut self) -> &mut Vec<ValkyrieMetaType> {
+    pub fn mut_generic_types(&mut self) -> &mut Vec<Arc<ValkyrieMetaType>> {
         &mut self.generic_types
     }
 }
@@ -119,12 +100,7 @@ where
     Self: Sized,
 {
     fn boxed(self) -> ValkyrieValue;
-    fn static_info() -> ValkyrieMetaType {
-        ValkyrieMetaType::default()
-    }
-    fn type_info(&self) -> ValkyrieMetaType {
-        Self::static_info()
-    }
+    fn type_info(&self) -> Arc<ValkyrieMetaType>;
 }
 
 impl ValkyrieMetaType {
@@ -162,6 +138,10 @@ impl Hash for ValkyrieMetaType {
 
 impl ValkyrieType for ValkyrieMetaType {
     fn boxed(self) -> ValkyrieValue {
+        todo!()
+    }
+
+    fn type_info(&self) -> Arc<ValkyrieMetaType> {
         todo!()
     }
 }

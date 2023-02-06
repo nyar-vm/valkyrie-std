@@ -1,26 +1,44 @@
 use super::*;
 
-pub struct ValkyrieTuple {
+pub struct ValkyrieList {
+    tuple: bool,
     items: Vec<ValkyrieValue>,
 }
 
-impl ValkyrieTuple {
-    pub fn empty() -> Self {
-        Self { items: Vec::new() }
+impl ValkyrieList {
+    pub fn list() -> Self {
+        Self { tuple: false, items: Vec::new() }
     }
 
-    pub fn from_literal<I, T>(data: I) -> Self
+    pub fn tuple() -> Self {
+        Self { tuple: true, items: Vec::new() }
+    }
+
+    pub fn clear(&mut self) {
+        self.items.clear();
+    }
+
+    pub fn extend_many<I>(&mut self, items: I)
     where
-        I: Iterator<Item = T>,
-        T: Display + 'static,
+        I: IntoIterator<Item = ValkyrieValue>,
     {
-        todo!()
-        // Self { tuple: data.map(|d| Box::new(ValkyrieLiteralType::new(d)) as ValkyrieMetaType).collect() }
+        self.items.extend(items);
+    }
+
+    pub fn extend_one(&mut self, item: ValkyrieValue) {
+        self.items.push(item);
     }
 }
 
-impl ValkyrieType for ValkyrieTuple {
+impl ValkyrieType for ValkyrieList {
     fn boxed(self) -> ValkyrieValue {
-        ValkyrieValue::Tuple(Arc::new(self))
+        ValkyrieValue::List(Arc::new(self))
+    }
+
+    fn type_info(&self) -> Arc<ValkyrieMetaType> {
+        let mut this = ValkyrieMetaType::default();
+        this.set_namepath("std.primitive.List");
+        this.mut_generic_types().push(ValkyrieValue::type_info());
+        Arc::new(this)
     }
 }

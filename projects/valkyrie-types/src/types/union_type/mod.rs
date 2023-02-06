@@ -8,4 +8,8 @@ impl ValkyrieType for ValkyrieUnionType {
     fn boxed(self) -> ValkyrieValue {
         todo!()
     }
+
+    fn type_info(&self) -> Arc<ValkyrieMetaType> {
+        todo!()
+    }
 }
