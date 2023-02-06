@@ -1,9 +1,6 @@
 use std::sync::Arc;
 
-use crate::{
-    types::{ValkyrieMetaType, ValkyrieValue},
-    ValkyrieType,
-};
+use crate::{types::ValkyrieMetaType, ValkyrieType, ValkyrieValue};
 
 impl<T> ValkyrieType for Option<T>
 where
@@ -16,13 +13,13 @@ where
         }
     }
 
-    fn static_info() -> ValkyrieMetaType
+    fn type_info(&self) -> Arc<ValkyrieMetaType>
     where
         Self: Sized,
     {
-        let mut meta = ValkyrieMetaType::default();
-        meta.set_namepath("std.primitive.Option");
-        meta.mut_generic_types().push(T::static_info());
-        meta
+        let mut this = ValkyrieMetaType::default();
+        this.set_namepath("std.primitive.Option");
+        // meta.mut_generic_types().push(T::type_info());
+        Arc::new(this)
     }
 }
