@@ -1,30 +1,30 @@
-use crate::{types::ValkyrieMetaType, ValkyrieType};
+use crate::{types::ValkyrieType, ValkyrieTypeInfo};
 
-impl ValkyrieType for f64 {
-    fn static_info() -> ValkyrieMetaType {
-        let mut meta = ValkyrieMetaType::default();
+impl ValkyrieTypeInfo for f64 {
+    fn static_info() -> ValkyrieType {
+        let mut meta = ValkyrieType::default();
         meta.set_namepath("std.primitive.f64");
         meta
     }
 }
 
-impl ValkyrieType for usize {
-    fn static_info() -> ValkyrieMetaType
+impl ValkyrieTypeInfo for usize {
+    fn static_info() -> ValkyrieType
     where
         Self: Sized,
     {
-        let mut meta = ValkyrieMetaType::default();
+        let mut meta = ValkyrieType::default();
         meta.set_namepath("std.primitive.u64");
         meta
     }
 }
 
-impl<T> ValkyrieType for Vec<T>
+impl<T> ValkyrieTypeInfo for Vec<T>
 where
-    T: ValkyrieType,
+    T: ValkyrieTypeInfo,
 {
-    fn static_info() -> ValkyrieMetaType {
-        let mut meta = ValkyrieMetaType::default();
+    fn static_info() -> ValkyrieType {
+        let mut meta = ValkyrieType::default();
         meta.set_namepath("std.collection.Vector");
         meta.mut_generic_types().push(T::static_info());
         meta

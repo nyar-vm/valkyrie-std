@@ -1,9 +1,9 @@
-use crate::ValkyrieType;
+use crate::ValkyrieTypeInfo;
 
 #[track_caller]
 pub fn assert_type<T>(value: T, short: &str, long: &str)
 where
-    T: ValkyrieType + 'static,
+    T: ValkyrieTypeInfo + 'static,
 {
     let v = value.dynamic_info();
     assert_eq!(format!("{}", v), short);
