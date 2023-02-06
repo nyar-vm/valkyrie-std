@@ -150,18 +150,37 @@ a.[b]
 
 ## Logic
 
-| Unicode | Usage    | Expand       |    Comment     |
-|:--------|:---------|:-------------|:--------------:|
-| U+      | `!a`     | `a.not()`    |                |
-| U+00AC  | `¬a`     | `a.not()`    |  recommended   |
-| U+2228  | `a ∨ b`  | `a.or(b)`    |
-| U+22BB  | `a ⊻ b`  | `a.xor(b)`   |
-| U+22BD  | `a ⊽ b`  | `a.nor(b)`   |
-| ------  | reserved | `a.xnor(b)`  | same as `xand` |
-| U+2227  | `a ∧ b`  | `a.and(b)`   |
-| U+22BC  | `a ⊼ b`  | `a.nand(b)`  |
-| U+2A5F  | `a ⩟ b`  | `a.xand(b)`  |
-| ------  | reserved | `a.xnand(b)` | same as `xor`  |
+| Unicode | Usage   | Expand      |   Comment   |
+|:--------|:--------|:------------|:-----------:|
+| U+      | `!a`    | `a.not()`   |             |
+| U+00AC  | `¬a`    | `a.not()`   | recommended |
+| U+2228  | `a ∨ b` | `a.or(b)`   |             |
+| U+22BD  | `a ⊽ b` | `a.nor(b)`  |  `¬p ∧ ¬q`  |
+| U+22BB  | `a ⊻ b` | `a.xor(b)`  |             |
+| U+2227  | `a ∧ b` | `a.and(b)`  |             |
+| U+22BC  | `a ⊼ b` | `a.nand(b)` |  `¬p ∨ ¬q`  |
+| U+2A5F  | `a ⩟ b` | `a.xand(b)` |             |
+
+Logic gate can be called by `p.logic_gate(q, mask)`
+
+| No. | Mask | Expression |  
+|----:|:-----|:----------:|
+|   1 | 0000 |  `false`   | 
+|   2 | 0001 |  `p ∧ q`   |  
+|   3 | 0010 |  `p ∧ ¬q`  |  
+|   4 | 0011 |    `p`     |  
+|   5 | 0100 |  `¬p ∧ q`  | 
+|   6 | 0101 |    `q`     | 
+|   7 | 0110 |  `p ⊻ q`   | 
+|   8 | 0111 |  `p ∨ q`   | 
+|   9 | 1000 | `¬p ∧ ¬q`  | 
+|  10 | 1001 | `p === q`  | 
+|  11 | 1010 |    `¬q`    |  
+|  12 | 1011 |  `p ∨ ¬q`  | 
+|  13 | 1100 |    `¬p`    |   
+|  14 | 1101 |  `¬p ∨ q`  | 
+|  15 | 1110 | `¬p ∨ ¬q`  | 
+|  16 | 1111 |   `true`   |  
 
 ### Comparison
 
