@@ -10,4 +10,4 @@ impl<T> ValkyrieLiteralType<T> {
     }
 }
 
-impl<T: Display> ValkyrieTypeInfo for ValkyrieLiteralType<T> {}
+impl<T: Display> ValkyrieType for ValkyrieLiteralType<T> {}

@@ -1,4 +1,4 @@
-use crate::ValkyrieTypeInfo;
+use crate::ValkyrieType;
 
 pub struct ValkyrieSuccess<T> {
     pub value: T,
@@ -8,4 +8,4 @@ pub struct ValkyrieFailure<E> {
     pub error: E,
 }
 
-impl<T, E> ValkyrieTypeInfo for Result<T, E> {}
+impl<T, E> ValkyrieType for Result<T, E> {}

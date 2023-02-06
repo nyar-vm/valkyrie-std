@@ -4,7 +4,7 @@ pub use self::{
     builtin::result::{ValkyrieFailure, ValkyrieSuccess},
     types::{
         literal_type::ValkyrieLiteralType, tuple_type::ValkyrieTuple, union_type::ValkyrieUnionType,
-        variant_type::ValkyrieVariantType, ValkyrieTypeInfo,
+        variant_type::ValkyrieVariantType, ValkyrieType,
     },
 };
 

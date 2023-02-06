@@ -3,13 +3,13 @@ use super::*;
 pub struct ValkyrieVariantType {
     pub namespace: Vec<String>,
     pub name: String,
-    pub types: Vec<ValkyrieType>,
+    pub types: Vec<ValkyrieMetaType>,
 }
 
 impl ValkyrieVariantType {
-    pub fn new(namespace: Vec<String>, name: String, types: Vec<ValkyrieType>) -> Self {
+    pub fn new(namespace: Vec<String>, name: String, types: Vec<ValkyrieMetaType>) -> Self {
         Self { namespace, name, types }
     }
 }
 
-impl ValkyrieTypeInfo for ValkyrieVariantType {}
+impl ValkyrieType for ValkyrieVariantType {}
