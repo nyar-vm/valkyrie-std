@@ -12,4 +12,8 @@ impl ValkyrieVariantType {
     }
 }
 
-impl ValkyrieType for ValkyrieVariantType {}
+impl ValkyrieType for ValkyrieVariantType {
+    fn boxed(self) -> ValkyrieValue {
+        todo!()
+    }
+}

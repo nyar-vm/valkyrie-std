@@ -8,9 +8,9 @@ fn ready() {
 #[test]
 fn test_primitive() {
     let value: usize = 0;
-    assert_type(value, "u64", "std::primitive::u64");
+    assert_type(value, "Unsigned64", "std::primitive::Unsigned64");
     let value: f64 = 0.0;
-    assert_type(value, "f64", "std::primitive::f64");
+    assert_type(value, "Float64", "std::primitive::Float64");
 }
 
 #[test]

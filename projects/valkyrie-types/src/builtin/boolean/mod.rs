@@ -1,13 +1,19 @@
-use std::ops::Not;
 use indexmap::IndexMap;
+use std::ops::Not;
 
-use crate::types::{ValkyrieMetaType, ValkyrieValue};
-use crate::ValkyrieType;
+use crate::{
+    types::{ValkyrieMetaType, ValkyrieValue},
+    ValkyrieType,
+};
 
 impl ValkyrieType for bool {
+    fn boxed(self) -> ValkyrieValue {
+        ValkyrieValue::Boolean(self)
+    }
+
     fn static_info() -> ValkyrieMetaType {
         let mut meta = ValkyrieMetaType::default();
-        meta.set_namepath("std.primitive.bool");
+        meta.set_namepath("std.primitive.Boolean");
         meta
     }
 }
@@ -20,13 +26,8 @@ pub struct ValkyrieFunction {
 }
 
 pub enum ValkyrieFunctionInstance {
-    Normal {
-        apply: fn(Vec<ValkyrieValue>) -> ValkyrieValue
-    },
-    Curry {
-        apply: fn(Vec<ValkyrieValue>) -> ValkyrieValue,
-        parameters: Vec<ValkyrieValue>,
-    },
+    Normal { apply: fn(Vec<ValkyrieValue>) -> ValkyrieValue },
+    Curry { apply: fn(Vec<ValkyrieValue>) -> ValkyrieValue, parameters: Vec<ValkyrieValue> },
 }
 
 impl From<bool> for ValkyrieValue {
@@ -38,9 +39,7 @@ impl From<bool> for ValkyrieValue {
 // std.primitive.Boolean
 pub fn not(args: Vec<ValkyrieValue>, kws: IndexMap<String, ValkyrieValue>) -> ValkyrieValue {
     match args.get(0) {
-        Some(ValkyrieValue::Boolean(p)) => {
-            return ValkyrieValue::from(p.not())
-        }
+        Some(ValkyrieValue::Boolean(p)) => return ValkyrieValue::from(p.not()),
         _ => panic!("Invalid type"),
     }
 }

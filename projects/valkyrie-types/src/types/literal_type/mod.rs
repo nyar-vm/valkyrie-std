@@ -10,4 +10,8 @@ impl<T> ValkyrieLiteralType<T> {
     }
 }
 
-impl<T: Display> ValkyrieType for ValkyrieLiteralType<T> {}
+impl<T: Display> ValkyrieType for ValkyrieLiteralType<T> {
+    fn boxed(self) -> ValkyrieValue {
+        todo!()
+    }
+}
