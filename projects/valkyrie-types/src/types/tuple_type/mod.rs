@@ -1,7 +1,7 @@
 use super::*;
 
 pub struct ValkyrieTuple {
-    tuple: Vec<ValkyrieMetaType>,
+    tuple: Vec<ValkyrieType>,
 }
 
 impl ValkyrieTuple {
@@ -15,4 +15,4 @@ impl ValkyrieTuple {
     }
 }
 
-impl ValkyrieType for ValkyrieTuple {}
+impl ValkyrieTypeInfo for ValkyrieTuple {}

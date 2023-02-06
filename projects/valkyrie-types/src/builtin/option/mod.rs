@@ -1,14 +1,14 @@
-use crate::{types::ValkyrieMetaType, ValkyrieType};
+use crate::{types::ValkyrieType, ValkyrieTypeInfo};
 
-impl<T> ValkyrieType for Option<T>
+impl<T> ValkyrieTypeInfo for Option<T>
 where
-    T: ValkyrieType + 'static,
+    T: ValkyrieTypeInfo + 'static,
 {
-    fn static_info() -> ValkyrieMetaType
+    fn static_info() -> ValkyrieType
     where
         Self: Sized,
     {
-        let mut meta = ValkyrieMetaType::default();
+        let mut meta = ValkyrieType::default();
         meta.set_namepath("std.primitive.Option");
         meta.mut_generic_types().push(T::static_info());
         meta
