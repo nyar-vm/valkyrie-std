@@ -1,9 +1,21 @@
-use crate::{types::ValkyrieMetaType, ValkyrieType};
+use std::sync::Arc;
+
+use crate::{
+    types::{ValkyrieMetaType, ValkyrieValue},
+    ValkyrieType,
+};
 
 impl<T> ValkyrieType for Option<T>
 where
     T: ValkyrieType + 'static,
 {
+    fn boxed(self) -> ValkyrieValue {
+        match self {
+            Some(s) => ValkyrieValue::Option(Some(Arc::new(s.boxed()))),
+            None => ValkyrieValue::Option(None),
+        }
+    }
+
     fn static_info() -> ValkyrieMetaType
     where
         Self: Sized,

@@ -1,12 +1,12 @@
 use std::{
     fmt::{Debug, Display},
     hash::{Hash, Hasher},
+    sync::Arc,
 };
-use std::sync::Arc;
 
 use itertools::Itertools;
 
-use crate::ValkyrieVariantType;
+use crate::{ValkyrieTuple, ValkyrieVariantType};
 
 pub mod class_type;
 pub mod literal_type;
@@ -19,8 +19,8 @@ pub trait ValkyrieVariantTrait {
     const NAME: &'static str;
 
     fn as_type_module(self) -> ValkyrieMetaType
-        where
-            Self: Sized,
+    where
+        Self: Sized,
     {
         todo!()
     }
@@ -38,12 +38,12 @@ pub struct ValkyrieMetaType {
 }
 
 pub enum ValkyrieValue {
-    Unit,
     Boolean(bool),
     Unsigned8(u8),
     Unsigned16(u16),
     Unsigned32(u32),
     Unsigned64(u64),
+    Unsigned128(u128),
     Integer8(i8),
     Integer16(i16),
     Integer32(i32),
@@ -52,34 +52,41 @@ pub enum ValkyrieValue {
     Float32(f32),
     Float64(f64),
     String(Arc<String>),
+    Tuple(Arc<ValkyrieTuple>),
+    Option(Option<Arc<ValkyrieValue>>),
     Result(Result<Arc<ValkyrieValue>, Arc<ValkyrieValue>>),
 }
 
-impl ValkyrieType for () {}
+impl ValkyrieType for () {
+    fn boxed(self) -> ValkyrieValue {
+        ValkyrieValue::Tuple(Arc::new(ValkyrieTuple::empty()))
+    }
+}
 
 impl ValkyrieType for ValkyrieValue {
-    fn static_info() -> ValkyrieMetaType {
-        let mut meta = ValkyrieMetaType::default();
-        meta.set_namepath("core.ValkyrieValue");
-        meta
+    fn boxed(self) -> ValkyrieValue {
+        self
     }
-    fn dynamic_info(&self) -> ValkyrieMetaType {
+
+    fn type_info(&self) -> ValkyrieMetaType {
         match self {
-            ValkyrieValue::Unit => { ().dynamic_info() }
-            ValkyrieValue::Boolean(v) => { v.dynamic_info() }
-            ValkyrieValue::Unsigned8(v) => { v.dynamic_info() }
-            ValkyrieValue::Unsigned16(v) => { v.dynamic_info() }
-            ValkyrieValue::Unsigned32(v) => { v.dynamic_info() }
-            ValkyrieValue::Unsigned64(v) => { v.dynamic_info() }
-            ValkyrieValue::Integer8(v) => {v.dynamic_info()}
-            ValkyrieValue::Integer16(v) => { v.dynamic_info() }
-            ValkyrieValue::Integer32(v) => { v.dynamic_info() }
-            ValkyrieValue::Integer64(v) => { v.dynamic_info() }
-            ValkyrieValue::Integer128(v) => { v.dynamic_info() }
-            ValkyrieValue::Float32(v) => { v.dynamic_info() }
-            ValkyrieValue::Float64(v) => { v.dynamic_info() }
-            ValkyrieValue::String(v) => { v.dynamic_info() }
-            ValkyrieValue::Result(v) => { v.dynamic_info() }
+            ValkyrieValue::Boolean(v) => v.type_info(),
+            ValkyrieValue::Unsigned8(v) => v.type_info(),
+            ValkyrieValue::Unsigned16(v) => v.type_info(),
+            ValkyrieValue::Unsigned32(v) => v.type_info(),
+            ValkyrieValue::Unsigned64(v) => v.type_info(),
+            ValkyrieValue::Unsigned128(v) => v.type_info(),
+            ValkyrieValue::Integer8(v) => v.type_info(),
+            ValkyrieValue::Integer16(v) => v.type_info(),
+            ValkyrieValue::Integer32(v) => v.type_info(),
+            ValkyrieValue::Integer64(v) => v.type_info(),
+            ValkyrieValue::Integer128(v) => v.type_info(),
+            ValkyrieValue::Float32(v) => v.type_info(),
+            ValkyrieValue::Float64(v) => v.type_info(),
+            ValkyrieValue::String(v) => v.type_info(),
+            ValkyrieValue::Option(v) => v.type_info(),
+            ValkyrieValue::Result(v) => v.type_info(),
+            ValkyrieValue::Tuple(v) => v.type_info(),
         }
     }
 }
@@ -108,14 +115,14 @@ impl ValkyrieMetaType {
 
 #[allow(clippy::wrong_self_convention)]
 pub trait ValkyrieType
-    where
-        Self: Sized,
+where
+    Self: Sized,
 {
     fn boxed(self) -> ValkyrieValue;
     fn static_info() -> ValkyrieMetaType {
         ValkyrieMetaType::default()
     }
-    fn dynamic_info(&self) -> ValkyrieMetaType {
+    fn type_info(&self) -> ValkyrieMetaType {
         Self::static_info()
     }
 }
@@ -137,7 +144,7 @@ impl ValkyrieMetaType {
         if self.generic_types.is_empty() {
             return this;
         }
-        format!("{}[{}]", this, self.generic_types.iter().map(|f| f.dynamic_info().display_type(full_path)).join(", "))
+        format!("{}[{}]", this, self.generic_types.iter().map(|f| f.type_info().display_type(full_path)).join(", "))
     }
 }
 
@@ -153,4 +160,8 @@ impl Hash for ValkyrieMetaType {
     }
 }
 
-impl ValkyrieType for ValkyrieMetaType {}
+impl ValkyrieType for ValkyrieMetaType {
+    fn boxed(self) -> ValkyrieValue {
+        todo!()
+    }
+}

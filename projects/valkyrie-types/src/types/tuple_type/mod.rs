@@ -1,10 +1,14 @@
 use super::*;
 
 pub struct ValkyrieTuple {
-    tuple: Vec<ValkyrieMetaType>,
+    items: Vec<ValkyrieValue>,
 }
 
 impl ValkyrieTuple {
+    pub fn empty() -> Self {
+        Self { items: Vec::new() }
+    }
+
     pub fn from_literal<I, T>(data: I) -> Self
     where
         I: Iterator<Item = T>,
@@ -15,4 +19,8 @@ impl ValkyrieTuple {
     }
 }
 
-impl ValkyrieType for ValkyrieTuple {}
+impl ValkyrieType for ValkyrieTuple {
+    fn boxed(self) -> ValkyrieValue {
+        ValkyrieValue::Tuple(Arc::new(self))
+    }
+}
