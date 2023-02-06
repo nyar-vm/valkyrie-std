@@ -1,7 +1,7 @@
 use super::*;
 
 pub struct ValkyrieUnionType {
-    terms: Vec<ValkyrieType>,
+    terms: Vec<ValkyrieMetaType>,
 }
 
-impl ValkyrieTypeInfo for ValkyrieUnionType {}
+impl ValkyrieType for ValkyrieUnionType {}

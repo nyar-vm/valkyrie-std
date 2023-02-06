@@ -18,7 +18,7 @@ pub mod variant_type;
 pub trait ValkyrieVariantTrait {
     const NAME: &'static str;
 
-    fn as_type_module(self) -> ValkyrieType
+    fn as_type_module(self) -> ValkyrieMetaType
         where
             Self: Sized,
     {
@@ -26,15 +26,15 @@ pub trait ValkyrieVariantTrait {
     }
 }
 
-impl<T: ValkyrieTypeInfo> ValkyrieVariantTrait for Option<T> {
+impl<T: ValkyrieType> ValkyrieVariantTrait for Option<T> {
     const NAME: &'static str = "Option";
 }
 
 // rtti of valktype
 #[derive(Debug, Default)]
-pub struct ValkyrieType {
+pub struct ValkyrieMetaType {
     namepath: Vec<String>,
-    generic_types: Vec<ValkyrieType>,
+    generic_types: Vec<ValkyrieMetaType>,
 }
 
 pub enum ValkyrieValue {
@@ -51,19 +51,19 @@ pub enum ValkyrieValue {
     Integer128(i128),
     Float32(f32),
     Float64(f64),
-    String(String),
-    Result(Result<ValkyrieValue, ValkyrieValue>),
+    String(Arc<String>),
+    Result(Result<Arc<ValkyrieValue>, Arc<ValkyrieValue>>),
 }
 
-impl ValkyrieTypeInfo for () {}
+impl ValkyrieType for () {}
 
-impl ValkyrieTypeInfo for ValkyrieValue {
-    fn static_info() -> ValkyrieType {
-        let mut meta = ValkyrieType::default();
+impl ValkyrieType for ValkyrieValue {
+    fn static_info() -> ValkyrieMetaType {
+        let mut meta = ValkyrieMetaType::default();
         meta.set_namepath("core.ValkyrieValue");
         meta
     }
-    fn dynamic_info(&self) -> ValkyrieType {
+    fn dynamic_info(&self) -> ValkyrieMetaType {
         match self {
             ValkyrieValue::Unit => { ().dynamic_info() }
             ValkyrieValue::Boolean(v) => { v.dynamic_info() }
@@ -71,7 +71,7 @@ impl ValkyrieTypeInfo for ValkyrieValue {
             ValkyrieValue::Unsigned16(v) => { v.dynamic_info() }
             ValkyrieValue::Unsigned32(v) => { v.dynamic_info() }
             ValkyrieValue::Unsigned64(v) => { v.dynamic_info() }
-            ValkyrieValue::Integer8(v) => {}
+            ValkyrieValue::Integer8(v) => {v.dynamic_info()}
             ValkyrieValue::Integer16(v) => { v.dynamic_info() }
             ValkyrieValue::Integer32(v) => { v.dynamic_info() }
             ValkyrieValue::Integer64(v) => { v.dynamic_info() }
@@ -84,8 +84,8 @@ impl ValkyrieTypeInfo for ValkyrieValue {
     }
 }
 
-impl ValkyrieType {
-    pub fn new(model: impl ValkyrieTypeInfo) -> ValkyrieType {
+impl ValkyrieMetaType {
+    pub fn new(model: impl ValkyrieType) -> ValkyrieMetaType {
         let mut out = Self::default();
         return out;
     }
@@ -98,28 +98,29 @@ impl ValkyrieType {
     pub fn mut_namepath(&mut self) -> &mut Vec<String> {
         &mut self.namepath
     }
-    pub fn set_generic_types(&mut self, generic_types: Vec<ValkyrieType>) {
+    pub fn set_generic_types(&mut self, generic_types: Vec<ValkyrieMetaType>) {
         self.generic_types = generic_types;
     }
-    pub fn mut_generic_types(&mut self) -> &mut Vec<ValkyrieType> {
+    pub fn mut_generic_types(&mut self) -> &mut Vec<ValkyrieMetaType> {
         &mut self.generic_types
     }
 }
 
 #[allow(clippy::wrong_self_convention)]
-pub trait ValkyrieTypeInfo
+pub trait ValkyrieType
     where
         Self: Sized,
 {
-    fn static_info() -> ValkyrieType {
-        ValkyrieType::default()
+    fn boxed(self) -> ValkyrieValue;
+    fn static_info() -> ValkyrieMetaType {
+        ValkyrieMetaType::default()
     }
-    fn dynamic_info(&self) -> ValkyrieType {
+    fn dynamic_info(&self) -> ValkyrieMetaType {
         Self::static_info()
     }
 }
 
-impl ValkyrieType {
+impl ValkyrieMetaType {
     pub fn name(&self) -> String {
         assert_ne!(self.namepath.len(), 0, "namepath `{:?}` is not valid", self.namepath);
         self.namepath.last().unwrap().to_owned()
@@ -140,16 +141,16 @@ impl ValkyrieType {
     }
 }
 
-impl Display for ValkyrieType {
+impl Display for ValkyrieMetaType {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(&self.display_type(false))
     }
 }
 
-impl Hash for ValkyrieType {
+impl Hash for ValkyrieMetaType {
     fn hash<H: Hasher>(&self, state: &mut H) {
         state.write(self.display_type(true).as_bytes());
     }
 }
 
-impl ValkyrieTypeInfo for ValkyrieType {}
+impl ValkyrieType for ValkyrieMetaType {}
