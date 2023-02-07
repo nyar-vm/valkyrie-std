@@ -7,12 +7,7 @@ fn ready() {
 }
 
 fn this_fails() -> Result<()> {
-    // You can use plain strings as a `Source`, or anything that implements
-    // the one-method `Source` trait.
-    let src = "source\n  text\n    here".to_string();
-    let len = src.len();
-    Err(ValkyrieError::duplicate_type("type".to_string(), "a".to_string()))?;
-
+    Err(ValkyrieError::duplicate_type("Optional".to_string(), (0, 10), (20, 30)))?;
     Ok(())
 }
 
@@ -23,8 +18,6 @@ fn this_fails() -> Result<()> {
 // `miette::set_hook()`
 #[test]
 fn pretend_this_is_main() -> Result<()> {
-    // kaboom~
     this_fails()?;
-
     Ok(())
 }

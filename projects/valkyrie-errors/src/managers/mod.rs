@@ -1,18 +1,20 @@
 use std::{
     collections::BTreeMap,
+    fmt::{Debug, Display},
     path::{Path, PathBuf},
     sync::Arc,
 };
 
+use ariadne::{Cache, Source};
+
 pub type FileID = usize;
 
-#[derive(Debug)]
 pub struct TextManager {
     // workspace root
     root: PathBuf,
     max_id: FileID,
-    text_map: BTreeMap<FileID, Arc<String>>,
     file_map: BTreeMap<String, FileID>,
+    text_map: BTreeMap<FileID, Arc<Source>>,
 }
 
 pub struct FileSpan {
@@ -39,9 +41,20 @@ impl TextManager {
         let id = self.max_id;
         self.max_id += 1;
         self.file_map.insert(file.into(), id);
-        self.text_map.insert(id, Arc::new(text.into()));
+        self.text_map.insert(id, Arc::new(Source::from(text.into())));
     }
-    pub fn get_text(&self, file: FileID) -> Option<Arc<String>> {
-        self.text_map.get(&file).cloned()
+}
+
+impl Cache<FileID> for TextManager {
+    fn fetch(&mut self, id: &FileID) -> Result<&Source, Box<dyn Debug + '_>> {
+        match self.text_map.get(id) {
+            Some(s) => Ok(s.as_ref()),
+            None => Err(Box::new(format!("FileID {} not found", id))),
+        }
+    }
+
+    fn display<'a>(&self, id: &'a FileID) -> Option<Box<dyn Display + 'a>> {
+        let o = self.text_map.get(id)?;
+        Some(Box::new(o.chars().collect::<String>()))
     }
 }
