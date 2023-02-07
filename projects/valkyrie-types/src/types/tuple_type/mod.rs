@@ -1,11 +1,11 @@
 use super::*;
 
-pub struct ValkyrieList {
+pub struct ValkyrieClass {
     tuple: bool,
     items: Vec<ValkyrieValue>,
 }
 
-impl ValkyrieList {
+impl ValkyrieClass {
     pub fn list() -> Self {
         Self { tuple: false, items: Vec::new() }
     }
@@ -30,9 +30,15 @@ impl ValkyrieList {
     }
 }
 
-impl ValkyrieType for ValkyrieList {
+impl Default for ValkyrieClass {
+    fn default() -> Self {
+        todo!()
+    }
+}
+
+impl ValkyrieType for ValkyrieClass {
     fn boxed(self) -> ValkyrieValue {
-        ValkyrieValue::List(Arc::new(self))
+        ValkyrieValue::Class(Arc::new(self))
     }
 
     fn type_info(&self) -> Arc<ValkyrieMetaType> {

@@ -1,4 +1,4 @@
-use valkyrie_types::{ValkyrieList, ValkyrieType};
+use valkyrie_types::{ValkyrieClass, ValkyrieType};
 
 #[test]
 fn ready() {
@@ -44,7 +44,7 @@ where
     }
 
     fn generic_types(&self) -> Vec<ValkyrieMetaType> {
-        vec![Box::new(self.default.clone()), Box::new(ValkyrieList::from_literal(self.dimension.iter().cloned()))]
+        vec![Box::new(self.default.clone()), Box::new(ValkyrieClass::from_literal(self.dimension.iter().cloned()))]
     }
 }
 

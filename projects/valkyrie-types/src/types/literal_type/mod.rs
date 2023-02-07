@@ -9,13 +9,3 @@ impl<T> ValkyrieLiteralType<T> {
         Self { data }
     }
 }
-
-impl<T: Display> ValkyrieType for ValkyrieLiteralType<T> {
-    fn boxed(self) -> ValkyrieValue {
-        todo!()
-    }
-
-    fn type_info(&self) -> Arc<ValkyrieMetaType> {
-        todo!()
-    }
-}

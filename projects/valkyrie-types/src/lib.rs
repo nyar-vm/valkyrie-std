@@ -3,12 +3,11 @@
 pub use self::{
     builtin::result::{ValkyrieFailure, ValkyrieSuccess},
     types::{
-        literal_type::ValkyrieLiteralType, tuple_type::ValkyrieList, union_type::ValkyrieUnionType,
-        variant_type::ValkyrieVariantType, ValkyrieType,
+        class_type::ValkyrieClassType, literal_type::ValkyrieLiteralType, tuple_type::ValkyrieClass,
+        union_type::ValkyrieUnionType, variant_type::ValkyrieVariant, ValkyrieType,
     },
     values::ValkyrieValue,
 };
-
 mod builtin;
 mod codegen;
 mod functions;

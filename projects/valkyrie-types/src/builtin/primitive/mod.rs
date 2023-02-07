@@ -1,6 +1,6 @@
 use std::sync::Arc;
 
-use crate::{types::ValkyrieMetaType, ValkyrieList, ValkyrieType, ValkyrieValue};
+use crate::{types::ValkyrieMetaType, ValkyrieClass, ValkyrieType, ValkyrieValue};
 
 impl ValkyrieType for u8 {
     fn boxed(self) -> ValkyrieValue {

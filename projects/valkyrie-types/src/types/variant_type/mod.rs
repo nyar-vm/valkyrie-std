@@ -1,24 +1,34 @@
 use super::*;
-use std::any::type_name;
 
-pub struct ValkyrieVariantType {
-    pub namepath: String,
-    pub generics: Vec<Arc<ValkyrieMetaType>>,
-    pub variants: Vec<Arc<ValkyrieClassType>>,
+pub struct ValkyrieVariant {
+    namepath: Vec<String>,
+    generics: Vec<Arc<ValkyrieMetaType>>,
+    variants: Vec<Arc<ValkyrieClassType>>,
 }
 
-pub struct ValkyrieClassType {}
+impl ValkyrieVariant {
+    pub fn new(namepath: String) -> Self {
+        Self { namepath: namepath.split('.').map(|s| s.to_string()).collect(), generics: vec![], variants: vec![] }
+    }
+    pub fn mut_generics(&mut self) -> &mut Vec<Arc<ValkyrieMetaType>> {
+        &mut self.generics
+    }
+}
 
-impl ValkyrieVariantType {}
-
-impl ValkyrieType for ValkyrieVariantType {
-    fn boxed(self) -> ValkyrieValue {
+impl Default for ValkyrieVariant {
+    fn default() -> Self {
         todo!()
+    }
+}
+
+impl ValkyrieType for ValkyrieVariant {
+    fn boxed(self) -> ValkyrieValue {
+        ValkyrieValue::Variant(Arc::new(self))
     }
 
     fn type_info(&self) -> Arc<ValkyrieMetaType> {
         let mut this = ValkyrieMetaType::default();
-        this.set_namepath(&self.namepath);
+        *this.mut_namepath() = self.namepath.clone();
         this.mut_generic_types().extend(self.generics.iter().cloned());
         Arc::new(this)
     }
