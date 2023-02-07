@@ -1,3 +1,4 @@
+use ariadne::ReportKind;
 use std::{
     collections::BTreeSet,
     error::Error,
@@ -38,7 +39,7 @@ impl ValkyrieError {
             this_item: DuplicateItem::new(Arc::new(include_str!("mod.rs").to_string()), this),
             last_item: Some(DuplicateItem::new(Arc::new(include_str!("../errors/mod.rs").to_string()), last)),
         };
-        Self { kind: ValkyrieErrorKind::Duplicate(Box::new(this)), level: Severity::Error }
+        Self { kind: ValkyrieErrorKind::Duplicate(Box::new(this)), level: ReportKind::Error }
     }
 }
 
@@ -50,28 +51,6 @@ impl Display for DuplicateError {
 
 impl Error for DuplicateError {}
 
-impl Diagnostic for DuplicateError {
-    fn code<'a>(&'a self) -> Option<Box<dyn Display + 'a>> {
-        Some(Box::new("E0001"))
-    }
-    fn help<'a>(&'a self) -> Option<Box<dyn Display + 'a>> {
-        Some(Box::new("Remove one of the duplicate item"))
-    }
-    fn url<'a>(&'a self) -> Option<Box<dyn Display + 'a>> {
-        Some(Box::new("file:///C:/Users/Owner/Documents/Programming/Rust/valkyrie/projects/valkyrie-errors/src/errors/mod.rs"))
-    }
-    fn source_code(&self) -> Option<&dyn SourceCode> {
-        Some(&self.this_item.text)
-    }
-    fn labels(&self) -> Option<Box<dyn Iterator<Item = LabeledSpan> + '_>> {
-        let this = LabeledSpan::new(Some("last defined at".to_string()), self.this_item.span.start, self.this_item.span.end);
-        Some(Box::new(vec![this].into_iter()))
-    }
-    fn related<'a>(&'a self) -> Option<Box<dyn Iterator<Item = &'a dyn Diagnostic> + 'a>> {
-        Some(Box::new(self.last_item.iter().map(|x| x as &dyn Diagnostic)))
-    }
-}
-
 impl Error for DuplicateItem {}
 
 impl Display for DuplicateItem {
@@ -79,8 +58,6 @@ impl Display for DuplicateItem {
         f.write_str("DuplicateRelated")
     }
 }
-
-impl Diagnostic for DuplicateItem {}
 
 #[test]
 fn main() {
