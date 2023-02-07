@@ -38,7 +38,7 @@ impl ValkyrieType for ValkyrieList {
     fn type_info(&self) -> Arc<ValkyrieMetaType> {
         let mut this = ValkyrieMetaType::default();
         this.set_namepath("std.primitive.List");
-        this.mut_generic_types().push(ValkyrieValue::type_info());
+
         Arc::new(this)
     }
 }

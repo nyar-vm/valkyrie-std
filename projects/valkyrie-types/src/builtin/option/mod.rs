@@ -7,10 +7,7 @@ where
     T: ValkyrieType + 'static,
 {
     fn boxed(self) -> ValkyrieValue {
-        match self {
-            Some(s) => ValkyrieValue::Option(Some(Arc::new(s.boxed()))),
-            None => ValkyrieValue::Option(None),
-        }
+        todo!()
     }
 
     fn type_info(&self) -> Arc<ValkyrieMetaType>

@@ -10,6 +10,7 @@ pub use self::{
 };
 
 mod builtin;
+mod codegen;
 mod functions;
 mod types;
 mod values;
