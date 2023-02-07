@@ -22,7 +22,7 @@ pub struct ParseContext {
 }
 
 impl ValkyrieParser {
-    pub fn parse_file<P: AsRef<Path>>(&mut self, file: FileID, text: &str) -> ValkyrieResult<()> {
+    pub fn parse_file(&mut self, file: FileID, text: &str) -> ValkyrieResult<()> {
         self.file = file;
         let stmts = match VkParser::parse(text) {
             Ok(o) => o.statements,

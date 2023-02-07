@@ -1,4 +1,4 @@
-use nyar_error::ReportResult;
+use valkyrie_errors::{TextManager, ValkyrieResult};
 use valkyrie_parser::ValkyrieParser;
 
 #[test]
@@ -7,25 +7,21 @@ fn ready() {
 }
 
 #[test]
-fn test() -> ReportResult {
-    let _ = ValkyrieParser::parse_file("tests/test_expr/infix3.vk")?;
-
-    Ok(())
+fn test_basic() {
+    run_parser(&["tests/basic.vk", "tests/yield.vk"]).unwrap();
 }
 
-#[test]
-fn main() {
+fn run_parser(files: &[&str]) -> ValkyrieResult {
+    let mut parser = ValkyrieParser::default();
     let mut text = TextManager::new("./");
-    let file1 = text.add_file("src/duplicates/parsing").unwrap();
-    let file2 = text.add_file("src/errors/parsing").unwrap();
-
-    ValkyrieError::duplicate_type(
-        "Optional".to_string(),
-        FileSpan { file: file1, head: 32, tail: 33 },
-        FileSpan { file: file2, head: 42, tail: 45 },
-    )
-    .as_report()
-    .print(&mut text)
-    .unwrap();
-    ValkyrieError::runtime_error("Optional".to_string()).as_report().print(&mut text).unwrap();
+    for file in files {
+        let basic = text.add_file(file)?;
+        if let Err(e) = parser.parse_file(basic, &text.get_text(basic)) {
+            e.as_report().print(&mut text)?;
+        }
+    }
+    for error in parser.take_errors() {
+        error.as_report().print(&mut text)?;
+    }
+    Ok(())
 }
