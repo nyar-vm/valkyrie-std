@@ -1,10 +1,8 @@
-use std::{
-    fmt::{Debug, Display, Formatter},
-};
+use std::fmt::{Debug, Display, Formatter};
 
 use ariadne::{Color, Report, ReportKind};
 
-use crate::{errors::ValkyrieReport, TextSpan, ValkyrieError, ValkyrieErrorKind};
+use crate::{errors::ValkyrieReport, FileSpan, ValkyrieError, ValkyrieErrorKind};
 
 mod kind;
 
@@ -19,8 +17,8 @@ pub enum DuplicateKind {
 pub struct DuplicateError {
     kind: DuplicateKind,
     name: String,
-    this_item: TextSpan,
-    last_item: TextSpan,
+    this_item: FileSpan,
+    last_item: FileSpan,
 }
 
 impl Display for DuplicateError {
@@ -30,8 +28,8 @@ impl Display for DuplicateError {
 }
 
 impl DuplicateError {
-    pub fn as_report(&self, level: ReportKind) -> Result<ValkyrieReport, String> {
-        let mut report = Report::build(level, self.this_item.file, 12).with_code(self.kind as u32);
+    pub fn as_report(&self, level: ReportKind) -> ValkyrieReport {
+        let mut report = Report::build(level, self.this_item.file, 0).with_code(self.kind as u32);
         report.set_message(self.to_string());
         report.add_label(
             self.this_item.as_label(format!("{:?} `{}` is defined here.", self.kind, self.name)).with_color(Color::Blue),
@@ -42,13 +40,21 @@ impl DuplicateError {
                 .with_color(Color::Cyan),
         );
         report.set_help(format!("Items must have unique names, rename one of the items to have a unique name"));
-        Ok(report.finish())
+        report.finish()
     }
 }
 
 impl ValkyrieError {
-    pub fn duplicate_type(name: String, this: TextSpan, last: TextSpan) -> Self {
+    pub fn duplicate_type(name: String, this: FileSpan, last: FileSpan) -> Self {
         let this = DuplicateError { kind: DuplicateKind::Type, name, this_item: this, last_item: last };
+        Self { kind: ValkyrieErrorKind::Duplicate(Box::new(this)), level: ReportKind::Error }
+    }
+    pub fn duplicate_function(name: String, this: FileSpan, last: FileSpan) -> Self {
+        let this = DuplicateError { kind: DuplicateKind::Function, name, this_item: this, last_item: last };
+        Self { kind: ValkyrieErrorKind::Duplicate(Box::new(this)), level: ReportKind::Error }
+    }
+    pub fn duplicate_variable(name: String, this: FileSpan, last: FileSpan) -> Self {
+        let this = DuplicateError { kind: DuplicateKind::Variable, name, this_item: this, last_item: last };
         Self { kind: ValkyrieErrorKind::Duplicate(Box::new(this)), level: ReportKind::Error }
     }
 }

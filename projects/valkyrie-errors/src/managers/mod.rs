@@ -2,16 +2,17 @@ use std::{
     collections::BTreeMap,
     fmt::{Debug, Display, Formatter},
     fs::read_to_string,
+    ops::Range,
     path::{Path, PathBuf},
     sync::Arc,
 };
 
-pub mod list;
 use ariadne::{Cache, Label, Source};
-use std::ops::Range;
 use url::Url;
 
-pub type FileID = usize;
+use crate::FileID;
+
+pub mod list;
 
 pub struct TextManager {
     // workspace root
@@ -32,12 +33,6 @@ impl Debug for TextManager {
     }
 }
 
-pub struct FileSpan {
-    file: usize,
-    head: usize,
-    tail: usize,
-}
-
 impl TextManager {
     pub fn new<P: AsRef<Path>>(root: P) -> Self {
         Self { root: root.as_ref().canonicalize().unwrap(), max_id: 0, text_map: BTreeMap::default() }
@@ -46,9 +41,7 @@ impl TextManager {
         let file = self.root.join(&relative_path);
         let text = match read_to_string(&file) {
             Ok(o) => o,
-            Err(_) => {
-                panic!("File {} not found", file.display())
-            }
+            Err(_) => panic!("File {} not found", file.display()),
         };
         self.add_text(relative_path, text)
     }
