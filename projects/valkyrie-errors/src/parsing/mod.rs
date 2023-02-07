@@ -39,6 +39,7 @@ impl ParseError {
     pub fn as_report(&self, kind: ReportKind) -> ValkyrieReport {
         let mut report = ValkyrieReport::build(kind, self.span.file, self.span.head);
         report.set_message(self.to_string());
+        report.add_label(self.span.as_label(self.to_string()));
         report.finish()
     }
 }
