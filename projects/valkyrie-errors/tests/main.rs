@@ -8,8 +8,8 @@ fn ready() {
 #[test]
 fn main() {
     let mut text = TextManager::new("./");
-    let file1 = text.add_file("src/duplicates/mod.rs");
-    let file2 = text.add_file("src/errors/mod.rs");
+    let file1 = text.add_file("src/duplicates/parsing");
+    let file2 = text.add_file("src/errors/parsing");
 
     ValkyrieError::duplicate_type(
         "Optional".to_string(),

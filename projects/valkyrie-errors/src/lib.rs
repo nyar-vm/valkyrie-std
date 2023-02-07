@@ -11,8 +11,10 @@ pub use crate::{
 };
 
 mod errors;
-// #[cfg(test)]
+
 mod duplicates;
 mod managers;
+mod parsing;
 mod runtime;
+#[cfg(test)]
 pub mod testing;
