@@ -34,6 +34,7 @@ impl<T: ValkyrieType> ValkyrieVariantTrait for Option<T> {
 #[derive(Debug, Default)]
 pub struct ValkyrieMetaType {
     namepath: Vec<String>,
+    document: String,
     generic_types: Vec<Arc<ValkyrieMetaType>>,
 }
 
@@ -56,7 +57,6 @@ impl ValkyrieType for ValkyrieValue {
 
     fn type_info(&self) -> Arc<ValkyrieMetaType> {
         match self {
-            ValkyrieValue::Null(v) => v.type_info(),
             ValkyrieValue::Boolean(v) => v.type_info(),
             ValkyrieValue::Unsigned8(v) => v.type_info(),
             ValkyrieValue::Unsigned16(v) => v.type_info(),
@@ -72,9 +72,10 @@ impl ValkyrieType for ValkyrieValue {
             ValkyrieValue::Float64(v) => v.type_info(),
             ValkyrieValue::Buffer(v) => v.type_info(),
             ValkyrieValue::String(v) => v.type_info(),
-            ValkyrieValue::Option(v) => v.type_info(),
-            ValkyrieValue::Result(v) => v.type_info(),
             ValkyrieValue::List(v) => v.type_info(),
+            ValkyrieValue::Variant(_) => {
+                todo!()
+            }
         }
     }
 }
@@ -108,9 +109,9 @@ impl ValkyrieMetaType {
         assert_ne!(self.namepath.len(), 0, "namepath `{:?}` is not valid", self.namepath);
         self.namepath.last().unwrap().to_owned()
     }
-    pub fn namespace(&self) -> String {
+    pub fn namespace(&self, join: &str) -> String {
         assert_ne!(self.namepath.len(), 0, "namepath `{:?}` is not valid", self.namepath);
-        self.namepath[..self.namepath.len() - 1].join(".")
+        self.namepath[..self.namepath.len() - 1].join(join)
     }
     pub fn display_type(&self, full_path: bool) -> String {
         let this = match full_path {

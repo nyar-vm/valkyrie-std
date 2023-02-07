@@ -2,10 +2,9 @@ use std::sync::Arc;
 
 use num::BigInt;
 
-use crate::{types::ValkyrieMetaType, ValkyrieList};
+use crate::{types::ValkyrieMetaType, ValkyrieList, ValkyrieVariantType};
 
 pub enum ValkyrieValue {
-    Null(Arc<ValkyrieMetaType>),
     Boolean(bool),
     Unsigned8(u8),
     Unsigned16(u16),
@@ -21,7 +20,6 @@ pub enum ValkyrieValue {
     Float64(f64),
     String(Arc<String>),
     Buffer(Arc<Vec<u8>>),
-    Option(Option<Arc<ValkyrieValue>>),
-    Result(Result<Arc<ValkyrieValue>, Arc<ValkyrieValue>>),
+    Variant(Arc<ValkyrieVariantType>),
     List(Arc<ValkyrieList>),
 }

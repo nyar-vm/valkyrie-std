@@ -16,10 +16,7 @@ where
     E: ValkyrieType,
 {
     fn boxed(self) -> ValkyrieValue {
-        match self {
-            Ok(o) => ValkyrieValue::Result(Ok(Arc::new(o.boxed()))),
-            Err(e) => ValkyrieValue::Result(Err(Arc::new(e.boxed()))),
-        }
+        todo!()
     }
 
     fn type_info(&self) -> Arc<ValkyrieMetaType> {
