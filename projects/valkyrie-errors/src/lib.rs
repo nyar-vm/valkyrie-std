@@ -1,5 +1,5 @@
 pub use self::{
-    duplicates::DuplicateDefinition,
+    duplicates::DuplicateItem,
     errors::{ValkyrieError, ValkyrieErrorKind},
     managers::TextManager,
 };
