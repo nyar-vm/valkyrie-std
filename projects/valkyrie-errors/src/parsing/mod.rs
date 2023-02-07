@@ -4,14 +4,14 @@ use std::{
     num::{ParseFloatError, ParseIntError},
     str::ParseBoolError,
 };
-
-pub mod for_peginator;
+#[cfg(feature = "peginator")]
+mod for_peginator;
 
 use ariadne::ReportKind;
 
 use crate::{FileID, FileSpan, ValkyrieError, ValkyrieErrorKind, ValkyrieReport};
 
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct ParseError {
     info: String,
     span: FileSpan,
@@ -49,7 +49,7 @@ impl From<ParseError> for ValkyrieError {
     }
 }
 
-macro_rules! simple_error {
+macro_rules! wrap_parse_error {
     ($($type:ty),*) => {
         $(
             impl From<$type> for ValkyrieError {
@@ -61,4 +61,7 @@ macro_rules! simple_error {
     };
 }
 
-simple_error!(ParseIntError, ParseFloatError, ParseBoolError, ParseCharError, url::ParseError);
+wrap_parse_error!(ParseIntError, ParseFloatError, ParseBoolError, ParseCharError, url::ParseError);
+
+#[cfg(feature = "peginator")]
+wrap_parse_error!(peginator::ParseError);

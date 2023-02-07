@@ -4,9 +4,20 @@ use ariadne::ReportKind;
 
 use crate::{errors::ValkyrieReport, ValkyrieError, ValkyrieErrorKind};
 
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct RuntimeError {
     message: String,
+}
+
+impl From<RuntimeError> for ValkyrieError {
+    fn from(value: RuntimeError) -> Self {
+        ValkyrieError { kind: ValkyrieErrorKind::Runtime(Box::new(value)), level: ReportKind::Error }
+    }
+}
+impl From<std::io::Error> for ValkyrieError {
+    fn from(value: std::io::Error) -> Self {
+        RuntimeError { message: value.to_string() }.into()
+    }
 }
 
 impl Display for RuntimeError {

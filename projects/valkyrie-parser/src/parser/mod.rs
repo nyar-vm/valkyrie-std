@@ -6,10 +6,12 @@ use std::{
 
 use peginator::PegParser;
 
-use nyar_error::{NamedSource, NyarResult, ParseError, Url};
-use nyar_hir::ASTNode;
+use valkyrie_errors::{FileID, ParseError, Url, ValkyrieError, ValkyrieResult};
 
-use crate::{parser::valkyrie::VkParser, ValkyrieParser};
+use crate::{
+    parser::valkyrie::{VkParser, VkStatements},
+    ValkyrieParser,
+};
 
 #[allow(non_camel_case_types)]
 mod valkyrie;
@@ -20,31 +22,34 @@ pub struct ParseContext {
 }
 
 impl ValkyrieParser {
-    pub fn parse_file<P: AsRef<Path>>(path: P) -> NyarResult<ASTNode> {
-        let path = path.as_ref().canonicalize()?;
-        let mut ctx = ParseContext { source: read_to_string(&path)?, path };
-        ctx.parse()?;
-        Ok(ASTNode::default())
-    }
-}
-
-impl ParseContext {
-    pub fn parse_error(&self, msg: impl Into<String>, span: Range<usize>) -> ParseError {
-        let path = Url::from_file_path(&self.path).unwrap();
-        let path = path.to_string();
-        ParseError { message: msg.into(), file: NamedSource::new(path, self.source.clone()), span }
-    }
-}
-
-impl ParseContext {
-    pub fn parse(&mut self) -> NyarResult<()> {
-        let stmts = match VkParser::parse(&self.source) {
+    pub fn parse_file<P: AsRef<Path>>(&mut self, file: FileID, text: &str) -> ValkyrieResult<()> {
+        self.file = file;
+        let stmts = match VkParser::parse(text) {
             Ok(o) => o.statements,
-            Err(e) => Err(self.parse_error(e.specifics.to_string(), Range { start: e.position, end: e.position }))?,
+            Err(e) => Err(ParseError::from(e).with_file(file))?,
         };
-        for stmt in stmts {
+        self.parse_root(&stmts)?;
+        Ok(())
+    }
+    pub fn take_errors(&mut self) -> Vec<ValkyrieError> {
+        std::mem::take(&mut self.errors)
+    }
+    pub fn push_error(&self, msg: impl Into<String>, span: Range<usize>) -> ParseError {
+        todo!()
+        // let path = Url::from_file_path(&self.path).unwrap();
+        // let path = path.to_string();
+        // message: msg.into(), file: NamedSource::new(path, self.source.clone()), span
+        // ParseError { info: "".to_string(), span: Default::default() }
+    }
+}
+
+impl ValkyrieParser {
+    pub fn parse_root(&mut self, root: &[VkStatements]) -> ValkyrieResult<()> {
+        for stmt in root {
             println!("{:#?}", stmt);
         }
         Ok(())
     }
 }
+
+impl ValkyrieParser {}
