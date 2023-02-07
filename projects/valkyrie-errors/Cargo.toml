@@ -13,7 +13,6 @@ edition = "2021"
 num = "0.4.0"
 indexmap = "1.9.2"
 itertools = "0.10.5"
-miette = { version = "5.5.0", features = ["fancy"] }
 url = "2.2.2"
 ariadne = "0.1.5"
 
