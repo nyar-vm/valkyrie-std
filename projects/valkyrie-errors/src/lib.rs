@@ -1,5 +1,5 @@
 pub use self::{
-    duplicates::DuplicateItem,
+    duplicates::DuplicateError,
     errors::{ValkyrieError, ValkyrieErrorKind},
     managers::{FileID, FileSpan, TextManager},
 };

@@ -5,12 +5,12 @@ use std::{
 
 use miette::{Diagnostic, LabeledSpan, Severity, SourceCode};
 
-use crate::DuplicateItem;
+use crate::DuplicateError;
 
 pub mod diagnostic;
 
 pub enum ValkyrieErrorKind {
-    Duplicate(Box<DuplicateItem>),
+    Duplicate(Box<DuplicateError>),
 }
 
 pub struct ValkyrieError {
