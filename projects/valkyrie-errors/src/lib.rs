@@ -1,18 +1,9 @@
-#![feature(trivial_bounds)]
+mod errors;
+// #[cfg(test)]
+mod functions;
+pub mod testing;
 
 pub use self::{
-    builtin::result::{ValkyrieFailure, ValkyrieSuccess},
-    types::{
-        atomic_type::ValkyrieAtomicType, class_type::ValkyrieClassType, literal_type::ValkyrieLiteralType,
-        tuple_type::ValkyrieClass, union_type::ValkyrieUnionType, variant_type::ValkyrieVariantType, ValkyrieTypeLegacy,
-    },
-    values::ValkyrieValue,
+    errors::{ValkyrieError, ValkyrieErrorKind},
+    functions::DuplicateDefinition,
 };
-
-mod builtin;
-mod codegen;
-mod functions;
-mod types;
-mod values;
-// #[cfg(test)]
-pub mod testing;
