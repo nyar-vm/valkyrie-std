@@ -13,7 +13,7 @@ pub enum DuplicateKind {
     Variable = 1004,
 }
 
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct DuplicateError {
     kind: DuplicateKind,
     name: String,

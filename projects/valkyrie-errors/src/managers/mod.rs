@@ -10,7 +10,7 @@ use std::{
 use ariadne::{Cache, Label, Source};
 use url::Url;
 
-use crate::FileID;
+use crate::{FileID, RuntimeError, ValkyrieResult};
 
 pub mod list;
 
@@ -37,13 +37,10 @@ impl TextManager {
     pub fn new<P: AsRef<Path>>(root: P) -> Self {
         Self { root: root.as_ref().canonicalize().unwrap(), max_id: 0, text_map: BTreeMap::default() }
     }
-    pub fn add_file(&mut self, relative_path: &str) -> FileID {
+    pub fn add_file(&mut self, relative_path: &str) -> ValkyrieResult<FileID> {
         let file = self.root.join(&relative_path);
-        let text = match read_to_string(&file) {
-            Ok(o) => o,
-            Err(_) => panic!("File {} not found", file.display()),
-        };
-        self.add_text(relative_path, text)
+        let text = read_to_string(&file)?;
+        Ok(self.add_text(relative_path, text))
     }
     pub fn add_text(&mut self, file: impl Into<String>, text: impl Into<String>) -> FileID {
         let id = self.max_id;

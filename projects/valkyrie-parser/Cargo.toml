@@ -11,6 +11,10 @@ license = "MPL-2.0"
 peginator = "0.6.0"
 unicode-ident = "1.0.6"
 
+[dependencies.valkyrie-errors]
+#version = "0.1.0"
+path = "../valkyrie-errors"
+features = ["peginator"]
 
 [dev-dependencies]
 

@@ -10,11 +10,13 @@ pub type ValkyrieReport = Report<(FileID, Range<usize>)>;
 
 pub type ValkyrieResult<T = ()> = Result<T, ValkyrieError>;
 
+#[derive(Clone)]
 pub struct ValkyrieError {
     pub kind: ValkyrieErrorKind,
     pub level: ReportKind,
 }
 
+#[derive(Clone)]
 pub enum ValkyrieErrorKind {
     Duplicate(Box<DuplicateError>),
     Runtime(Box<RuntimeError>),
