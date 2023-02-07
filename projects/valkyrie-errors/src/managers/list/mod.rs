@@ -1,12 +1,14 @@
 use super::*;
 
+pub type FileID = usize;
+
 #[derive(Copy, Clone, Debug)]
-pub struct TextSpan {
+pub struct FileSpan {
     pub file: FileID,
     pub head: usize,
     pub tail: usize,
 }
-impl TextSpan {
+impl FileSpan {
     pub fn as_label(&self, message: String) -> Label<(FileID, Range<usize>)> {
         Label::new((self.file, self.head..self.tail)).with_message(message)
     }

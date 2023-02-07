@@ -1,4 +1,4 @@
-use valkyrie_errors::{TextManager, TextSpan, ValkyrieError};
+use valkyrie_errors::{FileSpan, TextManager, ValkyrieError};
 
 #[test]
 fn ready() {
@@ -7,26 +7,17 @@ fn ready() {
 
 #[test]
 fn main() {
-    use ariadne::{Color, ColorGenerator};
-
-    let mut colors = ColorGenerator::new();
-
-    // Generate & choose some colours for each of our elements
-    let _a = colors.next();
-    let _b = colors.next();
-    let _out = Color::Fixed(81);
-
     let mut text = TextManager::new("./");
     let file1 = text.add_file("src/duplicates/mod.rs");
     let file2 = text.add_file("src/errors/mod.rs");
 
     ValkyrieError::duplicate_type(
         "Optional".to_string(),
-        TextSpan { file: file1, head: 32, tail: 33 },
-        TextSpan { file: file2, head: 42, tail: 45 },
+        FileSpan { file: file1, head: 32, tail: 33 },
+        FileSpan { file: file2, head: 42, tail: 45 },
     )
     .as_report()
-    .unwrap()
-    .print(text)
+    .print(&mut text)
     .unwrap();
+    ValkyrieError::runtime_error("Optional".to_string()).as_report().print(&mut text).unwrap();
 }
