@@ -1,67 +1,58 @@
-use ariadne::ReportKind;
 use std::{
-    collections::BTreeSet,
-    error::Error,
     fmt::{Debug, Display, Formatter},
     ops::Range,
-    sync::Arc,
 };
 
-use crate::{TextManager, ValkyrieError, ValkyrieErrorKind};
+use ariadne::{Label, Report, ReportKind};
+
+use crate::{FileID, TextManager, ValkyrieError, ValkyrieErrorKind};
 
 #[derive(Debug)]
 pub struct DuplicateError {
+    king: String,
     name: String,
-    this_item: DuplicateItem,
-    last_item: Option<DuplicateItem>,
-}
-
-#[derive(Debug)]
-pub struct DuplicateItem {
-    text: Arc<String>,
-    span: Range<usize>,
-}
-
-impl DuplicateItem {
-    pub fn new(text: Arc<String>, span: (usize, usize)) -> Self {
-        Self { text, span: Range { start: span.0, end: span.1 } }
-    }
-}
-
-// impl FileSpan {
-//     pub fn resolve_source(&self, text: &TextManager) -> NamedSource {}
-// }
-
-impl ValkyrieError {
-    pub fn duplicate_type(name: String, this: (usize, usize), last: (usize, usize)) -> Self {
-        let this = DuplicateError {
-            name,
-            this_item: DuplicateItem::new(Arc::new(include_str!("mod.rs").to_string()), this),
-            last_item: Some(DuplicateItem::new(Arc::new(include_str!("../errors/mod.rs").to_string()), last)),
-        };
-        Self { kind: ValkyrieErrorKind::Duplicate(Box::new(this)), level: ReportKind::Error }
-    }
+    this_item: TextSpan,
+    last_item: TextSpan,
 }
 
 impl Display for DuplicateError {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(f, "Duplicate item `{}`", self.name)
+        write!(f, "Duplicate {} `{}`", self.kind, self.name)
     }
 }
 
-impl Error for DuplicateError {}
+pub type ValkyrieReport = Report<(FileID, Range<usize>)>;
 
-impl Error for DuplicateItem {}
+impl DuplicateError {
+    pub fn as_report(&self, level: ReportKind) -> Result<ValkyrieReport, String> {
+        let mut report = Report::build(level, self.this_item.file, 12).with_code(3);
+        report.set_message(self.to_string());
+        report.add_label(self.this_item.as_label(format!("This is the first item named `{}`", self.name)));
+        report.add_label(self.last_item.as_label(format!("This is the second item named `{}`", self.name)));
+        report.set_help(format!("Rename one of the items to have a unique name"));
+        report.set_note(format!("Items must have unique names"));
+        Ok(report.finish())
+    }
+}
 
-impl Display for DuplicateItem {
-    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        f.write_str("DuplicateRelated")
+impl ValkyrieError {
+    pub fn as_report(&self) -> Result<ValkyrieReport, String> {
+        match &self.kind {
+            ValkyrieErrorKind::Duplicate(dup) => dup.as_report(self.level),
+        }
+    }
+}
+
+impl ValkyrieError {
+    pub fn duplicate_type(name: String, this: TextSpan, last: TextSpan) -> Self {
+        let this = DuplicateError { name, this_item: this, last_item: last };
+        Self { kind: ValkyrieErrorKind::Duplicate(Box::new(this)), level: ReportKind::Error }
     }
 }
 
 #[test]
 fn main() {
-    use ariadne::{Color, ColorGenerator, Fmt, Label, Report, ReportKind, Source};
+    use ariadne::{Color, ColorGenerator};
 
     let mut colors = ColorGenerator::new();
 
@@ -74,20 +65,13 @@ fn main() {
     let file1 = text.add_file("src/duplicates/mod.rs");
     let file2 = text.add_file("src/errors/mod.rs");
 
-    println!("{:#?}", text);
-
-    Report::build(ReportKind::Error, file1, 12)
-        .with_code(3)
-        .with_message(format!("Incompatible types"))
-        .with_label(Label::new((file1, 32..33)).with_message(format!("This is of type {}", "Nat".fg(a))).with_color(a))
-        .with_label(Label::new((file1, 42..45)).with_message(format!("This is of type {}", "Str".fg(b))).with_color(b))
-        .with_label(
-            Label::new((file2, 11..48))
-                .with_message(format!("The values are outputs of this {} expression", "match".fg(out),))
-                .with_color(out),
-        )
-        .with_note(format!("Outputs of {} expressions must coerce to the same type", "match".fg(out)))
-        .finish()
-        .print(text)
-        .unwrap();
+    ValkyrieError::duplicate_type(
+        "Optional".to_string(),
+        TextSpan { file: file1, head: 32, tail: 33 },
+        TextSpan { file: file2, head: 42, tail: 45 },
+    )
+    .as_report()
+    .unwrap()
+    .print(text)
+    .unwrap();
 }
