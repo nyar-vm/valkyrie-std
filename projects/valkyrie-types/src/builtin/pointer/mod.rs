@@ -6,8 +6,9 @@ impl<T> ValkyrieType for Arc<T>
 where
     T: ValkyrieType,
 {
+    #[track_caller]
     fn boxed(self) -> ValkyrieValue {
-        todo!()
+        panic!("Arc<T> can't be not boxed")
     }
 
     fn type_info(&self) -> Arc<ValkyrieMetaType> {

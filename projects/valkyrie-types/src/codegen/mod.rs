@@ -16,7 +16,7 @@ pub struct ValkyrieCodegen {
 }
 
 impl ValkyrieCodegen {
-    pub fn generate(&mut self, meta: &ValkyrieMetaType) -> std::io::Result<String> {
+    pub fn generate(&mut self, meta: &ValkyrieMetaType) -> Result<String, std::fmt::Error> {
         writeln!(self, "namespace {};", meta.namespace("."))?;
         Ok(take(&mut self.buffer))
     }

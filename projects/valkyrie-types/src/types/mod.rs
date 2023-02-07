@@ -6,7 +6,7 @@ use std::{
 
 use itertools::Itertools;
 
-use crate::{ValkyrieList, ValkyrieValue, ValkyrieVariantType};
+use crate::{ValkyrieClass, ValkyrieClassType, ValkyrieValue, ValkyrieVariant};
 
 pub mod class_type;
 pub mod literal_type;
@@ -14,23 +14,7 @@ pub mod tuple_type;
 pub mod union_type;
 pub mod variant_type;
 
-#[allow(clippy::wrong_self_convention)]
-pub trait ValkyrieVariantTrait {
-    const NAME: &'static str;
-
-    fn as_type_module(self) -> ValkyrieMetaType
-    where
-        Self: Sized,
-    {
-        todo!()
-    }
-}
-
-impl<T: ValkyrieType> ValkyrieVariantTrait for Option<T> {
-    const NAME: &'static str = "Option";
-}
-
-// rtti of valktype
+// rtti of valkyrie type
 #[derive(Debug, Default)]
 pub struct ValkyrieMetaType {
     namepath: Vec<String>,
@@ -40,7 +24,7 @@ pub struct ValkyrieMetaType {
 
 impl ValkyrieType for () {
     fn boxed(self) -> ValkyrieValue {
-        ValkyrieValue::List(Arc::new(ValkyrieList::tuple()))
+        ValkyrieValue::Class(Arc::new(ValkyrieClass::tuple()))
     }
 
     fn type_info(&self) -> Arc<ValkyrieMetaType> {
@@ -50,13 +34,24 @@ impl ValkyrieType for () {
     }
 }
 
+impl Default for ValkyrieValue {
+    fn default() -> Self {
+        ValkyrieValue::Never
+    }
+}
+
 impl ValkyrieType for ValkyrieValue {
     fn boxed(self) -> ValkyrieValue {
         self
     }
 
     fn type_info(&self) -> Arc<ValkyrieMetaType> {
+        let mut this = ValkyrieMetaType::default();
         match self {
+            ValkyrieValue::Never => {
+                this.set_namepath("std.primitive.Any");
+                Arc::new(this)
+            }
             ValkyrieValue::Boolean(v) => v.type_info(),
             ValkyrieValue::Unsigned8(v) => v.type_info(),
             ValkyrieValue::Unsigned16(v) => v.type_info(),
@@ -72,10 +67,8 @@ impl ValkyrieType for ValkyrieValue {
             ValkyrieValue::Float64(v) => v.type_info(),
             ValkyrieValue::Buffer(v) => v.type_info(),
             ValkyrieValue::String(v) => v.type_info(),
-            ValkyrieValue::List(v) => v.type_info(),
-            ValkyrieValue::Variant(_) => {
-                todo!()
-            }
+            ValkyrieValue::Class(v) => v.type_info(),
+            ValkyrieValue::Variant(v) => v.type_info(),
         }
     }
 }

@@ -1,5 +1,1 @@
-pub trait ValkyrieClassType
-where
-    Self: Sized,
-{
-}
+pub struct ValkyrieClassType {}

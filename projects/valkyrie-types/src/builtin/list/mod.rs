@@ -1,17 +1,17 @@
 use std::sync::Arc;
 
-use crate::{types::ValkyrieMetaType, ValkyrieList, ValkyrieType, ValkyrieValue};
+use crate::{types::ValkyrieMetaType, ValkyrieClass, ValkyrieType, ValkyrieValue};
 
 impl<T> ValkyrieType for Vec<T>
 where
     T: ValkyrieType,
 {
     fn boxed(self) -> ValkyrieValue {
-        let mut out = ValkyrieList::list();
+        let mut out = ValkyrieClass::list();
         for item in self {
             out.extend_one(item.boxed());
         }
-        ValkyrieValue::List(Arc::new(out))
+        ValkyrieValue::Class(Arc::new(out))
     }
 
     fn type_info(&self) -> Arc<ValkyrieMetaType> {
