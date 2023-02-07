@@ -10,7 +10,7 @@ impl Default for ValkyrieUnionType {
     }
 }
 
-impl ValkyrieType for ValkyrieUnionType {
+impl ValkyrieTypeLegacy for ValkyrieUnionType {
     fn boxed(self) -> ValkyrieValue {
         todo!()
     }

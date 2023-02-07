@@ -1,8 +1,8 @@
 use std::sync::Arc;
 
-use crate::{types::ValkyrieMetaType, ValkyrieClass, ValkyrieType, ValkyrieValue};
+use crate::{types::ValkyrieMetaType, ValkyrieClass, ValkyrieTypeLegacy, ValkyrieValue};
 
-impl ValkyrieType for u8 {
+impl ValkyrieTypeLegacy for u8 {
     fn boxed(self) -> ValkyrieValue {
         ValkyrieValue::Unsigned8(self)
     }
@@ -14,7 +14,7 @@ impl ValkyrieType for u8 {
     }
 }
 
-impl ValkyrieType for u16 {
+impl ValkyrieTypeLegacy for u16 {
     fn boxed(self) -> ValkyrieValue {
         ValkyrieValue::Unsigned16(self)
     }
@@ -26,7 +26,7 @@ impl ValkyrieType for u16 {
     }
 }
 
-impl ValkyrieType for u32 {
+impl ValkyrieTypeLegacy for u32 {
     fn boxed(self) -> ValkyrieValue {
         ValkyrieValue::Unsigned32(self)
     }
@@ -38,7 +38,7 @@ impl ValkyrieType for u32 {
     }
 }
 
-impl ValkyrieType for u64 {
+impl ValkyrieTypeLegacy for u64 {
     fn boxed(self) -> ValkyrieValue {
         ValkyrieValue::Unsigned64(self)
     }
@@ -50,7 +50,7 @@ impl ValkyrieType for u64 {
     }
 }
 
-impl ValkyrieType for u128 {
+impl ValkyrieTypeLegacy for u128 {
     fn boxed(self) -> ValkyrieValue {
         ValkyrieValue::Unsigned128(self)
     }
@@ -62,7 +62,7 @@ impl ValkyrieType for u128 {
     }
 }
 
-impl ValkyrieType for usize {
+impl ValkyrieTypeLegacy for usize {
     fn boxed(self) -> ValkyrieValue {
         ValkyrieValue::Unsigned64(self as u64)
     }
@@ -74,7 +74,7 @@ impl ValkyrieType for usize {
     }
 }
 
-impl ValkyrieType for i8 {
+impl ValkyrieTypeLegacy for i8 {
     fn boxed(self) -> ValkyrieValue {
         ValkyrieValue::Integer8(self)
     }
@@ -86,7 +86,7 @@ impl ValkyrieType for i8 {
     }
 }
 
-impl ValkyrieType for i16 {
+impl ValkyrieTypeLegacy for i16 {
     fn boxed(self) -> ValkyrieValue {
         ValkyrieValue::Integer16(self)
     }
@@ -98,7 +98,7 @@ impl ValkyrieType for i16 {
     }
 }
 
-impl ValkyrieType for i32 {
+impl ValkyrieTypeLegacy for i32 {
     fn boxed(self) -> ValkyrieValue {
         ValkyrieValue::Integer32(self)
     }
@@ -110,7 +110,7 @@ impl ValkyrieType for i32 {
     }
 }
 
-impl ValkyrieType for i64 {
+impl ValkyrieTypeLegacy for i64 {
     fn boxed(self) -> ValkyrieValue {
         ValkyrieValue::Integer64(self)
     }
@@ -122,7 +122,7 @@ impl ValkyrieType for i64 {
     }
 }
 
-impl ValkyrieType for i128 {
+impl ValkyrieTypeLegacy for i128 {
     fn boxed(self) -> ValkyrieValue {
         ValkyrieValue::Integer128(self)
     }
@@ -134,7 +134,7 @@ impl ValkyrieType for i128 {
     }
 }
 
-impl ValkyrieType for isize {
+impl ValkyrieTypeLegacy for isize {
     fn boxed(self) -> ValkyrieValue {
         ValkyrieValue::Integer64(self as i64)
     }
@@ -146,7 +146,7 @@ impl ValkyrieType for isize {
     }
 }
 
-impl ValkyrieType for f32 {
+impl ValkyrieTypeLegacy for f32 {
     fn boxed(self) -> ValkyrieValue {
         ValkyrieValue::Float32(self)
     }
@@ -158,7 +158,7 @@ impl ValkyrieType for f32 {
     }
 }
 
-impl ValkyrieType for f64 {
+impl ValkyrieTypeLegacy for f64 {
     fn boxed(self) -> ValkyrieValue {
         ValkyrieValue::Float64(self)
     }
@@ -181,7 +181,7 @@ impl ValkyrieType for f64 {
 //     }
 // }
 
-impl ValkyrieType for String {
+impl ValkyrieTypeLegacy for String {
     fn boxed(self) -> ValkyrieValue {
         ValkyrieValue::String(Arc::new(self))
     }

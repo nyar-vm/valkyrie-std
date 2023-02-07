@@ -1,12 +1,12 @@
 use super::*;
 
-pub struct ValkyrieVariant {
+pub struct ValkyrieVariantType {
     namepath: Vec<String>,
     generics: Vec<Arc<ValkyrieMetaType>>,
     variants: Vec<Arc<ValkyrieClassType>>,
 }
 
-impl ValkyrieVariant {
+impl ValkyrieVariantType {
     pub fn new(namepath: String) -> Self {
         Self { namepath: namepath.split('.').map(|s| s.to_string()).collect(), generics: vec![], variants: vec![] }
     }
@@ -15,13 +15,13 @@ impl ValkyrieVariant {
     }
 }
 
-impl Default for ValkyrieVariant {
+impl Default for ValkyrieVariantType {
     fn default() -> Self {
         todo!()
     }
 }
 
-impl ValkyrieType for ValkyrieVariant {
+impl ValkyrieTypeLegacy for ValkyrieVariantType {
     fn boxed(self) -> ValkyrieValue {
         ValkyrieValue::Variant(Arc::new(self))
     }

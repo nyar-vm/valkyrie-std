@@ -1,13 +1,13 @@
 use std::sync::Arc;
 
-use crate::{types::ValkyrieMetaType, ValkyrieType, ValkyrieValue, ValkyrieVariant};
+use crate::{types::ValkyrieMetaType, ValkyrieTypeLegacy, ValkyrieValue, ValkyrieVariantType};
 
-impl<T> ValkyrieType for Option<T>
+impl<T> ValkyrieTypeLegacy for Option<T>
 where
-    T: ValkyrieType + 'static,
+    T: ValkyrieTypeLegacy + 'static,
 {
     fn boxed(self) -> ValkyrieValue {
-        let this = ValkyrieVariant::new("std.primitive.Option".to_string());
+        let this = ValkyrieVariantType::new("std.primitive.Option".to_string());
         this.boxed()
     }
     fn type_info(&self) -> Arc<ValkyrieMetaType>

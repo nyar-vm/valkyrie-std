@@ -1,6 +1,6 @@
 use std::sync::Arc;
 
-use crate::{ValkyrieClass, ValkyrieVariant};
+use crate::{ValkyrieClass, ValkyrieVariantType};
 
 pub enum ValkyrieValue {
     Never,
@@ -20,5 +20,5 @@ pub enum ValkyrieValue {
     String(Arc<String>),
     Buffer(Arc<Vec<u8>>),
     Class(Arc<ValkyrieClass>),
-    Variant(Arc<ValkyrieVariant>),
+    Variant(Arc<ValkyrieVariantType>),
 }
