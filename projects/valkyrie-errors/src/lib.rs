@@ -1,9 +1,11 @@
+pub use self::{
+    duplicates::DuplicateDefinition,
+    errors::{ValkyrieError, ValkyrieErrorKind},
+    managers::TextManager,
+};
+
 mod errors;
 // #[cfg(test)]
-mod functions;
+mod duplicates;
+mod managers;
 pub mod testing;
-
-pub use self::{
-    errors::{ValkyrieError, ValkyrieErrorKind},
-    functions::DuplicateDefinition,
-};
