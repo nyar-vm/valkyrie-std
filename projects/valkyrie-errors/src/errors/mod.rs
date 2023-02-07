@@ -1,7 +1,9 @@
 use std::{
     error::Error,
-    fmt::{Debug, Display, Formatter},
+    fmt::{Debug, Display},
 };
+
+use ariadne::ReportKind;
 
 use crate::DuplicateError;
 
@@ -13,5 +15,5 @@ pub enum ValkyrieErrorKind {
 
 pub struct ValkyrieError {
     pub kind: ValkyrieErrorKind,
-    pub level: Severity,
+    pub level: ReportKind,
 }
