@@ -1,31 +1,35 @@
 use std::{
     error::Error,
     fmt::{Debug, Display, Formatter},
+    ops::Range,
+    sync::Arc,
 };
 
-use miette::{Diagnostic, LabeledSpan, NamedSource, Severity};
+use miette::{Diagnostic, Severity, SourceCode};
 
-use crate::{TextManager, ValkyrieError, ValkyrieErrorKind};
+use crate::{ValkyrieError, ValkyrieErrorKind};
 
 #[derive(Debug)]
 pub struct DuplicateItem {
     name: String,
-    first: (String, usize, usize),
-    duplicate: (String, usize, usize),
+    this_item: Arc<String>,
+    this_span: Range<usize>,
+    last_item: Arc<String>,
+    last_span: Range<usize>,
 }
 
-pub struct Span {
-    file: usize,
-    head: usize,
-    tail: usize,
-}
+// impl FileSpan {
+//     pub fn resolve_source(&self, text: &TextManager) -> NamedSource {}
+// }
 
 impl ValkyrieError {
-    pub fn duplicate_type(name: String, text: &TextManager) -> Self {
+    pub fn duplicate_type(name: String) -> Self {
         let this = DuplicateItem {
             name,
-            first: NamedSource::new("first", (0usize, 4)),
-            duplicate: NamedSource::new("second", (9usize, 4)),
+            this_item: Arc::new("this_item".to_string()),
+            this_span: Range { start: 20, end: 30 },
+            last_item: Arc::new("last_item".to_string()),
+            last_span: Range { start: 0, end: 10 },
         };
         Self { kind: ValkyrieErrorKind::Duplicate(Box::new(this)), level: Severity::Error }
     }
@@ -40,7 +44,7 @@ impl Display for DuplicateItem {
 impl Error for DuplicateItem {}
 
 impl Diagnostic for DuplicateItem {
-    fn labels(&self) -> Option<Box<dyn Iterator<Item = LabeledSpan> + '_>> {
+    fn source_code(&self) -> Option<&dyn SourceCode> {
         todo!()
     }
 }
