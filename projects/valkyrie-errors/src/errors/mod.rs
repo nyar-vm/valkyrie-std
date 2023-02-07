@@ -3,8 +3,6 @@ use std::{
     fmt::{Debug, Display, Formatter},
 };
 
-use miette::{Diagnostic, LabeledSpan, Severity, SourceCode};
-
 use crate::DuplicateError;
 
 pub mod diagnostic;

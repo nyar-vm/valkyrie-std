@@ -6,10 +6,7 @@ use std::{
     sync::Arc,
 };
 
-use miette::{Diagnostic, LabeledSpan, Severity, SourceCode};
-use url::Url;
-
-use crate::{ValkyrieError, ValkyrieErrorKind};
+use crate::{TextManager, ValkyrieError, ValkyrieErrorKind};
 
 #[derive(Debug)]
 pub struct DuplicateError {
@@ -96,18 +93,24 @@ fn main() {
     let b = colors.next();
     let out = Color::Fixed(81);
 
-    Report::build(ReportKind::Error, "mod.rs", 12)
+    let mut text = TextManager::new("./");
+    let file1 = text.add_file("src/duplicates/mod.rs");
+    let file2 = text.add_file("src/errors/mod.rs");
+
+    println!("{:#?}", text);
+
+    Report::build(ReportKind::Error, file1, 12)
         .with_code(3)
         .with_message(format!("Incompatible types"))
-        .with_label(Label::new(("mod.rs", 32..33)).with_message(format!("This is of type {}", "Nat".fg(a))).with_color(a))
-        .with_label(Label::new(("mod.rs", 42..45)).with_message(format!("This is of type {}", "Str".fg(b))).with_color(b))
+        .with_label(Label::new((file1, 32..33)).with_message(format!("This is of type {}", "Nat".fg(a))).with_color(a))
+        .with_label(Label::new((file1, 42..45)).with_message(format!("This is of type {}", "Str".fg(b))).with_color(b))
         .with_label(
-            Label::new(("mod.rs", 11..48))
+            Label::new((file2, 11..48))
                 .with_message(format!("The values are outputs of this {} expression", "match".fg(out),))
                 .with_color(out),
         )
         .with_note(format!("Outputs of {} expressions must coerce to the same type", "match".fg(out)))
         .finish()
-        .print(("mod.rs", Source::from(include_str!("mod.rs"))))
+        .print(text)
         .unwrap();
 }

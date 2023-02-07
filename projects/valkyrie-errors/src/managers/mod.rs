@@ -1,6 +1,7 @@
 use std::{
     collections::BTreeMap,
-    fmt::{Debug, Display},
+    fmt::{Debug, Display, Formatter},
+    fs::read_to_string,
     path::{Path, PathBuf},
     sync::Arc,
 };
@@ -15,6 +16,17 @@ pub struct TextManager {
     max_id: FileID,
     file_map: BTreeMap<String, FileID>,
     text_map: BTreeMap<FileID, Arc<Source>>,
+}
+
+impl Debug for TextManager {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("TextManager")
+            .field("root", &self.root.display())
+            // .field("max_id", &self.max_id)
+            .field("files", &self.file_map.keys())
+            // .field("text_map", &self.text_map)
+            .finish()
+    }
 }
 
 pub struct FileSpan {
@@ -32,16 +44,22 @@ impl TextManager {
             file_map: BTreeMap::default(),
         }
     }
-    pub fn add_file(&mut self, relative_path: String) {
+    pub fn add_file(&mut self, relative_path: &str) -> FileID {
         let file = self.root.join(&relative_path);
-        let text = std::fs::read_to_string(file).unwrap();
+        let text = match read_to_string(&file) {
+            Ok(o) => o,
+            Err(_) => {
+                panic!("File {} not found", file.display())
+            }
+        };
         self.add_text(relative_path, text)
     }
-    pub fn add_text(&mut self, file: impl Into<String>, text: impl Into<String>) {
+    pub fn add_text(&mut self, file: impl Into<String>, text: impl Into<String>) -> FileID {
         let id = self.max_id;
         self.max_id += 1;
         self.file_map.insert(file.into(), id);
         self.text_map.insert(id, Arc::new(Source::from(text.into())));
+        id
     }
 }
 
