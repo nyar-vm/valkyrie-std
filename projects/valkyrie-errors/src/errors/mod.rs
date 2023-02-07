@@ -3,16 +3,17 @@ use std::{
     fmt::{Debug, Display, Formatter},
 };
 
-use miette::Diagnostic;
+use miette::{Diagnostic, LabeledSpan, Severity};
 
-use crate::DuplicateDefinition;
+use crate::DuplicateItem;
 
 pub enum ValkyrieErrorKind {
-    Duplicate(Box<DuplicateDefinition>),
+    Duplicate(Box<DuplicateItem>),
 }
 
 pub struct ValkyrieError {
     pub kind: ValkyrieErrorKind,
+    pub level: Severity,
 }
 
 impl Error for ValkyrieError {}
@@ -37,9 +38,9 @@ impl Diagnostic for ValkyrieError {
     // fn code<'a>(&'a self) -> Option<Box<dyn Display + 'a>> {
     //     todo!()
     // }
-    // fn severity(&self) -> Option<Severity> {
-    //     todo!()
-    // }
+    fn severity(&self) -> Option<Severity> {
+        Some(self.level)
+    }
     // fn help<'a>(&'a self) -> Option<Box<dyn Display + 'a>> {
     //     todo!()
     // }
@@ -49,9 +50,11 @@ impl Diagnostic for ValkyrieError {
     // fn source_code(&self) -> Option<&dyn SourceCode> {
     //     todo!()
     // }
-    // fn labels(&self) -> Option<Box<dyn Iterator<Item = LabeledSpan> + '_>> {
-    //     todo!()
-    // }
+    fn labels(&self) -> Option<Box<dyn Iterator<Item = LabeledSpan> + '_>> {
+        match &self.kind {
+            ValkyrieErrorKind::Duplicate(v) => v.labels(),
+        }
+    }
     // fn related<'a>(&'a self) -> Option<Box<dyn Iterator<Item = &'a dyn Diagnostic> + 'a>> {
     //     todo!()
     // }
