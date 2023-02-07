@@ -1,5 +1,5 @@
 [package]
-name = "legion-core"
+name = "legion-workspace"
 version = "0.2.2"
 authors = ["192607617@qq.com"]
 edition = "2021"
