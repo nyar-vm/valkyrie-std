@@ -6,8 +6,9 @@ use std::{
 
 use itertools::Itertools;
 
-use crate::{ValkyrieClass, ValkyrieClassType, ValkyrieValue, ValkyrieVariant};
+use crate::{ValkyrieClass, ValkyrieClassType, ValkyrieValue, ValkyrieVariantType};
 
+pub mod atomic_type;
 pub mod class_type;
 pub mod literal_type;
 pub mod tuple_type;
@@ -22,7 +23,7 @@ pub struct ValkyrieMetaType {
     generic_types: Vec<Arc<ValkyrieMetaType>>,
 }
 
-impl ValkyrieType for () {
+impl ValkyrieTypeLegacy for () {
     fn boxed(self) -> ValkyrieValue {
         ValkyrieValue::Class(Arc::new(ValkyrieClass::tuple()))
     }
@@ -40,7 +41,7 @@ impl Default for ValkyrieValue {
     }
 }
 
-impl ValkyrieType for ValkyrieValue {
+impl ValkyrieTypeLegacy for ValkyrieValue {
     fn boxed(self) -> ValkyrieValue {
         self
     }
@@ -88,8 +89,14 @@ impl ValkyrieMetaType {
     }
 }
 
+pub enum ValkyrieType {
+    Atomic(Arc<ValkyrieAtomicType>),
+    Class(Arc<ValkyrieClassType>),
+    Variant(Arc<ValkyrieVariantType>),
+}
+
 #[allow(clippy::wrong_self_convention)]
-pub trait ValkyrieType
+pub trait ValkyrieTypeLegacy
 where
     Self: Sized,
 {
@@ -130,7 +137,7 @@ impl Hash for ValkyrieMetaType {
     }
 }
 
-impl ValkyrieType for ValkyrieMetaType {
+impl ValkyrieTypeLegacy for ValkyrieMetaType {
     fn boxed(self) -> ValkyrieValue {
         todo!()
     }

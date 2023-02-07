@@ -1,10 +1,10 @@
 use std::{ops::Deref, sync::Arc};
 
-use crate::{types::ValkyrieMetaType, ValkyrieType, ValkyrieValue};
+use crate::{types::ValkyrieMetaType, ValkyrieTypeLegacy, ValkyrieValue};
 
-impl<T> ValkyrieType for Arc<T>
+impl<T> ValkyrieTypeLegacy for Arc<T>
 where
-    T: ValkyrieType,
+    T: ValkyrieTypeLegacy,
 {
     #[track_caller]
     fn boxed(self) -> ValkyrieValue {

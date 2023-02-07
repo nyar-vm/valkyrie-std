@@ -7,9 +7,9 @@ use std::{
 
 use indexmap::IndexMap;
 
-use crate::{types::ValkyrieMetaType, ValkyrieType, ValkyrieValue};
+use crate::{types::ValkyrieMetaType, ValkyrieTypeLegacy, ValkyrieValue};
 
-impl ValkyrieType for bool {
+impl ValkyrieTypeLegacy for bool {
     fn boxed(self) -> ValkyrieValue {
         ValkyrieValue::Boolean(self)
     }

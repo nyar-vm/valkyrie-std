@@ -1,9 +1,7 @@
-use std::fs;
-use std::future::Future;
-use std::path::PathBuf;
+use std::{fs, future::Future, path::PathBuf};
 
-use valkyrie_types::{ValkyrieType, ValkyrieUnionType};
 use crate::ValkyrieDirectory;
+use valkyrie_types::{ValkyrieTypeLegacy, ValkyrieUnionType};
 
 pub enum MaybeFile {
     File(ValkyrieFile),
@@ -14,11 +12,9 @@ pub struct ValkyrieFile {
     _path: PathBuf,
 }
 
-
 pub struct ValkyrieFileHandler {
     _file: tokio::fs::File,
 }
-
 
 pub struct ValkyrieIOError {
     pub message: String,
@@ -47,12 +43,12 @@ pub struct UTF8FileHandler {
     _wrap: tokio::fs::File,
 }
 
-impl ValkyrieType for ValkyrieFile {
+impl ValkyrieTypeLegacy for ValkyrieFile {
     fn namespace(&self) -> Vec<String> {
         vec!["std".to_string(), "io".to_string()]
     }
 
     fn type_name(&self) -> String {
-       "File".to_string()
+        "File".to_string()
     }
 }

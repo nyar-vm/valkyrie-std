@@ -36,7 +36,7 @@ impl Default for ValkyrieClass {
     }
 }
 
-impl ValkyrieType for ValkyrieClass {
+impl ValkyrieTypeLegacy for ValkyrieClass {
     fn boxed(self) -> ValkyrieValue {
         ValkyrieValue::Class(Arc::new(self))
     }

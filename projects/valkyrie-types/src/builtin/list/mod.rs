@@ -1,10 +1,10 @@
 use std::sync::Arc;
 
-use crate::{types::ValkyrieMetaType, ValkyrieClass, ValkyrieType, ValkyrieValue};
+use crate::{types::ValkyrieMetaType, ValkyrieClass, ValkyrieTypeLegacy, ValkyrieValue};
 
-impl<T> ValkyrieType for Vec<T>
+impl<T> ValkyrieTypeLegacy for Vec<T>
 where
-    T: ValkyrieType,
+    T: ValkyrieTypeLegacy,
 {
     fn boxed(self) -> ValkyrieValue {
         let mut out = ValkyrieClass::list();

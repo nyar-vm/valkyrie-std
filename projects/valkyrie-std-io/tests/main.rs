@@ -1,4 +1,4 @@
-use valkyrie_types::{ValkyrieClass, ValkyrieType};
+use valkyrie_types::{ValkyrieClass, ValkyrieTypeLegacy};
 
 #[test]
 fn ready() {
@@ -8,14 +8,14 @@ fn ready() {
 // class Tensor[T, D] {
 // const D: Tuple[..u64]
 // }
-pub struct ValkyrieTensor<T: ValkyrieType + Clone> {
+pub struct ValkyrieTensor<T: ValkyrieTypeLegacy + Clone> {
     dimension: Vec<usize>,
     default: T,
 }
 
 impl<T> ValkyrieTensor<T>
 where
-    T: ValkyrieType + Clone,
+    T: ValkyrieTypeLegacy + Clone,
 {
     pub fn new(dimension: Vec<usize>, default: T) -> Self {
         Self { dimension, default }
@@ -31,9 +31,9 @@ where
     }
 }
 
-impl<T> ValkyrieType for ValkyrieTensor<T>
+impl<T> ValkyrieTypeLegacy for ValkyrieTensor<T>
 where
-    T: ValkyrieType + Clone + 'static,
+    T: ValkyrieTypeLegacy + Clone + 'static,
 {
     fn namespace(&self) -> Vec<String> {
         vec!["std".to_string(), "numeric".to_string()]
