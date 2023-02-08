@@ -1,16 +1,15 @@
 use valkyrie_errors::{TextManager, Url, ValkyrieResult};
 use valkyrie_parser::ValkyrieParser;
 
+mod test_expr;
+mod test_literal;
+
 #[test]
 fn ready() {
     println!("it works!")
 }
 
-#[test]
-fn test_basic() {
-    run_parser(&["tests/basic.vk", "tests/yield.vk"]).unwrap();
-}
-
+#[track_caller]
 fn run_parser(files: &[&str]) -> ValkyrieResult {
     let mut parser = ValkyrieParser::default();
     let mut text = TextManager::new("./");
