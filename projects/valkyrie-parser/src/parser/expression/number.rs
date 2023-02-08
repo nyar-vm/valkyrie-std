@@ -21,7 +21,12 @@ impl NumberNode {
                     parser.bad_node(&s.position)
                 }
             },
-            NumberVariant::DecimalNode(_) => {
+            NumberVariant::DecimalNode(v) => {
+                println!("DecimalNode: {:?}", v);
+                todo!()
+            }
+            NumberVariant::ByteNode(v) => {
+                println!("ByteNode: {:?}", v);
                 todo!()
             }
         }

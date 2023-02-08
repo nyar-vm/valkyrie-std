@@ -7,7 +7,7 @@ use serde::{Deserialize, Serialize};
 use valkyrie_errors::FileSpan;
 
 pub use crate::{
-    expression_level::{integer::ValkyrieIntegerNode, BinaryExpression, UnaryExpression, ValkyrieIdentifierNode},
+    expression_level::{identifier::ValkyrieIdentifierNode, integer::ValkyrieIntegerNode, BinaryExpression, UnaryExpression},
     package_level::{NamespaceDeclare, NamespaceKind},
 };
 

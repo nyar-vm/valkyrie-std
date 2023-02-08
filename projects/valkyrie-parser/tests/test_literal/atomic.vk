@@ -1,5 +1,7 @@
-namespace* test.literal.atomic;
+namespace* test.literal.special;
 
 null;
 true;
 false;
+
+identifier;

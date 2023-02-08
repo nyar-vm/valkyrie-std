@@ -55,7 +55,11 @@ ExprInfix = infix:InfixOperators expr:ExprNode;
 ExprNode = {prefix:Prefix} term:TermNode {suffix:Suffix};
 
 
-TermNode = '(' @:ExpressionNode ')' | @:StringNode | @:SpecialNode | @:IdentifierNode | @:NumberNode;
+TermNode = '(' @:ExpressionNode ')'
+	| @:StringNode
+	| @:SpecialNode
+	| @:IdentifierNode
+	| @:NumberNode;
 
 @string @position
 SpecialNode = 'null' | 'default' | 'true' | 'false';
@@ -80,10 +84,7 @@ InfixOperators =
 Suffix = '?' | '!';
 
 
-ValueNode =
-	@:NumberNode |
-	@:StringNode
-;
+
 #=======================================================================================================================
 LambdaStatement = "lambda" [parameters:DefineArguments];
 
@@ -94,6 +95,11 @@ CallArguments = '(' ')' | '(' args:CallArgument [',' args:CallArgument] ')';
 CallArgument = name:IdentifierNode ['=' value:ExpressionNode ];
 #=======================================================================================================================
 KeyValueNode = key:KeyNode ':' value:ValueNode;
+
+ValueNode =
+	@:IntegerNode |
+	@:StringNode
+;
 
 @position
 KeyNode =
@@ -107,16 +113,18 @@ StringNode = [hint:IdentifierNode] '\"' '\"';
 @position
 @no_skip_ws
 NumberNode = variant:NumberVariant [hint:IdentifierNode];
+
 NumberVariant =
+	@:ByteNode |
 	@:IntegerNode |
 	@:DecimalNode ;
 
 @string @position @no_skip_ws
-IntegerNode = '0' | '1'..'9' { '0'..'9' | '_'}+;
+IntegerNode = '0' | '1'..'9' { '0'..'9' | '_'};
 @string @position @no_skip_ws
-DecimalNode = IntegerNode [Dot {'0'..'9' | '_'}+];
-
-
+DecimalNode = IntegerNode [Dot {'0'..'9' | '_'}];
+@string @position @no_skip_ws
+ByteNode = '0'..'9' ('a'..'f' | 'A'..'F') { '0'..'9' | 'a'..'f' | 'A'..'F' }+;
 
 Num = {'0'..'9'}+ [Dot {'0'..'9'}+];
 

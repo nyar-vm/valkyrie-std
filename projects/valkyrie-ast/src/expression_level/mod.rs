@@ -2,20 +2,15 @@ use std::ops::Range;
 
 use serde::{Deserialize, Serialize};
 
-use valkyrie_errors::{FileID, FileSpan};
+use valkyrie_errors::{BigInt, FileID, FileSpan};
 
-use crate::{ValkyrieASTKind, ValkyrieASTNode};
+use crate::{ValkyrieASTKind, ValkyrieASTNode, ValkyrieIdentifierNode};
 
 mod atomic;
 mod binary;
+pub mod identifier;
 pub mod integer;
 mod unary;
-
-#[derive(Clone, Debug, Default, Serialize, Deserialize)]
-pub struct ValkyrieIdentifierNode {
-    name: String,
-    span: FileSpan,
-}
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct BinaryExpression {}

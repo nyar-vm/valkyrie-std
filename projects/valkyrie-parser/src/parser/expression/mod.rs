@@ -39,9 +39,7 @@ impl TermNode {
             TermNode::ExpressionNode(_) => {
                 todo!()
             }
-            TermNode::IdentifierNode(_) => {
-                todo!()
-            }
+            TermNode::IdentifierNode(v) => Ok(v.visit(parser).to_node()),
             TermNode::NumberNode(v) => {
                 println!("NumberNode: {:?}", v);
                 todo!()
