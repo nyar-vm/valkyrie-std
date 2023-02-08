@@ -4,11 +4,13 @@ use valkyrie_errors::{FileID, FileSpan};
 
 use crate::{ValkyrieASTKind, ValkyrieASTNode};
 
+#[derive(Clone, Debug)]
 pub struct NamespaceDeclare {
     pub kind: NamespaceKind,
     pub name: Vec<String>,
 }
 
+#[derive(Copy, Clone, Debug)]
 pub enum NamespaceKind {
     // In the v language, there only one shared namespace
     Shared,

@@ -1,11 +1,19 @@
-use crate::ValkyrieTypeLegacy;
+use std::fmt::{Debug, Display, Formatter};
 
-#[track_caller]
-pub fn assert_type<T>(value: T, short: &str, long: &str)
-where
-    T: ValkyrieTypeLegacy + 'static,
-{
-    let v = value.boxed().type_info();
-    assert_eq!(format!("{}", v), short);
-    assert_eq!(v.display_type(true), long);
+use crate::ValkyrieASTKind;
+
+impl Debug for ValkyrieASTKind {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ValkyrieASTKind::Statement(v) => Debug::fmt(v, f),
+            ValkyrieASTKind::Namespace(v) => Debug::fmt(v, f),
+            ValkyrieASTKind::Atomic(v) => Debug::fmt(v, f),
+            ValkyrieASTKind::Unary(v) => Debug::fmt(v, f),
+            ValkyrieASTKind::Binary(v) => Debug::fmt(v, f),
+        }
+    }
 }
+
+// impl Display for ValkyrieASTKind {
+//
+// }
