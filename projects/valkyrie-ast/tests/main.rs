@@ -1,37 +1,17 @@
-use num::BigInt;
-use std::any::type_name;
+use std::path::PathBuf;
 
-use valkyrie_types::testing::assert_type;
+use peginator_codegen::Compile;
 
-#[test]
-fn ready() {
-    println!("it works!")
-}
+use valkyrie_errors::{Url, ValkyrieResult};
 
 #[test]
-fn test_primitive() {
-    let value: usize = 0;
-    assert_type(value, "Unsigned64", "std::primitive::Unsigned64");
-    let value: f64 = 0.0;
-    assert_type(value, "Float64", "std::primitive::Float64");
-}
-
-#[test]
-fn test_list() {
-    let value: Vec<usize> = vec![];
-    assert_type(value, "List[u64]", "std::primitive::Option[std::primitive::u64]");
-    // let value: Option<usize> = None;
-    // assert_type(value, "Option[u64]", "std::primitive::Option[std::primitive::u64]");
-    // let value: Option<Option<usize>> = Some(None);
-    // assert_type(value, "Option[Option[u64]]", "std::primitive::Option[std::primitive::Option]");
-}
-
-#[test]
-fn test_option() {
-    let value: Option<usize> = Some(0);
-    assert_type(value, "Option[u64]", "std::primitive::Option[std::primitive::u64]");
-    // let value: Option<usize> = None;
-    // assert_type(value, "Option[u64]", "std::primitive::Option[std::primitive::u64]");
-    // let value: Option<Option<usize>> = Some(None);
-    // assert_type(value, "Option[Option[u64]]", "std::primitive::Option[std::primitive::Option]");
+fn build_parser() -> ValkyrieResult {
+    let root = PathBuf::from("../valkyrie-parser").canonicalize()?;
+    let input = root.join("valkyrie.peg");
+    let output = root.join("src/parser/valkyrie.rs");
+    println!("Project root at: {}", Url::from_file_path(&root)?);
+    println!("Input file at: {}", Url::from_file_path(&input)?);
+    println!("Output file at: {}", Url::from_file_path(&output)?);
+    Compile::file(input).destination(output).format().run_exit_on_error();
+    Ok(())
 }

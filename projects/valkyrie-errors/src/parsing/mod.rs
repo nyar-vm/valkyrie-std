@@ -7,7 +7,7 @@ use std::{
 #[cfg(feature = "peginator")]
 mod for_peginator;
 
-use ariadne::ReportKind;
+use ariadne::{Color, ReportKind};
 
 use crate::{FileID, FileSpan, ValkyrieError, ValkyrieErrorKind, ValkyrieReport};
 
@@ -39,7 +39,7 @@ impl ParseError {
     pub fn as_report(&self, kind: ReportKind) -> ValkyrieReport {
         let mut report = ValkyrieReport::build(kind, self.span.file, self.span.head);
         report.set_message(self.to_string());
-        report.add_label(self.span.as_label(self.to_string()));
+        report.add_label(self.span.as_label(self.to_string()).with_color(Color::Red));
         report.finish()
     }
 }
