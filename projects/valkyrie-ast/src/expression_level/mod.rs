@@ -1,21 +1,26 @@
 use std::ops::Range;
 
-use crate::{ValkyrieASTKind, ValkyrieASTNode};
+use num::BigInt;
 use serde::{Deserialize, Serialize};
+
 use valkyrie_errors::{FileID, FileSpan};
+
+use crate::{ValkyrieASTKind, ValkyrieASTNode};
 
 mod atomic;
 mod binary;
 mod unary;
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
-pub enum AtomicExpression {
-    Null,
-    Boolean(bool),
-    Identifier(String),
-    Integer(String),
-    Decimal(String),
-    PureString(String),
+pub struct ValkyrieIntegerNode {
+    hint: ValkyrieIdentifierNode,
+    value: BigInt,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct ValkyrieIdentifierNode {
+    name: String,
+    span: FileSpan,
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize)]

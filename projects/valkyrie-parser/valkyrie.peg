@@ -106,11 +106,18 @@ StringNode = [hint:IdentifierNode] '\"' '\"';
 
 @position
 @no_skip_ws
-NumberNode = num:Num [hint:IdentifierNode];
+NumberNode = variant:NumberVariant [hint:IdentifierNode];
+NumberVariant =
+	@:IntegerNode |
+	@:DecimalNode ;
 
-@string
-@position
-@no_skip_ws
+@string @position @no_skip_ws
+IntegerNode = {'0'..'9' | '_'}+;
+@string @position @no_skip_ws
+DecimalNode = {'0'..'9' | '_' }+ [Dot {'0'..'9' | '_'}+];
+
+
+
 Num = {'0'..'9'}+ [Dot {'0'..'9'}+];
 
 @position
