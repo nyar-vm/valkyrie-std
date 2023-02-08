@@ -1,4 +1,7 @@
-use std::fmt::{Display, Formatter};
+use std::{
+    fmt::{Display, Formatter},
+    panic::Location,
+};
 
 use ariadne::ReportKind;
 
@@ -14,6 +17,15 @@ impl From<RuntimeError> for ValkyrieError {
         ValkyrieError { kind: ValkyrieErrorKind::Runtime(Box::new(value)), level: ReportKind::Error }
     }
 }
+
+impl From<()> for ValkyrieError {
+    #[track_caller]
+    fn from(_: ()) -> Self {
+        let caller = Location::caller();
+        RuntimeError { message: caller.to_string() }.into()
+    }
+}
+
 impl From<std::io::Error> for ValkyrieError {
     fn from(value: std::io::Error) -> Self {
         RuntimeError { message: value.to_string() }.into()
