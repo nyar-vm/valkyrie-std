@@ -1,6 +1,4 @@
-namespace* test.literal.number;
-
-
+namespace* tests.literal.number;
 
 0;
 -0.0;

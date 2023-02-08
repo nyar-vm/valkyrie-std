@@ -1,7 +1,0 @@
-namespace* test.literal.special;
-
-null;
-true;
-false;
-
-identifier;
