@@ -6,6 +6,7 @@ use serde::{Deserialize, Serialize};
 
 use valkyrie_errors::FileSpan;
 
+use crate::expression_level::{ValkyrieIdentifierNode, ValkyrieIntegerNode};
 pub use crate::{
     expression_level::{AtomicExpression, BinaryExpression, UnaryExpression},
     package_level::{NamespaceDeclare, NamespaceKind},
@@ -25,7 +26,8 @@ pub struct ValkyrieASTNode {
 pub enum ValkyrieASTKind {
     Statement(Vec<ValkyrieASTNode>),
     Namespace(Box<NamespaceDeclare>),
-    Atomic(Box<AtomicExpression>),
-    Unary(Box<UnaryExpression>),
     Binary(Box<BinaryExpression>),
+    Unary(Box<UnaryExpression>),
+    Identifier(Box<ValkyrieIdentifierNode>),
+    Integer(Box<ValkyrieIntegerNode>),
 }

@@ -4,6 +4,8 @@ use crate::parser::valkyrie::{ExprNode, ExpressionNode, TermNode};
 
 use super::*;
 
+mod number;
+
 impl ExpressionNode {
     pub fn visit(&self, parser: &mut ValkyrieParser) -> ValkyrieResult<ValkyrieASTNode> {
         let lhs = self.expr.visit(parser)?;
