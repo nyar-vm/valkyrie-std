@@ -6,9 +6,8 @@ use serde::{Deserialize, Serialize};
 
 use valkyrie_errors::FileSpan;
 
-use crate::expression_level::{ValkyrieIdentifierNode, ValkyrieIntegerNode};
 pub use crate::{
-    expression_level::{AtomicExpression, BinaryExpression, UnaryExpression},
+    expression_level::{integer::ValkyrieIntegerNode, BinaryExpression, UnaryExpression, ValkyrieIdentifierNode},
     package_level::{NamespaceDeclare, NamespaceKind},
 };
 
@@ -30,4 +29,6 @@ pub enum ValkyrieASTKind {
     Unary(Box<UnaryExpression>),
     Identifier(Box<ValkyrieIdentifierNode>),
     Integer(Box<ValkyrieIntegerNode>),
+    Boolean(bool),
+    Null,
 }

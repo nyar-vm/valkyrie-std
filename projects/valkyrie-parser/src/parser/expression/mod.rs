@@ -4,6 +4,7 @@ use crate::parser::valkyrie::{ExprNode, ExpressionNode, TermNode};
 
 use super::*;
 
+mod identifier;
 mod number;
 
 impl ExpressionNode {

@@ -39,6 +39,9 @@ impl ValkyrieParser {
         let error = ValkyrieError::syntax_error(message.into(), FileSpan { file: self.file, head: span.start, tail: span.end });
         self.errors.push(error);
     }
+    pub fn bad_node(&self, span: &Range<usize>) -> ValkyrieASTNode {
+        ValkyrieASTNode::null(self.file, span)
+    }
 }
 
 impl VkStatements {
@@ -79,12 +82,6 @@ impl NamespaceDeclareNode {
 impl LetStatement {
     pub fn visit(&self, parser: &mut ValkyrieParser) -> ValkyrieResult<ValkyrieASTNode> {
         todo!()
-    }
-}
-
-impl IdentifierNode {
-    pub fn get_identifier(&self) -> String {
-        self.string.to_string()
     }
 }
 

@@ -2,6 +2,7 @@ use std::{
     char::ParseCharError,
     fmt::{Display, Formatter},
     num::{ParseFloatError, ParseIntError},
+    ops::Range,
     str::ParseBoolError,
 };
 
@@ -9,6 +10,8 @@ use ariadne::{Color, ReportKind};
 
 use crate::{FileID, FileSpan, ValkyrieError, ValkyrieErrorKind, ValkyrieReport};
 
+#[cfg(feature = "num")]
+mod for_num;
 #[cfg(feature = "peginator")]
 mod for_peginator;
 
@@ -32,9 +35,13 @@ impl SyntaxError {
         self.span.file = file;
         self
     }
-    pub fn with_range(mut self, range: (usize, usize)) -> Self {
-        self.span.head = range.0;
-        self.span.tail = range.1;
+    pub fn with_range(mut self, range: &Range<usize>) -> Self {
+        self.span.head = range.start;
+        self.span.tail = range.end;
+        self
+    }
+    pub fn with_span(mut self, span: FileSpan) -> Self {
+        self.span = span;
         self
     }
     pub fn as_report(&self, kind: ReportKind) -> ValkyrieReport {
@@ -67,3 +74,6 @@ wrap_parse_error!(ParseIntError, ParseFloatError, ParseBoolError, ParseCharError
 
 #[cfg(feature = "peginator")]
 wrap_parse_error!(peginator::ParseError);
+
+#[cfg(feature = "num")]
+wrap_parse_error!(num::bigint::ParseBigIntError);

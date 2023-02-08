@@ -29,10 +29,7 @@ impl NamespaceDeclare {
         self.name.push(name.into());
     }
     pub fn to_node(self, file: FileID, range: &Range<usize>) -> ValkyrieASTNode {
-        ValkyrieASTNode {
-            kind: ValkyrieASTKind::Namespace(box self),
-            span: FileSpan { file, head: range.start, tail: range.end },
-        }
+        ValkyrieASTKind::Namespace(box self).to_node(file, range)
     }
 }
 

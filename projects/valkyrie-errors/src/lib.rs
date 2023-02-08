@@ -1,3 +1,5 @@
+#[cfg(feature = "num")]
+pub use num::BigInt;
 pub use url::Url;
 
 pub use crate::{
