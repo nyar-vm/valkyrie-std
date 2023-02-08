@@ -12,7 +12,7 @@ const CHARACTERS: &str = r#"
 #[test]
 fn debug_characters() -> Result<()> {
     let ast: ASTKind = ASTDump::parse(CHARACTERS);
-    ast.save("tests/test_atoms/debug_characters.clj")
+    ast.save("tests/test_literal/atomic.vk")
 }
 
 const ESCAPES: &str = r#"
@@ -28,7 +28,7 @@ const ESCAPES: &str = r#"
 #[test]
 fn debug_escapes() -> Result<()> {
     let ast: ASTKind = ASTDump::parse(ESCAPES);
-    ast.save("tests/test_atoms/debug_escapes.clj")
+    ast.save("tests/test_literal/debug_escapes.clj")
 }
 
 const MULTILINE: &str = r#"
@@ -51,7 +51,7 @@ json"""
 #[test]
 fn debug_multiline() -> Result<()> {
     let ast: ASTKind = ASTDump::parse(MULTILINE);
-    ast.save("tests/test_atoms/debug_multiline.clj")
+    ast.save("tests/test_literal/debug_multiline.clj")
 }
 
 const XML: &str = r#"
@@ -65,5 +65,5 @@ const XML: &str = r#"
 #[test]
 fn debug_xml() -> Result<()> {
     let ast: ASTKind = ASTDump::parse(XML);
-    ast.save("tests/test_atoms/debug_xml.clj")
+    ast.save("tests/test_literal/debug_xml.clj")
 }
