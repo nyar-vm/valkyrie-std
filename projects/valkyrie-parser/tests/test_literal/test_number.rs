@@ -30,5 +30,5 @@ const NUMBERS: &str = r#"
 #[test]
 fn debug_numbers() -> Result<()> {
     let ast: ASTKind = ASTDump::parse(NUMBERS);
-    ast.save("tests/test_literal/debug_numbers.clj")
+    ast.save("tests/test_literal/numbers.vk")
 }

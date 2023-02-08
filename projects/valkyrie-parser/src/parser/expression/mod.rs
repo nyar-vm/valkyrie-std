@@ -53,10 +53,8 @@ impl TermNode {
                 let out = match s.string.as_str() {
                     "true" => ValkyrieASTNode::boolean(true, parser.file, &s.position),
                     "false" => ValkyrieASTNode::boolean(false, parser.file, &s.position),
-                    _ => {
-                        parser.push_error(format!("Unknown special value: {}", s.string), &s.position);
-                        ValkyrieASTNode::null(parser.file, &s.position)
-                    }
+                    "null" => ValkyrieASTNode::null(parser.file, &s.position),
+                    _ => panic!("Unknown special node: {}", s.string),
                 };
                 Ok(out)
             }
