@@ -7,5 +7,3 @@ impl ExpressionNode {
         todo!()
     }
 }
-
-pub struct ValkyrieExpression {}
