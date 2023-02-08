@@ -3,7 +3,7 @@ use std::{ops::Range, path::PathBuf};
 use peginator::PegParser;
 
 use valkyrie_ast::{NamespaceDeclare, ValkyrieASTNode};
-use valkyrie_errors::{FileID, ParseError, ValkyrieError, ValkyrieResult};
+use valkyrie_errors::{FileID, FileSpan, SyntaxError, ValkyrieError, ValkyrieResult};
 
 use crate::{
     parser::valkyrie::{IdentifierNode, LetStatement, NamespaceDeclareNode, VkParser, VkStatements},
@@ -24,7 +24,7 @@ impl ValkyrieParser {
         self.file = file;
         let stmts = match VkParser::parse(text) {
             Ok(o) => o.statements,
-            Err(e) => Err(ParseError::from(e).with_file(file))?,
+            Err(e) => Err(SyntaxError::from(e).with_file(file))?,
         };
         let mut out = vec![];
         for s in stmts {
@@ -35,12 +35,9 @@ impl ValkyrieParser {
     pub fn take_errors(&mut self) -> Vec<ValkyrieError> {
         std::mem::take(&mut self.errors)
     }
-    pub fn push_error(&self, msg: impl Into<String>, span: Range<usize>) -> ParseError {
-        todo!()
-        // let path = Url::from_file_path(&self.path).unwrap();
-        // let path = path.to_string();
-        // message: msg.into(), file: NamedSource::new(path, self.source.clone()), span
-        // ParseError { info: "".to_string(), span: Default::default() }
+    pub fn push_error(&mut self, message: impl Into<String>, span: &Range<usize>) {
+        let error = ValkyrieError::syntax_error(message.into(), FileSpan { file: self.file, head: span.start, tail: span.end });
+        self.errors.push(error);
     }
 }
 

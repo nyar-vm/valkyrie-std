@@ -4,26 +4,27 @@ use std::{
     num::{ParseFloatError, ParseIntError},
     str::ParseBoolError,
 };
-#[cfg(feature = "peginator")]
-mod for_peginator;
 
 use ariadne::{Color, ReportKind};
 
 use crate::{FileID, FileSpan, ValkyrieError, ValkyrieErrorKind, ValkyrieReport};
 
+#[cfg(feature = "peginator")]
+mod for_peginator;
+
 #[derive(Clone, Debug)]
-pub struct ParseError {
-    info: String,
-    span: FileSpan,
+pub struct SyntaxError {
+    pub info: String,
+    pub span: FileSpan,
 }
 
-impl Display for ParseError {
+impl Display for SyntaxError {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         f.write_str(&self.info)
     }
 }
 
-impl ParseError {
+impl SyntaxError {
     pub fn new(info: impl Into<String>) -> Self {
         Self { span: FileSpan::default(), info: info.into() }
     }
@@ -44,8 +45,8 @@ impl ParseError {
     }
 }
 
-impl From<ParseError> for ValkyrieError {
-    fn from(value: ParseError) -> Self {
+impl From<SyntaxError> for ValkyrieError {
+    fn from(value: SyntaxError) -> Self {
         ValkyrieError { kind: ValkyrieErrorKind::Parsing(Box::new(value)), level: ReportKind::Error }
     }
 }
@@ -55,7 +56,7 @@ macro_rules! wrap_parse_error {
         $(
             impl From<$type> for ValkyrieError {
                 fn from(value: $type) -> Self {
-                    ParseError::new(value.to_string()).into()
+                    SyntaxError::new(value.to_string()).into()
                 }
             }
         )*

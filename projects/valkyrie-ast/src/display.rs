@@ -14,6 +14,8 @@ impl Debug for ValkyrieASTKind {
     }
 }
 
-// impl Display for ValkyrieASTKind {
-//
-// }
+impl Display for ValkyrieASTKind {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        todo!()
+    }
+}

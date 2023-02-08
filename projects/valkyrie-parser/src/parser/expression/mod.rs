@@ -39,11 +39,23 @@ impl TermNode {
             TermNode::IdentifierNode(_) => {
                 todo!()
             }
-            TermNode::NumberNode(_) => {
+            TermNode::NumberNode(v) => {
+                println!("NumberNode: {:?}", v);
                 todo!()
             }
             TermNode::StringNode(_) => {
                 todo!()
+            }
+            TermNode::SpecialNode(s) => {
+                let out = match s.string.as_str() {
+                    "true" => ValkyrieASTNode::boolean(true, parser.file, &s.position),
+                    "false" => ValkyrieASTNode::boolean(false, parser.file, &s.position),
+                    _ => {
+                        parser.push_error(format!("Unknown special value: {}", s.string), &s.position);
+                        ValkyrieASTNode::null(parser.file, &s.position)
+                    }
+                };
+                Ok(out)
             }
         }
     }

@@ -5,7 +5,7 @@ use std::{
 
 use ariadne::ReportKind;
 
-use crate::{errors::ValkyrieReport, ValkyrieError, ValkyrieErrorKind};
+use crate::{errors::ValkyrieReport, FileSpan, SyntaxError, ValkyrieError, ValkyrieErrorKind};
 
 #[derive(Clone, Debug)]
 pub struct RuntimeError {
@@ -50,6 +50,11 @@ impl RuntimeError {
 }
 
 impl ValkyrieError {
+    pub fn syntax_error(message: impl Into<String>, position: FileSpan) -> Self {
+        let this = SyntaxError { info: message.into(), span: position };
+        Self { kind: ValkyrieErrorKind::Parsing(Box::new(this)), level: ReportKind::Error }
+    }
+
     pub fn runtime_error(message: impl Into<String>) -> Self {
         let this = RuntimeError { message: message.into() };
         Self { kind: ValkyrieErrorKind::Runtime(Box::new(this)), level: ReportKind::Error }
