@@ -1,16 +1,11 @@
+use serde::{Deserialize, Serialize};
 use std::{ops::Range, str::FromStr};
 
 use valkyrie_errors::{FileID, FileSpan};
 
 use crate::{ValkyrieASTKind, ValkyrieASTNode};
 
-#[derive(Clone, Debug)]
-pub struct NamespaceDeclare {
-    pub kind: NamespaceKind,
-    pub name: Vec<String>,
-}
-
-#[derive(Copy, Clone, Debug)]
+#[derive(Copy, Clone, Debug, Serialize, Deserialize)]
 pub enum NamespaceKind {
     // In the v language, there only one shared namespace
     Shared,
@@ -18,6 +13,12 @@ pub enum NamespaceKind {
     Unique,
     // In the v language, there only one shared namespace
     Test,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct NamespaceDeclare {
+    pub kind: NamespaceKind,
+    pub name: Vec<String>,
 }
 
 impl NamespaceDeclare {

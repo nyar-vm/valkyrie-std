@@ -2,7 +2,7 @@ use super::*;
 
 pub type FileID = usize;
 
-#[derive(Copy, Clone, Debug, Default)]
+#[derive(Copy, Clone, Debug, Default, Serialize, Deserialize)]
 pub struct FileSpan {
     pub file: FileID,
     pub head: usize,

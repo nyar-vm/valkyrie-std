@@ -2,21 +2,26 @@
 #![feature(never_type)]
 #![feature(box_syntax)]
 
-pub use package_level::{NamespaceDeclare, NamespaceKind};
+use serde::{Deserialize, Serialize};
+
 use valkyrie_errors::FileSpan;
-pub use values::{AtomicExpression, BinaryExpression, UnaryExpression};
 
+pub use crate::{
+    expression_level::{AtomicExpression, BinaryExpression, UnaryExpression},
+    package_level::{NamespaceDeclare, NamespaceKind},
+};
+
+mod display;
+mod expression_level;
 mod package_level;
-mod testing;
-mod values;
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct ValkyrieASTNode {
     pub kind: ValkyrieASTKind,
     pub span: FileSpan,
 }
 
-#[derive(Clone)]
+#[derive(Clone, Serialize, Deserialize)]
 pub enum ValkyrieASTKind {
     Statement(Vec<ValkyrieASTNode>),
     Namespace(Box<NamespaceDeclare>),
