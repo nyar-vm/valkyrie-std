@@ -37,10 +37,11 @@ impl TextManager {
     pub fn new<P: AsRef<Path>>(root: P) -> Self {
         Self { root: root.as_ref().canonicalize().unwrap(), max_id: 0, text_map: BTreeMap::default() }
     }
+    pub fn resolve_file(&self, relative_path: &str) -> PathBuf {
+        self.root.join(&relative_path)
+    }
     pub fn add_file(&mut self, relative_path: &str) -> ValkyrieResult<FileID> {
-        let file = self.root.join(&relative_path);
-        // println!("add file: {}", file.display());
-        let text = read_to_string(&file)?;
+        let text = read_to_string(&self.resolve_file(relative_path))?;
         Ok(self.add_text(relative_path, text))
     }
     pub fn add_text(&mut self, file: impl Into<String>, text: impl Into<String>) -> FileID {

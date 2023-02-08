@@ -1,5 +1,8 @@
-namespace std.test;
+namespace test.literal.number;
 
 
-
-let a = 1;
+0;
+1;
+1.0;
+01;
+0.1;

@@ -10,6 +10,7 @@ use crate::{
     ValkyrieParser,
 };
 
+mod expression;
 #[allow(non_camel_case_types)]
 mod valkyrie;
 
@@ -53,9 +54,7 @@ impl VkStatements {
             VkStatements::DefStatement(_) => {
                 todo!()
             }
-            VkStatements::ExpressionNode(_) => {
-                todo!()
-            }
+            VkStatements::ExpressionNode(v) => out.push(v.visit(parser)?),
             VkStatements::LetStatement(v) => out.push(v.visit(parser)?),
             VkStatements::LoopStatement(_) => {
                 todo!()
