@@ -1,10 +1,5 @@
-namespace test.literal.atomic;
+namespace* test.literal.atomic;
 
+null;
 true;
 false;
-
-0;
-1;
-1.0;
-01;
-0.1;
