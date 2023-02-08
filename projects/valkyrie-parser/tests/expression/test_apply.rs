@@ -17,7 +17,7 @@ a[2::]
 #[test]
 fn debug_slice() -> Result<()> {
     let ast: ASTKind = ASTDump::parse(SLICE);
-    ast.save("tests/test_expr/debug_slice.clj")
+    ast.save("tests/expression/debug_slice.clj")
 }
 
 const INDEX: &str = r#"
@@ -42,7 +42,7 @@ a
 #[test]
 fn debug_index() -> Result<()> {
     let ast: ASTKind = ASTDump::parse(INDEX);
-    ast.save("tests/test_expr/debug_index.clj")
+    ast.save("tests/expression/debug_index.clj")
 }
 
 const APPLY: &str = r#"
@@ -52,5 +52,5 @@ a({}) {}
 #[test]
 fn debug_apply2() -> Result<()> {
     let ast: ASTKind = ASTDump::parse(APPLY);
-    ast.save("tests/test_expr/debug_apply2.clj")
+    ast.save("tests/expression/debug_apply2.clj")
 }

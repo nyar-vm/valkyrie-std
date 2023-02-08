@@ -1,4 +1,4 @@
-namespace* test.literal.tuple;
+namespace* tests.literal.tuple;
 
 ();
 (0);

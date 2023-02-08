@@ -19,7 +19,7 @@ a.b = c
 #[test]
 fn debug_let() -> Result<()> {
     let ast: ASTKind = ASTDump::parse(LET);
-    ast.save("tests/test_stmt/debug_let.clj")
+    ast.save("tests/statement/debug_let.clj")
 }
 
 const DEFINE: &str = r#"
@@ -40,5 +40,5 @@ def eager function(mut self, <, input: Integer = 0, >, ^list: List) -> Integer /
 #[test]
 fn debug_def() -> Result<()> {
     let ast: ASTKind = ASTDump::parse(DEFINE);
-    ast.save("tests/test_stmt/debug_def.clj")
+    ast.save("tests/statement/debug_def.clj")
 }

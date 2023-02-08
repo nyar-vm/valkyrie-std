@@ -1,8 +1,8 @@
 use valkyrie_errors::{TextManager, Url, ValkyrieResult};
 use valkyrie_parser::ValkyrieParser;
 
-mod test_expr;
-mod test_literal;
+mod expression;
+mod literal;
 
 #[test]
 fn ready() {
