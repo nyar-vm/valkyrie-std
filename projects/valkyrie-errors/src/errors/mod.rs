@@ -2,7 +2,7 @@ use std::ops::Range;
 
 use ariadne::{Report, ReportKind};
 
-use crate::{parsing::ParseError, DuplicateError, FileID, RuntimeError};
+use crate::{parsing::SyntaxError, DuplicateError, FileID, RuntimeError};
 
 pub mod display;
 
@@ -20,7 +20,7 @@ pub struct ValkyrieError {
 pub enum ValkyrieErrorKind {
     Duplicate(Box<DuplicateError>),
     Runtime(Box<RuntimeError>),
-    Parsing(Box<ParseError>),
+    Parsing(Box<SyntaxError>),
 }
 
 impl ValkyrieError {

@@ -57,11 +57,12 @@ ExprNode = {prefix:Prefix} term:TermNode {suffix:Suffix};
 
 TermNode = '(' @:ExpressionNode ')' | @:StringNode | @:SpecialNode | @:IdentifierNode | @:NumberNode;
 
+@string @position
 SpecialNode = 'null' | 'default' | 'true' | 'false';
 
 @string
 @position
-Prefix = '!' | '+' | '-' | '⅟';
+Prefix = '!' | '+' | '-' | '⅟' | '¬';
 
 @string
 @position
@@ -129,11 +130,6 @@ Modifier = id:IdentifierNode !('('|':'|'.'|'=');
 @position
 @no_skip_ws
 IdentifierNode = (XID_START | '_') {XID_CONTINUE};
-
-@string
-@position
-SpecialNode = 'null' | 'default' | 'true' | 'false';
-
 
 @char
 @check(unicode_ident::is_xid_start)

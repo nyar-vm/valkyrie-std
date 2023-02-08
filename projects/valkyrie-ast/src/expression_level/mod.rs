@@ -4,9 +4,9 @@ use crate::{ValkyrieASTKind, ValkyrieASTNode};
 use serde::{Deserialize, Serialize};
 use valkyrie_errors::{FileID, FileSpan};
 
-mod atomic_type;
-mod class_type;
-mod literal_type;
+mod atomic;
+mod binary;
+mod unary;
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub enum AtomicExpression {

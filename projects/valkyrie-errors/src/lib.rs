@@ -7,7 +7,7 @@ pub use crate::{
         list::{FileID, FileSpan},
         TextManager,
     },
-    parsing::ParseError,
+    parsing::SyntaxError,
     runtime::RuntimeError,
 };
 
