@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use std::{ops::Range, str::FromStr};
 
-use valkyrie_errors::{FileID, FileSpan};
+use valkyrie_errors::FileID;
 
 use crate::{ValkyrieASTKind, ValkyrieASTNode};
 

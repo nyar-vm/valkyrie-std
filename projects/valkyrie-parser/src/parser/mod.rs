@@ -14,11 +14,6 @@ mod expression;
 #[allow(non_camel_case_types)]
 mod valkyrie;
 
-pub struct ParseContext {
-    source: String,
-    path: PathBuf,
-}
-
 impl ValkyrieParser {
     pub fn parse_file(&mut self, file: FileID, text: &str) -> ValkyrieResult<Vec<ValkyrieASTNode>> {
         self.file = file;
