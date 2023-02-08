@@ -10,7 +10,6 @@ license = "MPL-2.0"
 edition = "2021"
 
 [dependencies]
-num = "0.4.0"
 indexmap = "1.9.2"
 itertools = "0.10.5"
 serde = { version = "1.0.152", features = ["derive"] }
@@ -18,6 +17,7 @@ serde = { version = "1.0.152", features = ["derive"] }
 [dependencies.valkyrie-errors]
 #version = "0.0.0"
 path = "../valkyrie-errors"
+features = ["num"]
 
 
 [dev-dependencies]
