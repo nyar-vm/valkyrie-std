@@ -2,7 +2,7 @@
 VkParser = {statements:VkStatements} $;
 
 VkStatements =
-	@:NamespaceDeclare |
+	@:NamespaceDeclareNode |
 	@:DefStatement |
 	@:LetStatement |
 	@:LoopStatement |
@@ -13,9 +13,9 @@ VkStatements =
 ;
 
 #=======================================================================================================================
-NamespaceDeclare = "namespace" namespace:NamespaceDot;
-
-
+NamespaceDeclareNode = kw:KwNamespace namespace:NamepathFree;
+@no_skip_ws @string
+KwNamespace = "namespace" ['!' | '*'];
 #=======================================================================================================================
 LoopStatement = "loop" body:BlockNode;
 
@@ -111,7 +111,10 @@ Num = {'0'..'9'}+ [Dot {'0'..'9'}+];
 NamespaceNode = path:IdentifierNode {NamespaceSplit path:IdentifierNode};
 
 @position
-NamespaceDot = path:IdentifierNode {(NamespaceSplit|Dot) path:IdentifierNode};
+Namepath = path:IdentifierNode {NamespaceSplit path:IdentifierNode};
+
+@position
+NamepathFree = path:IdentifierNode {(NamespaceSplit|Dot) path:IdentifierNode};
 
 NamespaceSplit = '::';
 
