@@ -45,14 +45,19 @@ ControlFlowNode =
 	| "yield" "break"
 	;
 
-
+@position
 ExpressionNode = expr:*ExprNode {infix:ExprInfix};
+
 
 ExprInfix = infix:InfixOperators expr:ExprNode;
 
+
 ExprNode = {prefix:Prefix} term:TermNode {suffix:Suffix};
 
-TermNode = '(' @:ExpressionNode ')' | @:StringNode | @:IdentifierNode | @:NumberNode;
+
+TermNode = '(' @:ExpressionNode ')' | @:StringNode | @:SpecialNode | @:IdentifierNode | @:NumberNode;
+
+SpecialNode = 'null' | 'default' | 'true' | 'false';
 
 @string
 @position

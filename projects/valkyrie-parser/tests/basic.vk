@@ -1,8 +1,0 @@
-namespace test.literal.number;
-
-
-0;
-1;
-1.0;
-01;
-0.1;
