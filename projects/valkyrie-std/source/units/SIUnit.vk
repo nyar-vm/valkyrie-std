@@ -1,0 +1,8 @@
+namespace package.units;
+
+
+
+class SIUnit[T, Q] {
+
+}
+

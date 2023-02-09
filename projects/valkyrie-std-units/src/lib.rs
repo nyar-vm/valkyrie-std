@@ -26,15 +26,20 @@ pub struct SIQuantities {
     pub luminous: i8,
 }
 
+pub struct Dimensions {
+    bps
+}
+
 
 
 use uom::si::f32::*;
+use uom::si::information::byte;
 use uom::si::length::kilometer;
 use uom::si::time::second;
 
 fn main() {
     let length = Length::new::<kilometer>(5.0);
-    let time = Time::new::<second>(15.0);
+    let time = Time::new::<byte>(15.0);
     let velocity/*: Velocity*/ = length / time;
     let _acceleration = calc_acceleration(velocity, time);
     //let error = length + time; // error[E0308]: mismatched types

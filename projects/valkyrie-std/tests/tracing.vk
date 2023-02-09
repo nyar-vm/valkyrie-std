@@ -1,9 +1,9 @@
 #allow()
 #warn
 #deny
-namespace! std.trace;
+namespace! package.trace;
 
-using std.trace.Tracing.{self, debug, print, alert, error};
+using package.trace.Tracing.{self, debug, print, alert, error};
 
 
 class Tracing {
