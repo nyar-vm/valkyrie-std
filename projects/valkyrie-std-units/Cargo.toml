@@ -1,5 +1,5 @@
 [package]
-name = "valkyrie-types"
+name = "valkyrie-std-units"
 version = "0.0.0"
 authors = ["Aster <192607617@qq.com>"]
 description = "..."
@@ -10,13 +10,11 @@ license = "MPL-2.0"
 edition = "2021"
 
 [dependencies]
-num = "0.4.0"
-indexmap = "1.9.2"
-inwelling = "0.3.0"
-itertools = "0.10.5"
-
+serde = "1.0.152"
 
 [dev-dependencies]
+uom = "0.33.0"
+
 
 [features]
 default = []
