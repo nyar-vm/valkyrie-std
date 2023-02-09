@@ -1,0 +1,49 @@
+{
+    name: "xcell-types",
+    version: "0.2.1",
+    package: {
+        publish: false,
+        description: "Types definition for xcell",
+        authors: [
+            "Aster <192607617@qq.com>"
+        ],
+        documentation: "https://docs.rs/xcell-types",
+        "edition": "2021",
+        "license": "MPL-2.0",
+        "readme": "Readme.md",
+        "repository": "https://github.com/oovm/XCell",
+        features: {
+            default: [],
+            csharp: []
+        }
+    },
+    "dependencies": {
+        "itertools": "0.10.5",
+        "stream-io": "0.0.0",
+        "vlq-rust": "0.4.0",
+        "serde": {
+            "version": "1.0.152",
+            "features": [
+                "derive"
+            ]
+        },
+        "serde-types": {
+            "version": "0.1.1",
+            "features": [],
+        },
+        "xcell-errors": {
+            "version": "0.1.2",
+            "features": [
+                "num",
+                "bigdecimal",
+                "chrono",
+                "csscolorparser",
+                "calamine",
+                "serde_json"
+            ],
+            "path": "../xcell-errors"
+        }
+    },
+    "build-dependencies": {},
+    "dev-dependencies": {},
+}

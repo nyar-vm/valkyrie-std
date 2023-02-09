@@ -1,0 +1,6 @@
+namespace std.text;
+
+
+class ASCIIText {
+
+}

@@ -1,0 +1,6 @@
+catch a {
+    case 0:
+        eventA
+    else:
+        eventB
+}

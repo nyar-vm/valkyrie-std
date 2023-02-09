@@ -1,0 +1,27 @@
+while true {
+
+}
+
+while x > 0 {
+    enentA
+}
+else {
+    eventB
+}
+
+if x > 0 {
+    enentA
+    loop {
+        if x>0 {
+            enentA;
+            break;
+        }
+        else {
+            eventB;
+            continue;
+        }
+    }
+}
+else {
+    eventB
+}

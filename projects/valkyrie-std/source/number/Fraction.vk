@@ -1,0 +1,17 @@
+namespace std.number;
+
+#native
+class Fraction {
+    sign       : Boolean  = true;
+    numerator  : Unsigned = 0;
+    denominator: Unsigned = 1;
+}
+
+extends Fraction: Zero + One {
+    zero() -> Self {
+        return 0 as Fraction;
+    }
+    one() -> Self {
+        return 1 as Fraction;
+    }
+}

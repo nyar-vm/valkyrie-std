@@ -1,0 +1,51 @@
+trait SemiGroup {
+    def combine(self, rhs: Self): Self;
+}
+
+trait Monoid: SemiGroup {
+    def unit();
+}
+
+forall T exists Option<T>: SemiGroup {
+    def combine(self, rhs: Self) = self.or(rhs)
+}
+
+forall T exists Option<T>: Monoid {
+    def unit() = None
+}
+
+trait HKT<U> {
+    type Current;
+    type Target;
+}
+
+trait Functor<B>: HKT<B> {
+    forall F {F: Self::Current -> B}
+    define fmap<F>(self, f: F) -> Self::Target
+}
+
+forall T, U exists Option<T>: HKT<U> {
+    type Current = T;
+    type Target = Option<U>;
+}
+
+forall A, B exists Option<A>: Functor<B> {
+    forall F {F: A -> B}
+    define fmap<F>(self, f: F) -> Self::Target {
+        self.map(f)
+    }
+}
+
+/// 静态扩展
+trait extension Extension {
+    match A {
+
+    }
+};
+
+/// 可以违反的约定
+trait convention Extension {
+    match A {
+
+    }
+};

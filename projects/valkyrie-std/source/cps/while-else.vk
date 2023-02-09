@@ -1,0 +1,23 @@
+while x > 0 {
+    eventA
+}
+else {
+    eventB
+}
+
+if x > 0 {
+    eventA
+    loop {
+        if x > 0 {
+            eventA;
+            break;
+        }
+        else {
+            eventB;
+            continue;
+        }
+    }
+}
+else {
+    eventB
+}

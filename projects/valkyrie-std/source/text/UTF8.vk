@@ -1,0 +1,31 @@
+namespace std.text;
+
+using crate.bytes.{Endianess, LE};
+
+
+#native
+#derive(Clone)
+class UTF8Text {
+    ///
+    get bytes: [u8];
+}
+
+// constructor + from
+#native
+extends UTF8Text {
+    /// bytes: input stream
+    /// order:
+    /// bom:
+    from_bytes(bytes: [u8], order: Endianess = LE, bom: bool = false) -> Result[Self, ParseError];
+    into_bytes(self, order: Endianess = LE, bom: bool = false) -> [u8];
+}
+
+// iterators
+#native
+extends UTF8Text {
+    ///
+    codepoints() -> Iterator[Unicode];
+    ///
+    graphemes() -> Iterator[Graphemes];
+}
+

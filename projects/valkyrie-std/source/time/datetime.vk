@@ -1,0 +1,4 @@
+#native class Duration {
+    _secs: u64,
+    _nanos: u32,
+}

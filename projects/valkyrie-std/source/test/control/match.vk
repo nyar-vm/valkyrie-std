@@ -1,0 +1,21 @@
+match cond {
+    case 0:
+        print("0");
+        print(0);
+    case true:
+        print("true");
+        print(1);
+    case "A":
+        print("A");
+        print(2);
+    case Option::None:
+        print("None");
+        print(3);
+    case _:
+        print("any");
+        print(4);
+    else:
+        print("else");
+        print(5);
+}
+

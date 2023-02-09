@@ -1,0 +1,6 @@
+namespace std.cats;
+
+variant tuple Either[L, R] / R {
+	Lyft { l: L },
+	Riht { r: R },
+}

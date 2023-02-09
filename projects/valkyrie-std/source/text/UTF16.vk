@@ -1,0 +1,4 @@
+extensio A {
+    namespace std.text;
+
+}

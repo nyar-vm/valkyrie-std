@@ -1,0 +1,13 @@
+using package.name;
+using `import` as @export;
+using std::{
+    import, export,
+    @`import`, @`result`,
+    nested.{
+        `import` as @export,
+        @`export` as import,
+    }
+}
+import serde::{#Serialize, #Deserialize}
+
+require("../test")

@@ -1,0 +1,23 @@
+namespace std.image;
+
+trait Image {
+    type Pixel;
+    get width: Integer;
+    get height: Integer;
+    get channels: Integer;
+    get pixels(self) -> Integer {
+        self.width * self.height * self.channels
+    };
+    get_channel(self, id: Integer) -> Matrix[Self::Pixel::Bit] {
+
+    }
+    set_channel(mut self, id: Integer, channel: Matrix[Self::Pixel::Bit]) {
+
+    }
+    get_pixel(self, x: Integer, y: Integer) -> Self::Pixel {
+
+    }
+    set_pixel(mut self, x: Integer, y: Integer, pixel: Self::Pixel) {
+        image.get_pixel().mutable = pixel;
+    }
+}

@@ -1,0 +1,32 @@
+#prelude_module
+#packages {
+    math, std, re, serde
+}
+using crate.{
+    std,
+    math,
+    re,
+    serde.{json, toml},
+    native.{
+        bool, true, false
+    }
+};
+
+
+#transparent
+type String = crate::charset::UTF8Text;
+type str = crate::charset::UTF8View;
+type char = crate::charset::UTF8;
+
+type int = crate::number::Integer;
+type i8 = crate::number::Integer8;
+type i16 = crate::number::Integer16;
+type i32 = crate::number::Integer32;
+type i64 = crate::number::Integer64;
+type i128 = crate::number::Integer128;
+
+type u8 = crate::number::Unsigned8;
+type u16 = crate::number::Unsigned16;
+type u32 = crate::number::Unsigned32;
+type u64 = crate::number::Unsigned64;
+type u128 = crate::number::Unsigned128;

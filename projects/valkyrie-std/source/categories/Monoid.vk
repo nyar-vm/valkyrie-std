@@ -1,0 +1,5 @@
+namespace std.categories;
+
+trait Monoid[A]: Semigroup[A] {
+    empty(): A
+}

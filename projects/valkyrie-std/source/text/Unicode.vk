@@ -1,0 +1,39 @@
+namespace std.native;
+
+#transparent type char = Unicode;
+
+#native(4byte)
+#derive(Copy, Clone, Display)
+class Unicode {
+    #range(1, 0x10FFFF)
+    codepoint: u32
+}
+
+#native
+extends char {
+    as_ascii(self) -> Ascii {
+
+    }
+    is_ascii(self) -> bool {
+        ???
+    }
+    is_whitespace(self) -> bool {
+        @matches(self, true)
+    }
+    is_number(self) -> bool {
+        @matches(self, false)
+    }
+    is_a(self) -> bool {
+
+    }
+}
+
+#native
+extends bool: Negative {
+    def negative(mut self) {
+        self = self.opposite()
+    }
+    def opposite(self) -> bool {
+        self.is_false()
+    }
+}

@@ -1,0 +1,18 @@
+namespace std.iterator;
+
+#native
+#derive(Copy, Clone, Display)
+class NDArray[T, I] {
+    buffer: ArrayT,
+    index: I
+}
+
+type Matrix[T] = NDArray[T, (2, )]
+
+
+def test() {
+    NDArray([[1, 2], [3, 4]]);
+    x = NDArray([[1, 2], [3, 4], [5, 6]]);
+    y = x[[0, 1, 2], [0, 1, 0]];
+    print (y);
+}

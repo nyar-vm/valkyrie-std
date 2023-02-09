@@ -1,0 +1,45 @@
+#allow()
+#warn
+#deny
+namespace! std.trace;
+
+using std.trace.Tracing.{self, debug, print, alert, error};
+
+
+class Tracing {
+    level: u8,
+    message: String,
+    namespace: [String],
+    newline: bool,
+}
+
+extends Tracing {
+	print(newline: bool = true) {
+        raise new Tracing {
+            level: 30,
+            namespace: @caller.namepath,
+            newline,
+        }
+    }
+}
+
+trace = 10
+debug = 20
+print = 30
+alert = 60
+error = 120
+fatal = 255
+
+
+
+
+
+try {
+    print("aa")
+}
+.catch {
+    case Tracing {level, ..}:
+        Conslog::write(message)
+        resume
+}
+

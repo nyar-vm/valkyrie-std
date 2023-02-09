@@ -1,0 +1,9 @@
+#auto::derive(overload)
+
+def sin() {
+
+}
+
+def cos() {
+
+}
