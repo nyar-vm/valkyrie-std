@@ -1,0 +1,19 @@
+namespace std.cats;
+
+trait Monad[M[_]] {
+    ///
+    unit[A](a: A) -> M[A];
+    ///
+    bind[A, B](m: M[A], f: A -> M[B]) -> M[B];
+    ///
+    join[A](m: M[M[A]]) -> M[A] {
+        bind(m, identity)
+    }
+}
+
+trait Comonad[M[_]] {
+    /// dual of Monad::unit
+    extract(m: M[A]) -> A;
+    /// dual of Monad::join
+    duplicate(m: M[A]) -> M[M[A]];
+}

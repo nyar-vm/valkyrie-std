@@ -1,0 +1,174 @@
+namespace std.auto;
+
+macro derive {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+extends test AsyncTest {
+
+    overload x(self) {
+
+    }
+    overload x(mut self) {
+
+    }
+    #test
+    test_mut() {
+        v = Vector2(1, 2)
+        v.x()          // u64
+        v.x().mutable; // &mut u64
+    }
+}
+
+
+class AsyncTask {};
+
+
+
+variant Poll[R, E] {
+    /// 执行中或未开始
+    Pending,
+    /// 已完成的任务
+    Fine {
+        /// 执行完成, 写入 result 地址
+        result: T,
+    },
+    /// 被取消, 失败等情况
+    Fail {
+        /// 执行失败, 写入 error 地址
+        error: E,
+    },
+}
+
+std
+/// Αἰών, the default Global async
+class singleton Aion {
+
+}
+
+/// 标记可以调用 await 的类型
+trait Awaitable {
+    type Return
+    type Error
+
+    poll(self, excutor: Excutor) -> Poll[Self::Return, Self::Error]
+
+    #color(keyword)
+    final await(self, excutor: Excutor = Aeon) -> Task[Self::Return] {
+        self.poll(Aeon) as Task[Self::Return]
+    }
+    invoke(self) -> Task[Self::Return] {
+        self.poll() as Task[Self::Return]
+    }
+}
+
+extends Task: Awaitable {
+    type Return = Unit;
+    type Error = Unit;
+}
+
+extends Promise[T]: Awaitable {
+    type Return = T;
+    type Error = Unit;
+}
+
+
+extends test AsyncTask {
+    overload read(file: File) -> Task[] {
+        await block {
+            print("async read: " + file.name)
+        }
+    }
+
+    overload read(file: File) {
+        print("sync read: " + file.name)
+    }
+
+    #test("test.txt")
+    test_read(file) -> Task[] {
+        // 执行同步版本(编译时内联)
+        read(file)
+        // 执行异步版本(编译时内联)
+        read(file).await;
+
+
+        request.send().await?.text.json().await?
+
+        await {
+            try {
+                request.send()?.text.json()?
+            }
+            .catch {
+
+            }
+        }
+    }
+}
+
+
+def ucfs await() {
+    // cmyk
+    ©
+    ©1
+    ©12
+    ©123
+    ©1234
+    ©12345
+    ©123456
+    ©1234567
+    ©12345678
+    ©123456789
+    // rgba
+    ®
+    ®1
+    ®12
+    ®123
+    ®1234
+    ®12345
+    ®123456
+    ®1234567
+    ®12345678
+    ®123456789
+}
+
+def await() {
+
+
+    if (2000℃ > 3000℉) {
+        print("win win")
+    }
+
+
+}
+
+extends Apply {
+    invoke(self) {
+        @await(self)
+    }
+}
+

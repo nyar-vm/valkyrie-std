@@ -1,0 +1,9 @@
+namespace std.iterator;
+
+#native
+#derive(Copy, Clone, Display)
+class Range[T] {
+    start: T,
+    end: T,
+    steps: T
+}

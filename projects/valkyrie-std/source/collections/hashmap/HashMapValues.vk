@@ -1,0 +1,7 @@
+namespace std.collection.hashmap;
+
+#native
+#derive(Serde)
+class HashMapValues[V] {
+
+}

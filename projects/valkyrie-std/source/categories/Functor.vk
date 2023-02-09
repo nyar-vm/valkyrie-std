@@ -1,0 +1,4 @@
+namespace! a;
+trait Functor[F[_]] {
+    map[A, B](fa: F[A], f: A -> B): F[B]
+}

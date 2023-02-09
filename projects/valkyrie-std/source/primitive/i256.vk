@@ -1,0 +1,6 @@
+namespace std.native;
+
+#allow(non_camel_case_types)
+#native(native)
+#derive(Copy, Clone)
+class i256 {}

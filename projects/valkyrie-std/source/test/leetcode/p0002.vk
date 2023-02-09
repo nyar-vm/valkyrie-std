@@ -1,0 +1,21 @@
+namespace leetcode.A.b.F;
+
+class ClassEmpty {
+    x;
+}
+
+class ClassPoint {
+    x;
+    y;
+    z;
+    w;
+}
+
+
+def a()-> B {
+    let x = [
+        1, 2, 3
+    ];
+    let a = 11;
+    let b = 22
+}

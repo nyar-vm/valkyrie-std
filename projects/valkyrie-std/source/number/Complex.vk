@@ -1,0 +1,14 @@
+namespace std.number;
+
+#native(Serialize, Deserialize)
+class Complex[Re, Im] {
+    re: Re,
+    im: Im,
+}
+
+#native
+extends Complex: Zero {
+    zero() -> Self {
+        return 0 + 0i;
+    }
+}

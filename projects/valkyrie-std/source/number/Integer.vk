@@ -1,0 +1,16 @@
+namespace std.number;
+
+#native
+class Integer {
+	sign : Boolean = true;
+	value: Unsigned = 0;
+}
+
+extends Integer: Zero + One {
+	zero() -> Self {
+		return 0 as Integer;
+	}
+	one() -> Self {
+		return 0 as Integer;
+	}
+}

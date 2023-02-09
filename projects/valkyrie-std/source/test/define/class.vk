@@ -1,0 +1,52 @@
+class ClassEmpty {}
+
+class ClassPoint {
+    public readonly x: Integer,
+    public readonly y: Integer,
+}
+
+/// 测试
+class class A3[T] {
+    ref x: T = Default::default(),
+    ref y: T = Default::default(),
+    ref z: T = Default::default(),
+}
+
+class A4[T] {
+    ref x: Integer = 0,
+    ref y: Integer = 0,
+}
+
+// https://crates.io/crates/custom_debug_derive
+class A3[T] {
+    #debug(rename="new_name")
+    name: u32
+    #debug(skip)
+    skip: u32
+}
+
+
+#Serialize
+#Deserialize
+class B: Serialize + Deserialize raise C {
+    a: Integer,
+    b: Integer,
+}
+
+class C {
+    x,
+    y,
+    z,
+}
+
+let val = @type_of[a];
+let bbb = f(x).m(y)
+
+
+trait Foo {
+    foo()
+}
+
+extends LevelManager {
+    foo()
+}

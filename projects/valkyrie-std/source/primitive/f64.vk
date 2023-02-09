@@ -1,0 +1,5 @@
+namespace std.native;
+
+#native(8byte)
+#derive(Copy, Clone)
+class f64 {}

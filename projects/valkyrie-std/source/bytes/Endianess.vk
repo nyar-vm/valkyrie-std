@@ -1,0 +1,28 @@
+namespace std.bytes;
+
+#transparent type LE = Endianess::LittleEndian;
+#transparent type BE = Endianess::BigEndian;
+
+type Bytes = Array[u8]
+
+// https://docs.rs/byteorder/
+// https://docs.rs/bytestream/
+#native
+#derive(Debug)
+variant Endianess {
+    LittleEndian,
+    BigEndian,
+}
+
+
+trait StreamReader {
+    read_from(buffer: R, order: Endianess) {
+
+    }
+}
+
+trait StreamWriter {
+    write_to(self, buffer: W, order: Endianess) {
+
+    }
+}

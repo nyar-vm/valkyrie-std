@@ -1,0 +1,7 @@
+trait Applicative[F[_]]: Functor[F] {
+ap[A, B](ff: F[A => B])(fa: F[A]): F[B]
+
+pure[A](a: A): F[A]
+
+map[A, B](fa: F[A])(f: A => B): F[B] = ap(pure(f))(fa)
+}

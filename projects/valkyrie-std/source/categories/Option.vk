@@ -1,0 +1,46 @@
+namespace std.categories;
+
+
+variant tuple Option[T] / T {
+    Some {
+        value: T,
+    },
+    None,
+}
+
+
+
+extends Option[T]: Constructor {
+    constructor() {}
+
+    tor
+
+}
+
+extends Option {
+    /// # Examples
+    /// ```
+    ///
+    /// ```
+    def is_some(self) {
+        @matches(self, Some(_))
+    }
+    def is_none() {
+        @matches(self, None)
+    }
+}
+
+
+
+extends Vector2D {
+    constructor() {
+        for item in iterable {
+            block
+        }
+        @type_of(A)
+        return object Self {
+
+        }
+    }
+}
+

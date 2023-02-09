@@ -1,0 +1,13 @@
+while x > 0 {
+    eventA
+}
+
+loop {
+    if x > 0 {
+        eventA;
+        continue;
+    }
+    else {
+        break;
+    }
+}

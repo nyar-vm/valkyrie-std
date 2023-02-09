@@ -1,0 +1,44 @@
+
+class RGB8 {
+    r: u8,
+    g: u8,
+    b: u8,
+}
+
+class RGBA8 {
+    r: u8,
+    g: u8,
+    b: u8,
+    a: u8,
+}
+
+#native(16bit)
+class RGB565 {
+    #range(0, 32)
+    r: u8 = 0,
+    #range(0, 64)
+    g: u8 = 0,
+    #range(0, 32)
+    b: u8 = 0,
+}
+
+#native(24bit)
+class Rgb888 {
+    r: u8 = 0,
+    g: u8 = 0,
+    b: u8 = 0,
+}
+
+#native(32bit)
+class RGBA8888 {
+    r: u8 = 0,
+    g: u8 = 0,
+    b: u8 = 0,
+    a: u8 = 255,
+}
+
+class XYZ {
+    x,
+    y,
+    z
+}

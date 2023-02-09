@@ -1,0 +1,5 @@
+namespace std.native;
+
+#native(1byte)
+#derive(Copy, Clone)
+class u8 {}

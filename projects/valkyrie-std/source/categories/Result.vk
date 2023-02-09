@@ -1,0 +1,40 @@
+namespace std.categories;
+
+#token_navigation(Option::Some, color = Variant)
+def macro Success(e: Expression) {
+    quote {
+        new Result::Success {
+            value
+        }
+    }
+}
+
+#token_navigation(Option::None, color = Variant)
+def macro Failure(e: Expression) {
+    ¶ {
+        new Result::Failure {
+            §error
+        }
+    }
+}
+
+#documentation(include="Result.vnote")
+variant Result[T, E] raise T {
+    ///
+    Success {
+        ///
+        value: T
+    },
+    ///
+    Failure {
+        ///
+        error: E
+    },
+}
+
+let yin, yang = (
+    callcc { c }.then { print('@') },
+    callcc { c }.then { print('*') },
+)
+
+yin(yang)

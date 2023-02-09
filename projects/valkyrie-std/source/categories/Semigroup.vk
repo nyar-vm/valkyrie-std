@@ -1,0 +1,6 @@
+namespace std.categories;
+
+trait Semigroup[A] {
+    combine(x: A, y: A): A
+}
+

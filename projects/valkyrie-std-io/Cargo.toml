@@ -13,9 +13,6 @@ edition = "2021"
 inwelling = "0.3.0"
 tokio = { version = "1.25.0", features = ["full"] }
 
-[dependencies.valkyrie-types]
-version = "0.0.0"
-path = "../valkyrie-std-units"
 
 [dev-dependencies]
 
