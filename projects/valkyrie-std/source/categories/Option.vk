@@ -1,4 +1,4 @@
-namespace std.categories;
+namespace package.categories;
 
 
 variant tuple Option[T] / T {

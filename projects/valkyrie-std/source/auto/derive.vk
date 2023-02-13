@@ -1,4 +1,4 @@
-namespace std.auto;
+namespace package.auto;
 
 macro derive {
 
@@ -65,7 +65,7 @@ variant Poll[R, E] {
     },
 }
 
-std
+
 /// Αἰών, the default Global async
 class singleton Aion {
 
@@ -131,30 +131,7 @@ extends test AsyncTask {
 }
 
 
-def ucfs await() {
-    // cmyk
-    ©
-    ©1
-    ©12
-    ©123
-    ©1234
-    ©12345
-    ©123456
-    ©1234567
-    ©12345678
-    ©123456789
-    // rgba
-    ®
-    ®1
-    ®12
-    ®123
-    ®1234
-    ®12345
-    ®123456
-    ®1234567
-    ®12345678
-    ®123456789
-}
+
 
 def await() {
 

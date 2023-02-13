@@ -1,4 +1,4 @@
-namespace std.iterator;
+namespace package.iterator;
 
 #native
 #derive(Copy, Clone, Display)

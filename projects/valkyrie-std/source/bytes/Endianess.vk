@@ -1,4 +1,4 @@
-namespace std.bytes;
+namespace package.bytes;
 
 #transparent type LE = Endianess::LittleEndian;
 #transparent type BE = Endianess::BigEndian;

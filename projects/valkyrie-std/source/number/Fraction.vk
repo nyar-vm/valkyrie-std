@@ -1,4 +1,4 @@
-namespace std.number;
+namespace package.number;
 
 #native
 class Fraction {

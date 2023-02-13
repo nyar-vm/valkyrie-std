@@ -1,4 +1,4 @@
-namespace std.text;
+namespace package.text;
 
 
 class ASCIIText {

@@ -1,4 +1,4 @@
-namespace std.native;
+namespace package.native;
 
 #transparent type bool = Boolean;
 #transparent let true = Boolean::True;
@@ -10,6 +10,7 @@ variant Boolean {
     True,
     False
 }
+
 
 #native
 extends bool {

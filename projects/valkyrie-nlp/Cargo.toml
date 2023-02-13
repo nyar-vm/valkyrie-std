@@ -1,0 +1,16 @@
+[package]
+name = "valkyrie-nlp"
+version = "0.1.0"
+authors = ["192608617@qq.com"]
+edition = "2018"
+description = "Valkyrie Language Server"
+repository = "https://github.com/nyar-lang/NyarNative"
+license = "MPL-2.0"
+
+[dependencies]
+jieba-rs = "0.6.7"
+
+
+[dev-dependencies]
+
+[build-dependencies]

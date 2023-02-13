@@ -1,4 +1,4 @@
-namespace! std.text;
+namespace! package.text;
 
 using self.{
     utf8.UTF8Buffer as String

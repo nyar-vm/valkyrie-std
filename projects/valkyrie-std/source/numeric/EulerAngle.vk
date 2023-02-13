@@ -1,4 +1,4 @@
-namespace std.numeric;
+namespace package.numeric;
 
 class EulerAngle {
     x: f32,

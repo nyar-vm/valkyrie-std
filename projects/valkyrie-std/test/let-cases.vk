@@ -1,0 +1,103 @@
+let Extractor(a) := 1;
+
+let Klass {a: b } := 1
+
+
+expr().match {
+    case Some(Success(A)) or Success(A):
+        doA + b
+        c + d
+    case _:
+    when A
+}
+.match {
+
+}
+
+let expr: Option[String] | Result[String];
+
+if a == b {
+    branchA
+}
+else {
+    branchB
+}
+
+which {
+a == b {
+
+}
+}
+
+
+
+
+which {
+Some(a) or Success(A) {
+    doA + b
+    c + d
+}
+_ {
+
+}
+}
+
+
+
+if a > 0 {
+
+}
+else if b {
+
+}
+
+// pattern xor ⩖
+// pattern and ⩕
+
+if Some(a) := result
+or Some(b) := a
+{
+
+}
+else if let {
+
+}
+
+which {
+Some(a) := expr && a > 1 {
+
+}
+
+}
+
+
+
+if Some(a) := expr && a > 1
+
+{
+
+
+}
+
+let mut a: u32? = null
+a ?= 2
+
+
+guard a > 0 {
+
+}
+
+if Some(a) := 1 {
+
+}
+
+while Some(a) := 1
+{
+
+}
+else {
+
+}
+
+
+// case case_pattern [case_rhs] [if_guard]

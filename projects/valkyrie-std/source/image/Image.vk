@@ -1,4 +1,4 @@
-namespace std.image;
+namespace package.image;
 
 trait Image {
     type Pixel;

@@ -1,0 +1,31 @@
+
+
+
+
+
+
+class Asynchronous {
+
+}
+
+
+#[native, token.kind(keyword)]
+def macro async(block: AnyNode) {
+
+}
+
+
+module::async;
+package::async;
+
+
+def async_read(path: Path) -> T / Asynchronous {
+    async {
+        File::read(path)
+    }
+}
+
+match async_read(file) {
+    when Asynchronous:
+        G
+}

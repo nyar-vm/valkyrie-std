@@ -1,4 +1,4 @@
-namespace std.image;
+namespace package.image;
 
 trait Pixel {
     type Bits = f32;

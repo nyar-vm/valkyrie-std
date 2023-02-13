@@ -1,5 +1,5 @@
-namespace! std.collections;
+namespace! package.collections;
 
-using! std.collections.{
+using! package.collections.{
     hashmap.HashMap
 }
