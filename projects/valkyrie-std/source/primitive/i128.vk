@@ -1,4 +1,4 @@
-namespace std.native;
+namespace package.native;
 
 #allow(non_camel_case_types)
 #native(native)

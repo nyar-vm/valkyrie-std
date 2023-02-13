@@ -1,4 +1,4 @@
-namespace std.cats;
+namespace package.cats;
 
 trait Monad[M[_]] {
     ///

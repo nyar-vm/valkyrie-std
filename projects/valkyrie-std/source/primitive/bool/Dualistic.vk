@@ -1,0 +1,20 @@
+namespace std.create.test;
+
+/**
+Marks that this type can be used directly as a conditional expression
+
+```
+if a {
+
+}
+```
+*/
+trait Conditional: Into[Boolean] {
+    /// a
+    /// b
+    conditional(self) -> Boolean;
+    ///
+    into(self) -> Boolean {
+        self.conditional()
+    }
+}

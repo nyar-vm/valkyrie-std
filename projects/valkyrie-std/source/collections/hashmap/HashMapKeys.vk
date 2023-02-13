@@ -1,4 +1,4 @@
-namespace std.collection.hashmap;
+namespace package.collection.hashmap;
 
 #native
 #derive(Serde)

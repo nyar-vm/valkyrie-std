@@ -1,4 +1,4 @@
-namespace std.categories;
+namespace package.categories;
 
 trait Semigroup[A] {
     combine(x: A, y: A): A

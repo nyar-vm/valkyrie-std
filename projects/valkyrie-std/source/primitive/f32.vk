@@ -1,4 +1,4 @@
-namespace std.native;
+namespace package.native;
 
 #native(4byte)
 #derive(Copy, Clone)

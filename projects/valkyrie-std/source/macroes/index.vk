@@ -1,4 +1,4 @@
-namespace std.macroes;
+namespace package.macroes;
 
 /// Mark the implementation as native
 /// The following part uses pseudo-code, and does not represent actual implementation.
