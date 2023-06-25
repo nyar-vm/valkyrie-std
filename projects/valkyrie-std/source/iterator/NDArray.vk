@@ -1,8 +1,8 @@
 namespace package.iterator;
 
-#native
-#derive(Copy, Clone, Display)
-class NDArray[T, I] {
+@native
+@derive(Copy, Clone, Display)
+class NDArray<I, T> {
     buffer: ArrayT,
     index: I
 }
