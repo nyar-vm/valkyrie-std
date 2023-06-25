@@ -1,0 +1,18 @@
+
+
+@native
+@document.include('ListView.md')
+class ListView⦓T⦔ {
+    #? # Examples
+    #?
+    #? ```
+    #? let list = List⦓int⦔::new(3);
+    #? list.append(1, 2, 3);
+    #? let view = list.view();
+    #? @debug.assert_equal(
+    #?     view,
+    #?     [1, 2, 3],
+    #? );
+    #? ```
+    constructor(list: List⦓T⦔) { }
+}

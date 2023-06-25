@@ -1,0 +1,86 @@
+
+
+@native
+@document.include('readme.md')
+class List⦓T = Any⦔ {
+    #? # Examples
+    #?
+    #? ```
+    #? let list = List⦓int⦔::new(3);
+    #? ```
+    constructor(capacity: usize) { }
+
+    subscript(self, index: Index) -> T { }
+
+
+    concat(self, rhs: Self) -> Self { }
+
+    concat_assign(mut self, rhs: Self) { }
+}
+
+@native
+class ListSlice⦓T⦔ {
+    private _list: ListView⦓T⦔,
+    private _slice: Slice,
+}
+
+imply ListSlice⦓T⦔: Iterator {
+    type Item = T
+    next(self) -> Option⦓T⦔ { }
+}
+
+@native
+structure Slice {
+    start: Integer,
+    end: Integer,
+    step: Integer,
+}
+
+imply List⦓T⦔: IntoIterator {
+    type Item = T
+    type Iterator = ListSlice⦓T⦔
+
+    into_iterator(self) -> Self::Iterator { }
+}
+
+# getters
+@native
+imply List⦓T⦔: Sequence {
+    head(self) -> T? { }
+    tail(self) -> T? { }
+    rest(self) -> ListView⦓T⦔ { }
+    most(self) -> ListView⦓T⦔ { }
+}
+
+self.head ?= 1
+
+
+@native
+imply List⦓T⦔ {
+    #? # Examples
+    #?
+    #? ```
+    #? let a = new List⦓int⦔(3) {1, 2, 3};
+    #? let b = new List⦓int⦔(3) {4, 5, 6};
+    #? @debug.assert_equal(a ++ b, [1, 2, 3, 4, 5, 6]);
+    operator `++`(self, rhs: Self) { }
+    operator `++=`(mut self, rhs: Self) { }
+    #? # Examples
+    #?
+    #? ```
+    #? let list = List⦓int⦔::new(3);
+    #? list.append(1, 2, 3);
+    #? list ++= [4, 5, 6];
+    #? @debug.assert_equal(list, [1, 2, 3, 4, 5, 6]);
+    #? ```
+    append(mut self, **terms: List⦓T⦔) { }
+    prepend(mut self, **terms: List⦓T⦔) { }
+
+
+    clear(mut self) { }
+
+    remove(mut self, index: usize) { }
+
+
+}
+
