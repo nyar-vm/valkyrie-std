@@ -1,0 +1,15 @@
+namespace std.math.trigonometric
+
+inline micro exp(term: Exponent) -> Exponent::Output {
+    term.exponent()
+}
+
+#operator(Headix, 'exp')
+trait Exponent {
+    type Output;
+    @completion(Hide)
+    exponent(self) -> Self::Output;
+}
+
+
+

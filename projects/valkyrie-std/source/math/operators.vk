@@ -1,0 +1,19 @@
+
+
+
+class Precedence {
+    power: u16,
+}
+
+union Affix(u8) {
+    Headix,
+    Prefix,
+    Infix,
+    Postfix,
+}
+
+union Associativity(u8) {
+    Left,
+    Right,
+}
+

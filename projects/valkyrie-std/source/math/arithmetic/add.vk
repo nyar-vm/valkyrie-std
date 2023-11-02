@@ -1,0 +1,28 @@
+
+
+
+trait Add<R> {
+    type Output;
+    #operator(Infix, '+', 100, Left)
+    add(self, rhs: R) -> Self::Output;
+
+    sum(self, ..terms: R) -> Self::Output {
+        let mut sum = self;
+        for term in terms {
+            sum = sum.add(term);
+        }
+        sum
+    }
+}
+
+#operator(Infix, '+=', 100, Left)
+trait AddAssign<R> {
+    add_assign(mut self, rhs: R);
+
+    sum_assign(mut self, ..terms: R) {
+        for term in terms {
+            self = self.add_assign(term);
+        }
+    }
+}
+
