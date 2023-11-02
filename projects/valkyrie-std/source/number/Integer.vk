@@ -6,11 +6,82 @@ class Integer {
 	value: Unsigned = 0;
 }
 
-extends Integer: Zero + One {
-	zero() -> Self {
-		return 0 as Integer;
-	}
-	one() -> Self {
-		return 0 as Integer;
-	}
+#native("vit:number/sign")
+union Sign {
+    NoSign = 0
+    Positive = 1
+    Negative = 2
+}
+
+#native("vit:number/number")
+class Integer {
+    sign: Sign = Sign::NoSign
+    natural: Natural = 0
+}
+
+extends Integer {
+    companion {
+        ZERO: Self = @ffi("vit:number/integer/zero")();
+        ONE: Self = @ffi("vit:number/integer/one")();
+    }
+
+    /// Create a new Integer from u8
+    constructor(i: u8) { @ffi("vit/number/integer/get_method")(i) }
+    constructor(i: u16) { @ffi("vit/number/integer/get_method")(i) }
+    constructor(i: u32) { @ffi("vit/number/integer/get_method")(i) }
+    constructor(i: u64) { @ffi("vit/number/integer/get_method")(i) }
+    constructor(i: nat) { @ffi("vit/number/integer/get_method")(i) }
+
+    constructor(i: i8) { @ffi("vit/number/integer/get_method")(i) }
+    constructor(i: i16) { @ffi("vit/number/integer/get_method")(i) }
+    constructor(i: i32) { @ffi("vit/number/integer/get_method")(i) }
+    constructor(i: i64) { @ffi("vit/number/integer/get_method")(i) }
+}
+
+extends Integer: Show + ShowHex {
+    show(self, mut _: Formatter): String {
+        @ffi("vit/number/integer/show")(self)
+    }
+    show_hex(self, mut _: Formatter): String {
+        @ffi("vit/number/integer/show")(self)
+    }
+}
+
+extends Integer {
+    infix `+`(self, rhs: i8): Integer {
+        @ffi("vit/number/integer/add")(self, other)
+    }
+    infix `+`(self, rhs: i16): Integer {
+        @ffi("vit/number/integer/add")(self, other)
+    }
+    infix `+`(self, rhs: i32): Integer {
+        @ffi("vit/number/integer/add")(self, other)
+    }
+    infix `+`(self, rhs: i64): Integer {
+        @ffi("vit/number/integer/add")(self, other)
+    }
+    infix `+`(self, rhs: Integer): Integer {
+        @ffi("vit/number/integer/add")(self, other)
+    }
+}
+
+extends Integer {
+    prefix `-`(self): Integer {
+        new Self(-sign, self.natural)
+    }
+    infix `-`(self, rhs: i8): Integer {
+        @ffi("vit/number/integer/add")(self, other)
+    }
+    infix `-`(self, rhs: i16): Integer {
+        @ffi("vit/number/integer/add")(self, other)
+    }
+    infix `-`(self, rhs: i32): Integer {
+        @ffi("vit/number/integer/add")(self, other)
+    }
+    infix `-`(self, rhs: i64): Integer {
+        @ffi("vit/number/integer/add")(self, other)
+    }
+    infix `-`(self, rhs: Integer): Integer {
+        @ffi("vit/number/integer/add")(self, other)
+    }
 }

@@ -1,0 +1,15 @@
+namespace std.math.trigonometric
+
+inline micro cos<T>(term: T) -> <T as Cosine>::Output {
+    term.cosine()
+}
+
+#operator(Headix, 'cos')
+trait Cosine {
+    type Output;
+    @completion(Hide)
+    cosine(self) -> Self::Output;
+}
+
+
+

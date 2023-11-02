@@ -1,0 +1,16 @@
+namespace package.number;
+
+#native
+class Natural {
+    #get(@ffi("vit:number/integer/get_method"))
+    bytes: Array1<u32>
+}
+
+
+extends Natural {
+    companion {
+        ZERO: Self = @ffi("vit:number/integer/zero")();
+        ONE: Self = @ffi("vit:number/integer/one")();
+    }
+}
+
