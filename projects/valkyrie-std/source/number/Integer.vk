@@ -1,76 +1,93 @@
 namespace package.number;
 
 #native
-class Integer {
-	sign : Boolean = true;
-	value: Unsigned = 0;
-}
-
-#native("vit:number/sign")
-union Sign {
+enumerate Sign(i8) {
     NoSign = 0
     Positive = 1
-    Negative = 2
+    Negative = -1
 }
 
-#native("vit:number/number")
+#native
 class Integer {
-    sign: Sign = Sign::NoSign
-    natural: Natural = 0
+    sign: Sign = Sign::NoSign;
+    natural: Natural = default;
 }
 
 extends Integer {
-    companion {
-        ZERO: Self = @ffi("vit:number/integer/zero")();
-        ONE: Self = @ffi("vit:number/integer/one")();
-    }
-
     /// Create a new Integer from u8
-    constructor(i: u8) { @ffi("vit/number/integer/get_method")(i) }
-    constructor(i: u16) { @ffi("vit/number/integer/get_method")(i) }
-    constructor(i: u32) { @ffi("vit/number/integer/get_method")(i) }
-    constructor(i: u64) { @ffi("vit/number/integer/get_method")(i) }
-    constructor(i: nat) { @ffi("vit/number/integer/get_method")(i) }
-
-    constructor(i: i8) { @ffi("vit/number/integer/get_method")(i) }
-    constructor(i: i16) { @ffi("vit/number/integer/get_method")(i) }
-    constructor(i: i32) { @ffi("vit/number/integer/get_method")(i) }
-    constructor(i: i64) { @ffi("vit/number/integer/get_method")(i) }
-}
-
-extends Integer: Show + ShowHex {
-    show(self, mut _: Formatter): String {
-        @ffi("vit/number/integer/show")(self)
+    constructor(n: u8): Self {
+        new_u64(n as u64)
     }
-    show_hex(self, mut _: Formatter): String {
-        @ffi("vit/number/integer/show")(self)
+    constructor(n: u16): Self {
+        new_u64(n as u64)
+    }
+    constructor(n: u32): Self {
+        new_u64(n as u64)
+    }
+    constructor(n: u64): Self {
+        new_u64(n as u64)
+    }
+    constructor(n: Natural): Self {
+        new_u64(n as u64)
+    }
+
+    constructor(n: i8): Self {
+        new_i64(n as i64)
+    }
+    constructor(n: i16): Self {
+        new_i64(n as i64)
+    }
+    constructor(n: i32): Self {
+        new_i64(n as i64)
+    }
+    constructor(n: i64): Self {
+        new_i64(n)
     }
 }
 
 extends Integer {
+
+}
+
+extends Integer {
+    infix `+`(self, rhs: u8): Integer {
+        Self::add_u64(rhs as i64)
+    }
+    infix `+`(self, rhs: u16): Integer {
+        Self::add_u64(rhs as i64)
+    }
+    infix `+`(self, rhs: u32): Integer {
+        Self::add_u64(rhs as i64)
+    }
+    infix `+`(self, rhs: u64): Integer {
+        Self::add_u64(rhs)
+    }
+    infix `+`(self, rhs: Natural): Integer {
+        Self::add_nat(rhs)
+    }
+
     infix `+`(self, rhs: i8): Integer {
-        @ffi("vit/number/integer/add")(self, other)
+        Self::add_i64(rhs as i64)
     }
     infix `+`(self, rhs: i16): Integer {
-        @ffi("vit/number/integer/add")(self, other)
+        Self::add_i64(rhs as i64)
     }
     infix `+`(self, rhs: i32): Integer {
-        @ffi("vit/number/integer/add")(self, other)
+        Self::add_i64(rhs as i64)
     }
     infix `+`(self, rhs: i64): Integer {
-        @ffi("vit/number/integer/add")(self, other)
+        Self::add_i64(rhs)
     }
-    infix `+`(self, rhs: Integer): Integer {
-        @ffi("vit/number/integer/add")(self, other)
+    infix `+`(self, rhs: Self): Integer {
+        Self::add_int(rhs)
     }
-}
 
-extends Integer {
     prefix `-`(self): Integer {
-        new Self(-sign, self.natural)
+        Self::neg(self)
     }
+
     infix `-`(self, rhs: i8): Integer {
-        @ffi("vit/number/integer/add")(self, other)
+        Self::sub_i64(self)
     }
     infix `-`(self, rhs: i16): Integer {
         @ffi("vit/number/integer/add")(self, other)
@@ -83,5 +100,25 @@ extends Integer {
     }
     infix `-`(self, rhs: Integer): Integer {
         @ffi("vit/number/integer/add")(self, other)
+    }
+}
+
+extends Natural {
+    private native {
+        new_i64(n: i64): Self;
+        new_u64(n: u64): Self;
+        new_nat(n: Natural): Self;
+
+        neg(self): Self
+
+        add_u64(self, n: u64): Self;
+        add_i64(self, n: i64): Self;
+        add_nat(self, n: Natural): Self;
+        add_int(self, n: Self): Self;
+
+        add_u64_inplace(mut self, n: u64);
+        add_i64_inplace(mut self, n: i64);
+        add_nat_inplace(mut self, n: Natural);
+        add_int_inplace(mut self, n: Self);
     }
 }

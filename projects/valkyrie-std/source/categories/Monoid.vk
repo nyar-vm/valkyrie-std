@@ -1,5 +1,0 @@
-namespace package.categories;
-
-trait Monoid[A]: Semigroup[A] {
-    empty(): A
-}

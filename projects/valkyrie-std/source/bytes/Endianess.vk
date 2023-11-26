@@ -3,7 +3,7 @@ namespace package.bytes;
 #transparent type LE = Endianess::LittleEndian;
 #transparent type BE = Endianess::BigEndian;
 
-type Bytes = Array[u8]
+type Bytes = Array<u8>
 
 // https://docs.rs/byteorder/
 // https://docs.rs/bytestream/

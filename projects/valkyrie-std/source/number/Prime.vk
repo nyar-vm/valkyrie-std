@@ -1,0 +1,27 @@
+namespace package.number;
+
+#refine
+class Prime {
+    ordinal: Natural
+}
+
+extend Prime {
+    uncheck constructor(n: Natural) -> Self {
+        if n == 0 {
+            return null
+        }
+        new Self { ordinal: n }
+    }
+    constructor(n: Natural) -> Self? {
+        if n == 0 {
+            return null
+        }
+        new Self { ordinal: n }
+    }
+    constructor(n: Integer) -> Self? {
+        if n <= 0 {
+            return null
+        }
+        new Self { ordinal: n }
+    }
+}

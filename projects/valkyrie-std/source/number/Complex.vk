@@ -1,9 +1,9 @@
 namespace package.number;
 
-#native(Serialize, Deserialize)
-class Complex[Re, Im] {
-    re: Re,
-    im: Im,
+#native
+class Complex<Re, Im> {
+    real: Re,
+    imaginary: Im,
 }
 
 #native

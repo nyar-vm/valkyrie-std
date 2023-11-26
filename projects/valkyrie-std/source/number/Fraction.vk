@@ -1,15 +1,5 @@
 namespace package.number;
 
-#native
-class Fraction {
-    #get(@ffi())
-    sign       : Sign  = Sign::NoSign;
-    #get(@ffi())
-    numerator  : Natural = 0;
-    #get(@ffi())
-    denominator: Natural = 1;
-}
-
 extends Fraction {
     zero() -> Self {
         return 0 as Fraction;
@@ -18,3 +8,5 @@ extends Fraction {
         return 1 as Fraction;
     }
 }
+
+

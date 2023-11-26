@@ -1,15 +1,14 @@
 namespace std.math.trigonometric
 
-inline micro cos<T>(term: T) -> <T as Cosine>::Output {
-    term.cosine()
+inline micro tan(term: Tangent) -> Tangent::Output {
+    term.tangent()
 }
 
-#operator(Headix, 'cos')
-trait Cosine {
+trait Tangent {
     type Output;
-    @completion(Hide)
-    cosine(self) -> Self::Output;
+
+    #completion(Hide)
+    #operator(Headix, 'tan')
+    tangent(self) -> Self::Output;
 }
-
-
 

@@ -1,16 +1,37 @@
 namespace package.number;
 
-#native
+#native(resource)
 class Natural {
-    #get(@ffi("vit:number/integer/get_method"))
-    bytes: Array1<u32>
+
 }
 
-
 extends Natural {
-    companion {
-        ZERO: Self = @ffi("vit:number/integer/zero")();
-        ONE: Self = @ffi("vit:number/integer/one")();
+    preset() {
+        Self::new_u64(0)
     }
 }
 
+extends Natural {
+    infix `+`(self, rhs: u8) {
+        self.add_u64(rhs as u64)
+    }
+    infix `+`(self, rhs: u16) {
+        self.add_u64(rhs as u64)
+    }
+    infix `+`(self, rhs: u32) {
+        self.add_u64(rhs as u64)
+    }
+    infix `+`(self, rhs: u64) {
+        self.add_u64(rhs)
+    }
+    infix `+`(self, rhs: Self) {
+        self.add_nat(rhs)
+    }
+}
+
+#native
+extends Natural {
+    private new_u64(n: u64): Self;
+    private add_u64(self, n: u64): Self;
+    private add_nat(self, n: Self): Self;
+}

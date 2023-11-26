@@ -4,10 +4,12 @@ inline micro log<T>(term: T) -> <T as Logarithm>::Output {
     term.logarithm()
 }
 
-#operator(Headix, 'cos')
+
 trait Logarithm {
     type Output;
-    @completion(Hide)
+
+    #completion(Hide)
+    #operator(Headix, 'cos')
     logarithm(self) -> Self::Output;
 }
 

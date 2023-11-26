@@ -2,9 +2,10 @@ inline micro cot<T>(term: T) -> <T as Cotangent>::Output {
     term.cotangent()
 }
 
-#operator(Headix, 'cot')
 trait Cotangent {
     type Output;
-    @completion(Hide)
+
+    #completion(Hide)
+    #operator(Headix, 'cos')
     cotangent(self) -> Self::Output;
 }

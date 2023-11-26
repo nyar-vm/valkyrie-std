@@ -4,10 +4,11 @@ inline micro exp(term: Exponent) -> Exponent::Output {
     term.exponent()
 }
 
-#operator(Headix, 'exp')
 trait Exponent {
     type Output;
-    @completion(Hide)
+
+    #completion(Hide)
+    #operator(Headix, 'cos')
     exponent(self) -> Self::Output;
 }
 

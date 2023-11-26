@@ -4,10 +4,12 @@ inline micro cos<T>(term: T) -> <T as Cosine>::Output {
     term.cosine()
 }
 
-#operator(Headix, 'cos')
+
 trait Cosine {
     type Output;
-    @completion(Hide)
+
+    #completion(Hide)
+    #operator(Headix, 'cos')
     cosine(self) -> Self::Output;
 }
 

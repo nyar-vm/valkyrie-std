@@ -2,23 +2,23 @@
 
 
 
-extends Tensor[T, D] {
-    view() -> Tensor[T]
+extends Tensor<T, D> {
+    view() -> Tensor<T>
 }
 
 /// A view of raw tensor
 /// Edit the element will change the value in original tensor
 #native
-class ArrayND[T, D] {
-    share: Tensor[T, D]
+class ArrayND<T, D> {
+    share: Tensor<T, D>
 }
 
-type Array4D[T, N, C, H, W] = ArrayND[T, (N, C, H, W)]
-type Array3D[T, C, H, W] = ArrayND[T, (C, H, W)]
-type Array2D[T, H, W] = ArrayND[T, (H, W)]
+type Array4D<T, N, C, H, W> = ArrayND<T, (N, C, H, W)>
+type Array3D<T, C, H, W> = ArrayND<T, (C, H, W)>
+type Array2D<T, H, W> = ArrayND<T, (H, W)>
 
 
-class Matrix[T, H, W]: Array2D[T, H, W] {
+class Matrix<T, H, W>: Array2D<T, H, W> {
 
 }
 
