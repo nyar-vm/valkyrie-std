@@ -1,9 +1,0 @@
-namespace package.image;
-
-structure RGB565 {
-    _data: u16
-}
-
-extends RGB565 {
-
-}

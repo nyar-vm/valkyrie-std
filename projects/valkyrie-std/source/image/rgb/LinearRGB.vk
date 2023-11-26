@@ -1,0 +1,26 @@
+namespace package.image;
+
+structure LinearRGB {
+    r: f32,
+    g: f32,
+    b: f32,
+    a: f32,
+    constructor(gray: f32, alpha: f32 = 1.0) {
+        new Self { r: gray, g: gray, b: gray, a: alpha }
+    }
+    constructor(red: f32, green: f32, blue: f32, alpha: f32 = 1.0) {
+        new Self { r: red, g: green, b: blue, a: alpha}
+    }
+}
+
+
+trait Pixel {
+    get bits: u64;
+    as_linear_rgba() -> LinearRGB;
+}
+
+extends LinearRGB: Pixel {
+    get bits
+
+}
+

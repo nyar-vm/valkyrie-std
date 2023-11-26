@@ -1,0 +1,29 @@
+namespace package.image;
+
+structure RGB565 {
+    _data: u16
+    get r(): u8 {
+
+    }
+    set r(): u8 {
+
+    }
+    get g(): u8 {
+
+    }
+    set g(): u8 {
+
+    }
+    get b(): u8 {
+
+    }
+    set b(): u8 {
+
+    }
+
+
+}
+
+extends RGB565 {
+
+}

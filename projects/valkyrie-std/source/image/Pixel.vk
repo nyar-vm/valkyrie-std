@@ -1,31 +1,7 @@
 namespace package.image;
 
 trait Pixel {
-    type Bits = f32;
-    as_linear_rgba() -> RGBA;
-}
-
-class PNG {
-    get bytes: [u8]
-}
-
-extends PNG {
-
-}
-
-
-/// aka. linear rgba
-class RGBA {
-    r: f32,
-    g: f32,
-    b: f32,
-    a: f32,
-}
-
-
-
-extends RGBA {
-    into_grammar(r, g, b, a: f32 = 1.0, grammar = 2.2) -> sRGBA {
-
-    }
+    get bits: u64;
+    #[inline]
+    as_linear_rgba(self) -> LinearRGB;
 }

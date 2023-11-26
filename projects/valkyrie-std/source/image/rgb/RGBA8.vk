@@ -1,0 +1,50 @@
+namespace package.image;;
+
+structure RGBA8 {
+    r: u8 = 0,
+    g: u8 = 0,
+    b: u8 = 0,
+    a: u8 = 255,
+}
+
+// converts
+extends RGBA8 {
+    constructor(data: Pixel) {
+        let pixel = data.as_linear_rgba()
+        new Self {
+            r: pixel.r as u8,
+            g: pixel.g as u8,
+            b: pixel.b as u8,
+            a: pixel.a as u8,
+        }
+    }
+    constructor(gray: u8, alpha: u8 = 255) {
+        new Self { r: gray, g: gray, b: gray, a: alpha}
+    }
+    constructor(red: u8, green: u8, blue: u8, alpha: u8 = 255) {
+        new Self { r: red, g: green, b: blue, a: alpha}
+    }
+    #unlimit(transmute)
+    from_rgba(data: u32) {
+        violate {
+            transmute::<u32, Self>(data)
+        }
+    }
+    #unlimit(transmute)
+    into_rgba(self) {
+        violate {
+            transmute::<Self, u32>(self)
+        }
+    }
+    #unlimit(transmute)
+    from_argb(data: u32) {
+        let (a, r, g, b) = transmute::<u32, (u8, u8, u8, u8)>(data);
+        Self(r, g, b, a)
+    }
+    into_argb(self) {
+        violate(transmute) {
+            let data = (self.a, self.r, self.g, self.b, );
+            transmute::<(u8, u8, u8, u8), u32>(data)
+        }
+    }
+}
