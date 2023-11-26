@@ -1,6 +1,6 @@
-namespace package.cats;
+namespace package.category;
 
-variant tuple Either[L, R] / R {
+variant Either<L, R> {
 	Lyft { l: L },
 	Riht { r: R },
 }

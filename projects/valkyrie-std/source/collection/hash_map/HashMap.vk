@@ -1,0 +1,55 @@
+namespace package.collections.hash_map;
+
+#native
+class HashMap<K, V, S> {
+
+}
+
+#native
+extends HashMap<K, V, S> {
+    constructor() {
+
+    }
+    constructor(default: V) {
+
+    }
+}
+
+
+extends HashMap<K, V, S>: Dictionary {
+    type Key = K;
+    type Value = V;
+    type Entry = HashMapEntry<K, V, S>
+    // alias type Default = {
+    //     if self.default.is_some() {
+    //         V
+    //     }
+    //     else {
+    //         V?
+    //     }
+    // }
+    default(self): V? {
+
+    }
+    insert(self, key: Self::Key): Self::Default {
+
+    }
+    delete(self, key: Self::Key): Self::Default {
+
+    }
+
+    `[]`(self, key: Self::Key): Self::Default {
+
+    }
+    `[]=`(self, key: Self::Key, value: Self::Value): Self::Value? {
+
+    }
+
+    keys(self): HashMapKeys<Self::Key> {
+
+    }
+    values(self): HashMapValues<Self::Value> {
+
+    }
+}
+

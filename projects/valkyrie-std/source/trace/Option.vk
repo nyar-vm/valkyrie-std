@@ -1,4 +1,4 @@
-namespace package.categories;
+namespace package.category;
 
 
 variant tuple Option[T] / T {

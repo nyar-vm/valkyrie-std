@@ -1,0 +1,5 @@
+namespace! package.collections.hash_set;
+
+using! package.collections.{
+    hashmap.HashMap
+}

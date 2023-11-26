@@ -1,6 +1,6 @@
-namespace package.categories;
+namespace package.category;
 
-trait Semigroup[A] {
+trait Semigroup<A> {
     combine(x: A, y: A): A
 }
 

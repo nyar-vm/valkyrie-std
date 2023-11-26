@@ -1,4 +1,4 @@
-
+namespace package.collections;
 
 @native
 @document.include('ListView.md')

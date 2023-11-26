@@ -1,0 +1,6 @@
+namespace package.collections;
+
+
+class HashMapValues<V> {
+
+}

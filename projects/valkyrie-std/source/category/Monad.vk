@@ -1,19 +1,19 @@
-namespace package.cats;
+namespace package.category;
 
-trait Monad[M[_]] {
+trait Monad<M<~>> {
     ///
-    unit[A](a: A) -> M[A];
+    pure<A>(a: A) -> M<A>;
     ///
-    bind[A, B](m: M[A], f: A -> M[B]) -> M[B];
+    bind<A, B>(m: M<A>, f: A -> M<B>) -> M<B>;
     ///
-    join[A](m: M[M[A]]) -> M[A] {
+    join<A>(m: M<M<A>>) -> M<A> {
         bind(m, identity)
     }
 }
 
-trait Comonad[M[_]] {
+trait Comonad<M<~>> {
     /// dual of Monad::unit
-    extract(m: M[A]) -> A;
+    extract(m: M<A>) -> A;
     /// dual of Monad::join
-    duplicate(m: M[A]) -> M[M[A]];
+    duplicate(m: M<A>) -> M<M<A>>;
 }

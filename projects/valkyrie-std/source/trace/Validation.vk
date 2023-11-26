@@ -1,6 +1,6 @@
-namespace package.categories;
+namespace package.category;
 
-variant tuple Validation[T, E] / T {
+variant Validation[T, E] / T {
     Fine {
         value: T,
         error: [E],

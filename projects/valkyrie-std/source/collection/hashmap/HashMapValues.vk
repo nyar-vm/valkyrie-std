@@ -1,7 +1,0 @@
-namespace package.collection.hashmap;
-
-#native
-#derive(Serde)
-class HashMapValues[V] {
-
-}

@@ -1,4 +1,4 @@
-namespace package.categories;
+namespace package.category;
 
 #token_navigation(Option::Some, color = Variant)
 def macro Success(e: Expression) {

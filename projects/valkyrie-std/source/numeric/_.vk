@@ -1,0 +1,5 @@
+namespace package.numeric!;
+
+using! package.collections.{
+    hashmap.HashMap
+}

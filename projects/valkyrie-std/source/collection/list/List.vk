@@ -1,13 +1,13 @@
-
+namespace package.collections;
 
 @native
 @document.include('readme.md')
-class List⦓T = Any⦔ {
-    #? # Examples
-    #?
-    #? ```
-    #? let list = List⦓int⦔::new(3);
-    #? ```
+class List<T>{
+    /// # Examples
+    ///
+    /// ```
+    /// let list = List⦓int⦔::new(3);
+    /// ```
     constructor(capacity: usize) { }
 
     subscript(self, index: Index) -> T { }
