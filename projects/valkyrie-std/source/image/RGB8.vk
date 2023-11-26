@@ -1,0 +1,13 @@
+namespace package.image;
+
+structure RGB8 {
+    r: u8,
+    g: u8,
+    b: u8,
+    constructor(gray: u8) {
+        new Self { r: gray, g: gray, b: gray}
+    }
+    constructor(red: u8, green: u8, blue: u8) {
+        new Self { r: red, g: green, b: blue}
+    }
+}

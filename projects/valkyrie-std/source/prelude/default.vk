@@ -1,5 +1,5 @@
-#prelude_module
-#packages {
+###prelude_module
+###packages {
     math, std, re, serde
 }
 using crate.{
@@ -14,19 +14,19 @@ using crate.{
 
 
 #transparent
-type String = crate::charset::UTF8Text;
-type str = crate::charset::UTF8View;
-type char = crate::charset::UTF8;
+type String = package::charset::UTF8Text;
+type str = package::charset::UTF8View;
+type char = package::charset::UTF8;
 
-type int = crate::number::Integer;
-type i8 = crate::number::Integer8;
-type i16 = crate::number::Integer16;
-type i32 = crate::number::Integer32;
-type i64 = crate::number::Integer64;
-type i128 = crate::number::Integer128;
+type int = package::number::Integer;
+type i8 = package::number::Integer8;
+type i16 = package::number::Integer16;
+type i32 = package::number::Integer32;
+type i64 = package::number::Integer64;
+type i128 = package::number::Integer128;
 
-type u8 = crate::number::Unsigned8;
-type u16 = crate::number::Unsigned16;
-type u32 = crate::number::Unsigned32;
-type u64 = crate::number::Unsigned64;
-type u128 = crate::number::Unsigned128;
+type u8 = package::number::Unsigned8;
+type u16 = package::number::Unsigned16;
+type u32 = package::number::Unsigned32;
+type u64 = package::number::Unsigned64;
+type u128 = package::number::Unsigned128;
