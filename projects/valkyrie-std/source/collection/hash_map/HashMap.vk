@@ -1,9 +1,9 @@
-namespace package.collections.hash_map;
+namespace* package.collections.hash_map;
 
 #native
 class HashMap<K, V, S = RandomState> {
-    _hash_builder,
-    _hash_table: HashTable<E>,
+    _hash_table: HashTable<(K, V)>,
+    _hash_builder: S,
 }
 
 private class HashTable<E> {

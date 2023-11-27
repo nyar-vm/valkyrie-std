@@ -1,6 +1,8 @@
-namespace package.collections.hash_map;
+namespace* package.collections.hash_map;
 
-#native
-class HashMapKeys<K> {
 
+structure HashMapKeys<K, V> {
+    map: HashMap<K, V>
 }
+
+

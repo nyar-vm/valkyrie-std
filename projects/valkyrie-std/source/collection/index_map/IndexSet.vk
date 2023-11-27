@@ -1,7 +1,6 @@
-namespace package.collections;
+namespace* package.collections;
 
-#native
-#derive(Serde)
-class HashMapValues[V] {
-
+class IndexSet<K, V> {
+    map: IndexMap<K, ()>
 }
+

@@ -1,4 +1,4 @@
-namespace! package.collections;
+namespace* package.collections;
 
 using! package.collections.{
     hashmap.HashMap

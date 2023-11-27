@@ -1,7 +1,1 @@
-namespace package.collections;
-
-#native
-#derive(Serde)
-class HashMapKeys[K] {
-
-}
+namespace* package.collections;

@@ -1,9 +1,6 @@
-namespace package.collections;
+namespace* package.collections;
 
-#native
-#derive(Serde)
-class HashMap[K, V] {
-    get keys: HashMapKeys[K],
-    get values: HashMapValues[V],
-    concurrent: bool
+
+class IndexMap<K, V> {
+
 }

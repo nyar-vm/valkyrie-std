@@ -1,55 +1,6 @@
-namespace package.collections.hash_map;
+namespace* package.collections.hash_map;
 
 #native
-class HashMap<K, V, S = RandomState> {
-    _hash_builder,
-    _hash_table: HashTable<E>,
+class HashSet<K, V, S = RandomState> {
+    _hash_map: HashMap<K, (), S> = HashMap(),
 }
-
-private class HashTable<E> {
-    bucket_mask: usize,
-    ctrl: usize,
-    growth_left: usize,
-    items: usize,
-}
-
-#native
-extends HashMap<K, V, S> {
-    constructor() {
-
-    }
-    constructor(default: V) {
-
-    }
-}
-
-
-extends HashMap<K, V, S>: Dictionary {
-    type Key = K;
-    type Value = V;
-    type Entry = HashMapEntry<K, V, S>
-    default(self): V? {
-
-    }
-    insert(self, key: Self::Key): Self::Default {
-
-    }
-    delete(self, key: Self::Key): Self::Default {
-
-    }
-
-    `[]`(self, key: Self::Key): Self::Default {
-
-    }
-    `[]=`(self, key: Self::Key, value: Self::Value): Self::Value? {
-
-    }
-
-    keys(self): HashMapKeys<Self::Key> {
-
-    }
-    values(self): HashMapValues<Self::Value> {
-
-    }
-}
-
