@@ -1,5 +1,6 @@
 namespace package.category;
 
-trait Monoid<A>: Semigroup<A> {
-    empty(): A
+trait Monoid: Semigroup {
+    empty(): Self
 }
+

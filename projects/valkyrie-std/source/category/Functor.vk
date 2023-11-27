@@ -1,5 +1,9 @@
 namespace package.category;
 
-trait Functor<F<~>> {
-    flat_map<A, B>(fa: F<A>, f: A -> B): F<B>
+trait Functor {
+    #functional
+    map<A, B>(self: Self<A>, f: A -> B): Self<B>
 }
+
+
+

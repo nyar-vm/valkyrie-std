@@ -1,6 +1,9 @@
 namespace* package.collections;
 
 class OrderMap<K, V> {
+    constructor() {
+
+    }
 
 }
 

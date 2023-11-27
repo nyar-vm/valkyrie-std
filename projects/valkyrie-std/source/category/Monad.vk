@@ -1,19 +1,23 @@
 namespace package.category;
 
-trait Monad<M<~>> {
-    ///
-    pure<A>(a: A) -> M<A>;
-    ///
-    bind<A, B>(m: M<A>, f: A -> M<B>) -> M<B>;
-    ///
-    join<A>(m: M<M<A>>) -> M<A> {
+
+
+trait Monad: Functor {
+    pure<A>(a: A) -> Self<A>;
+    bind<A, B>(m: Self<A>, f: A -> Self<B>) -> Self<B>;
+    join<A>(m: Self<Self<A>>) -> Self<A> {
         bind(m, identity)
     }
 }
-
-trait Comonad<M<~>> {
+extends Option: Monad {
+    pure<A>(a: A) -> Self<A> {
+        Some(v)
+    }
+}
+trait Comonad {
+    type Self: * => *;
     /// dual of Monad::unit
-    extract(m: M<A>) -> A;
+    extract(m: Self<A>) -> A;
     /// dual of Monad::join
-    duplicate(m: M<A>) -> M<M<A>>;
+    duplicate(m: Self<A>) -> Self<Self<A>>;
 }

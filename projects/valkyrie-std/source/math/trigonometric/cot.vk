@@ -6,6 +6,7 @@ trait Cotangent {
     type Output;
 
     #completion(Hide)
-    #operator(Headix, 'cos')
+    #operator(Headix)
+    #functional('cot')
     cotangent(self) -> Self::Output;
 }

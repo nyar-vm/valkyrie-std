@@ -1,11 +1,10 @@
 namespace package.category;
 
-trait Applicative<F<~>>: Functor<F> {
-    ap<A, B>(ff: F<A -> B>)(fa: F<A>): F<B>
+trait Applicative: Functor {
+    #functional
+    apply<A, B>(f: Self<A -> B>): Self<A> -> Self<B>
+}
 
-    pure<A>(a: A): F<A>
+trait Traversable {
 
-    map<A, B>(fa: F<A>)(f: A -> B): F<B> {
-        ap(pure(f))(fa)
-    }
 }

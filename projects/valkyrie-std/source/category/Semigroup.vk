@@ -1,6 +1,6 @@
 namespace package.category;
 
-trait Semigroup<A> {
-    combine(x: A, y: A): A
+trait Semigroup {
+    combine(self, rhs: Self): Self
 }
 
