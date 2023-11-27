@@ -1,0 +1,7 @@
+namespace package.category;
+
+
+trait Traversable {
+
+}
+

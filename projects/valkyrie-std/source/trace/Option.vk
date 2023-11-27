@@ -7,14 +7,7 @@ variant Option<T> {
     None,
 }
 
-extends Option: Functor {
-    map<A, B>(self: Self<A>, f: A -> B): Self<B> {
-        match self {
-            case Some(v): Some(f(v))
-            case None:    None
-        }
-    }
-}
+
 extends Option {
     /// # Examples
     /// ```

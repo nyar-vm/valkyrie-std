@@ -4,3 +4,8 @@ trait Monoid: Semigroup {
     empty(): Self
 }
 
+extends Option<T>: Monoid {
+    empty(): Option<T> {
+        None
+    }
+}

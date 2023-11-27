@@ -4,3 +4,13 @@ trait Semigroup {
     combine(self, rhs: Self): Self
 }
 
+extends Option<T>: Semigroup {
+    combine(self, other: Option<T>): Self {
+        match (self, other) {
+            case (Some(a), Some(b)): Some(a + b),
+            case (Some(a), None   ): Some(a),
+            case (None,    Some(a)): Some(a),
+            case (None,    None)   : None,
+        }
+    }
+}
