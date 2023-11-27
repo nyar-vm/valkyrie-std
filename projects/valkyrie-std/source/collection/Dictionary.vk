@@ -1,16 +1,10 @@
-namespace package.collections;
+namespace package.collections;;
 
 trait Dictionary {
     type Key;
     type Value;
     type Entry;
     alias type Pair = (key: Self::Key, value: Self::Value)
-    alias type Default = {
-    if self.default.is_some() {
-        V
-    }
-    else {
-        V?
-    }
-}
+    dynamic type Default;
+    default(): V? {}
 }

@@ -1,0 +1,7 @@
+namespace package.collections;
+
+#native
+#derive(Serde)
+class HashMapValues[V] {
+
+}

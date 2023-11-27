@@ -1,11 +1,11 @@
 namespace package.number;
 
 #refine
-class Prime {
-    ordinal: Natural
+structure Prime {
+    ordinal: Ordinal
 }
 
-extend Prime {
+extends Prime {
     uncheck constructor(n: Natural) -> Self {
         if n == 0 {
             return null

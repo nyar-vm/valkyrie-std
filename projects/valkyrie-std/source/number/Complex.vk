@@ -1,9 +1,9 @@
 namespace package.number;
 
 #native
-class Complex<Re, Im> {
-    real: Re,
-    imaginary: Im,
+structure Complex<Re, Im> {
+    re: Re,
+    im: Im,
 }
 
 #native

@@ -4,11 +4,11 @@ namespace package.number;
 enumerate Sign(i8) {
     NoSign = 0
     Positive = 1
-    Negative = -1
+    Negative = -1,
 }
 
 #native
-class Integer {
+structure Integer {
     sign: Sign = Sign::NoSign;
     natural: Natural = default;
 }
@@ -103,22 +103,30 @@ extends Integer {
     }
 }
 
+#[private, native]
 extends Natural {
-    private native {
-        new_i64(n: i64): Self;
-        new_u64(n: u64): Self;
-        new_nat(n: Natural): Self;
-
-        neg(self): Self
-
-        add_u64(self, n: u64): Self;
-        add_i64(self, n: i64): Self;
-        add_nat(self, n: Natural): Self;
-        add_int(self, n: Self): Self;
-
-        add_u64_inplace(mut self, n: u64);
-        add_i64_inplace(mut self, n: i64);
-        add_nat_inplace(mut self, n: Natural);
-        add_int_inplace(mut self, n: Self);
-    }
+    #ffi("vit/number/integer/add")
+    new_i64(n: i64): Self;
+    #ffi("vit/number/integer/add")
+    new_u64(n: u64): Self;
+    #ffi("vit/number/integer/add")
+    new_nat(n: Natural): Self;
+    #ffi("vit/number/integer/add")
+    neg_this(self): Self
+    #ffi("vit/number/integer/add")
+    add_u64(self, n: u64): Self;
+    #ffi("vit/number/integer/add")
+    add_i64(self, n: i64): Self;
+    #ffi("vit/number/integer/add")
+    add_nat(self, n: Natural): Self;
+    #ffi("vit/number/integer/add")
+    add_int(self, n: Self): Self;
+    #ffi("vit/number/integer/add")
+    add_u64_inplace(mut self, n: u64);
+    #ffi("vit/number/integer/add")
+    add_i64_inplace(mut self, n: i64);
+    #ffi("vit/number/integer/add")
+    add_nat_inplace(mut self, n: Natural);
+    #ffi("vit/number/integer/add")
+    add_int_inplace(mut self, n: Self);
 }

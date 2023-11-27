@@ -1,0 +1,7 @@
+namespace package.number;
+
+#refinement
+class Ordinal(layout: Integer) {
+
+}
+

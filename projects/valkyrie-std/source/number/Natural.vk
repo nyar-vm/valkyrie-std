@@ -1,12 +1,12 @@
 namespace package.number;
 
 #native(resource)
-class Natural {
-
+structure Natural {
+    handler: Resource,
 }
 
-extends Natural {
-    preset() {
+extends Natural: Tacit {
+    tacit() {
         Self::new_u64(0)
     }
 }
@@ -29,9 +29,9 @@ extends Natural {
     }
 }
 
-#native
+#[native, private]
 extends Natural {
-    private new_u64(n: u64): Self;
-    private add_u64(self, n: u64): Self;
-    private add_nat(self, n: Self): Self;
+     new_u64(n: u64): Self;
+     add_u64(self, n: u64): Self;
+     add_nat(self, n: Self): Self;
 }
