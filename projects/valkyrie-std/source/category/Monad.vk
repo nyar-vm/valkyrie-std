@@ -1,23 +1,36 @@
-namespace package.category;
-
+namespace package.category;;
 
 
 trait Monad: Functor {
+    //
     pure<A>(a: A) -> Self<A>;
+    // `and_then`
     bind<A, B>(m: Self<A>, f: A -> Self<B>) -> Self<B>;
     join<A>(m: Self<Self<A>>) -> Self<A> {
         bind(m, identity)
     }
 }
-extends Option: Monad {
+
+extends Option<$>: Monad {
     pure<A>(a: A) -> Self<A> {
         Some(v)
     }
+    bind<A, B>(self : Option<A>, f: A -> Option<B>) -> Option<B> {
+        match self {
+            case Some(v): f(v)
+            case None   : None
+        }
+    }
 }
-trait Comonad {
-    type Self: * => *;
-    /// dual of Monad::unit
-    extract(m: Self<A>) -> A;
-    /// dual of Monad::join
-    duplicate(m: Self<A>) -> Self<Self<A>>;
+
+extends Result<$, E>: Monad {
+    pure<A>(a: A) -> Self<A> {
+        Fine(v)
+    }
+    bind<A, B>(self: Result<A, E>, f: A -> Result<B, E>) -> Result<B, E> {
+        match self {
+            case Fine(v): f(v)
+            case Fail(e): Fail(e)
+        }
+    }
 }

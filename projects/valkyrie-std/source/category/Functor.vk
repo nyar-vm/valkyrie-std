@@ -6,4 +6,20 @@ trait Functor {
 }
 
 
+extends Option<$>: Functor {
+    map<A, B>(self: Option<A>, f: A -> B): Option<B> {
+        match self {
+            case Some(v): Some(f(v))
+            case None:    None
+        }
+    }
+}
 
+extends Result<$, E>: Functor {
+    map<A, B>(self: Result<A, E>, f: A -> B): Result<B, E> {
+        match self {
+            case Fine(v): Some(f(v))
+            case Fail(e): Fail(e)
+        }
+    }
+}

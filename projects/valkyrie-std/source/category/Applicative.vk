@@ -2,9 +2,39 @@ namespace package.category;
 
 trait Applicative: Functor {
     #functional
-    apply<A, B>(f: Self<A -> B>): Self<A> -> Self<B>
+    apply<A, B>(self, other: Self<A -> B>): Self<B>
+    left_a2<A, B>(f: (A, A) -> B, a: Self<A>, b: Self<B>): Self<B>
 }
 
-trait Traversable {
-
+extends Option<$>: Applicative {
+    apply<A, B>(self, other: Option<A -> B>) -> Option<B> {
+        match other {
+            case Some(f): self.map(f)
+            case None   : None
+        }
+    }
+    left_a2<A, B>(f:(A, A) -> B, a: Option<A>, b: Option<A>): Option<B> {
+        match (a, b) {
+            case (Some(a), Some(b)): Some(f(a, b))
+            case _                 : None
+        }
+    }
 }
+
+extends Result<$, E>: Applicative {
+    apply<A, B>(self, other: Result<A -> B, E>) -> Result<B, E> {
+        match (self, other) {
+            case (Fine(v), Fine(f)): Fine(f(v))
+            case (Fail(e), _      ): Fail(e)
+            case (_,       Fail(e)): Fail(e)
+        }
+    }
+    left_a2<A, B>(f: (A, A) -> B, a: Result<A, E>, b: Result<A, E>): Result<B, E> {
+        match (a, b) {
+            case (Fine(a), Fine(b)): Fine(f(a, b))
+            case (Fail(e), _      ): Fail(e)
+            case (_,       Fail(e)): Fail(e)
+        }
+    }
+}
+

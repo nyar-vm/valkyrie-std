@@ -2,7 +2,7 @@ while x > 0 {
     eventA
 }
 
-loop {
+while {
     if x > 0 {
         eventA;
         continue;

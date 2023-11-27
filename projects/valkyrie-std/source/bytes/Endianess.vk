@@ -1,7 +1,8 @@
 namespace package.bytes;
 
-#transparent type LE = Endianess::LittleEndian;
-#transparent type BE = Endianess::BigEndian;
+
+type LE = Endianess::LittleEndian;
+type BE = Endianess::BigEndian;
 
 type Bytes = Array<u8>
 
@@ -13,7 +14,6 @@ variant Endianess {
     LittleEndian,
     BigEndian,
 }
-
 
 trait StreamReader {
     read_from(buffer: R, order: Endianess) {

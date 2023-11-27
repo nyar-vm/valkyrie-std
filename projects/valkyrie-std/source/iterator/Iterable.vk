@@ -1,5 +1,5 @@
-trait Iterable {
+trait IntoIterator {
 	type Item
-	type IteratorType <: Iterator { Item: Iterable.self.Item }
+	type IteratorType: Iterator
 	iterator: IteratorType;
 }

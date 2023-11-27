@@ -2,22 +2,22 @@ namespace package.image;
 
 trait Image {
     type Pixel;
-    get width: Integer;
-    get height: Integer;
-    get channels: Integer;
-    get pixels(self) -> Integer {
+    get width: usize;
+    get height: usize;
+    get channels: usize;
+    get pixels(self) -> usize {
         self.width * self.height * self.channels
     };
-    get_channel(self, id: Integer) -> Matrix[Self::Pixel::Bit] {
+    get_channel(self, id: Index) -> Image {
 
     }
-    set_channel(mut self, id: Integer, channel: Matrix[Self::Pixel::Bit]) {
+    set_channel(mut self, id: Ordinal, channel: Image): Image? / ImageError {
 
     }
-    get_pixel(self, x: Integer, y: Integer) -> Self::Pixel {
+    get_pixel(self, x: Ordinal, y: Ordinal) -> Self::Pixel {
 
     }
-    set_pixel(mut self, x: Integer, y: Integer, pixel: Self::Pixel) {
+    set_pixel(mut self, x: Ordinal, y: Ordinal, pixel: Self::Pixel) {
         image.get_pixel().mutable = pixel;
     }
 }

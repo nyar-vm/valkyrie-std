@@ -1,0 +1,8 @@
+namespace package.collections;
+
+trait Sequence {
+    get count: SizeHint
+    is_empty(self): bool;
+}
+
+

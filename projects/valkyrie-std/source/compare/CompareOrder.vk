@@ -7,12 +7,12 @@ trait Comparison {
 }
 
 #derive(Comparison)
-variant StrongOrder: i8 {
+variant StrongOrder(i8) {
 
 }
 
 #derive(Comparison)
-variant WeakOrder: i8 {
+variant WeakOrder(i8) {
 
 }
 
@@ -31,11 +31,6 @@ class Vector2 {
     x: f64,
     y: f64,
 }
-
-
-
-
-
 
 
 
