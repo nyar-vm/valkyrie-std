@@ -1,5 +1,2 @@
-namespace! package.collections;
-
-using! package.collections.{
-    hashmap.HashMap
-}
+#document.include('Readme.md')
+namespace! package.collections.list;

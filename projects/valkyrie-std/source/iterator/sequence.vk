@@ -20,6 +20,9 @@ extends SequenceIterator: Iterator {
 }
 
 trait Sequence<T>: Iterable<IteratorType: SequenceIterator, Item: T> {
+	#predicate(error: "This sequence is not scalable")
+	scalable(self): Predicate;
+
 	length(self) -> Integer;
 	capacity(self) -> Integer {
 		self.length()
@@ -35,15 +38,12 @@ trait Sequence<T>: Iterable<IteratorType: SequenceIterator, Item: T> {
 	final `[]`(self, index: Integer) -> Sequence::Item {
 		self.get(index)
 	}
-}
 
-/// 可以分成两段的序列
-trait LinearSequence<T>: Sequence<T> {
-	split(self, index: Integer) -> (lhs: Self, rhs: Self) {
-		return (
-			self.slice(0, index),
-			self.slice(index, self.length()),
-		);
+	prepend(scalable self, other: Sequence) {
+
+	}
+	append(scalable self, other: Sequence) {
+
 	}
 }
 
@@ -56,7 +56,7 @@ trait ScalableSequence<T>: Sequence<T> {
 	/// 能把 other 的元素逐个放到左边
 	append(mut self, other: Sequence);
 	/// 能把 other 的元素逐个放到右边
-	extend(mut self, other: Sequence);
+
 	shrink(mut self)
 	clear(mut self)
 

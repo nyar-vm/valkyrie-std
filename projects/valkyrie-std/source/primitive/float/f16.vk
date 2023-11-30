@@ -1,0 +1,4 @@
+namespace package.native;
+
+#[primitive(16), alias(f16)]
+class Float16 {}

@@ -3,14 +3,14 @@
 - 等价: Equivalent, 路径 `"name.vk"` 和 `"Name.vk"` 等价, 但可区分.
 - 相等: Equal, 路径 `"name.vk"` 和 `"name.vk"` 相等且不可区分.
 
-variant partial_ordering {
+unite partial_ordering {
 Less,
 Equivalent,
 Greater,
 Unordered,
 }
 
-variant weak_order {
+unite weak_order {
 
 std::weak_ordering::less、std::weak_ordering::equivalent 和 std::weak_ordering::greater
 }

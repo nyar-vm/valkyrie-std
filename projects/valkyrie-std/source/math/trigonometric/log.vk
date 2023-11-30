@@ -1,8 +1,5 @@
 namespace std.math.trigonometric
 
-inline micro log<T>(term: T) -> <T as Logarithm>::Output {
-    term.logarithm()
-}
 
 
 trait Logarithm {

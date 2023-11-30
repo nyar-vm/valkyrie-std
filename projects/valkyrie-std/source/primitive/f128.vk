@@ -1,5 +1,0 @@
-namespace package.native;
-
-#native(16byte)
-#derive(Copy, Clone)
-class f128 {}

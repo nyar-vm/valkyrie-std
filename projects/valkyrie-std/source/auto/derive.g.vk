@@ -50,7 +50,7 @@ class AsyncTask {};
 
 
 
-variant Poll[R, E] {
+unite Poll[R, E] {
     /// 执行中或未开始
     Pending,
     /// 已完成的任务

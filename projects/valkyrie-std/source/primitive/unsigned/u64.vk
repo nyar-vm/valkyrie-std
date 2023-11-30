@@ -1,0 +1,4 @@
+namespace package.native;
+
+#[primitive(64), alias(u8)]
+class Unsign64 {}

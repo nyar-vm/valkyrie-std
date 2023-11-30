@@ -1,5 +1,6 @@
 namespace package.numeric;
 
+#alias(vec4)
 class Vector4 {
 	x: f32,
 	y: f32,

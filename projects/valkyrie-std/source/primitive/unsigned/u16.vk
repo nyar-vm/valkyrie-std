@@ -1,0 +1,4 @@
+namespace package.native;
+
+#[primitive(16), alias(u8)]
+class Unsign16 {}

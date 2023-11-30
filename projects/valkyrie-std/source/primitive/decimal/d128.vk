@@ -1,0 +1,4 @@
+namespace package.native;
+
+#[primitive(128), alias(d128)]
+class Decimal128 {}

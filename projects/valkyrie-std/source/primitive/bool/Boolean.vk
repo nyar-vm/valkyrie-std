@@ -1,18 +1,15 @@
 namespace package.native;
 
 #transparent type bool = Boolean;
-#transparent let true = Boolean::True;
-#transparent let false = Boolean::False;
 
-#native(1byte)
-#derive(Copy, Clone, Display)
-variant Boolean {
+#[primitive(1), alias(bool)]
+unite Boolean {
+    #[alias(true)]
     True,
+    #[alias(false)]
     False
 }
 
-
-#native
 extends bool {
     def is_true(self) -> bool {
         @matches(self, true)
@@ -25,7 +22,6 @@ extends bool {
     }
 }
 
-#native
 extends bool: Negative {
     def negative(mut self) {
         self = self.opposite()

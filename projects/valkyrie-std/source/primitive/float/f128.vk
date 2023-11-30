@@ -1,0 +1,4 @@
+namespace package.native;
+
+#[primitive(128), alias(f128)]
+class Float128 {}

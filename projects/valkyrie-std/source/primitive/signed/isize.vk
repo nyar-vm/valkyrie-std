@@ -1,0 +1,5 @@
+namespace package.native;
+
+
+#[primitive(@compile_target("pointer-width")), alias(isize)]
+class IntegerPointerSize {}

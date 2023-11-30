@@ -1,5 +1,0 @@
-namespace package.native;
-
-#native
-#derive(Copy, Clone)
-class i8 {}

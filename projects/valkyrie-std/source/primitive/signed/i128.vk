@@ -1,0 +1,4 @@
+namespace package.native;
+
+#[primitive(128), alias(i128)]
+class Integer128 {}

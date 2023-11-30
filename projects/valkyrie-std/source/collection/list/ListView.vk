@@ -1,18 +1,61 @@
-namespace package.collections;
+namespace package.collections.list;
 
-@native
 @document.include('ListView.md')
-class ListView⦓T⦔ {
-    /// # Examples
-    ///
-    /// ```
-    /// let list = List⦓int⦔::new(3);
-    /// list.append(1, 2, 3);
-    /// let view = list.view();
-    /// @debug.assert_equal(
-    ///     view,
-    ///     [1, 2, 3],
-    /// );
-    /// ```
-    constructor(list: List⦓T⦔) { }
+structure ListView<T> {
+    list: List<T>,
+    span: Span<usize>
+
+    constructor(list: List<T>, span: Span<usize>?) {
+        let head = span?.head ?? 0;
+        let tail = span?.tail ?? list.length;
+        self.list = list
+        self.span = Span(min, max)
+    }
+}
+
+extends List<T>: IntoIterator {
+    type Item = T
+    type Iterator = ListView<T>
+
+    into_iterator(self) -> Self::Iterator {
+        ListView(self)
+    }
+}
+
+extends List<T> {
+    #predicate
+    is_empty(self) {
+
+    }
+    view(self, span: Span<usize>?): ListView<T> {
+        ListView(self, span)
+    }
+    head(self): T | T? {
+        if self.is_empty {
+            null
+        }
+        else {
+            self.get_index(1)
+        }
+    }
+    head_split(self): (T | T?, ListView<T>) {
+        self.get_index(1)
+    }
+    tail(self): T | T? {
+        if self.is_empty {
+            null
+        }
+        else {
+            self.get_index(self.length)
+        }
+    }
+    tail_split(self): (T | T?, ListView<T>) {
+        self.get_index(1)
+    }
+    most(){
+        self.get_index([2:-1])
+    }
+    rest(){
+        self.get_index([1:-1])
+    }
 }

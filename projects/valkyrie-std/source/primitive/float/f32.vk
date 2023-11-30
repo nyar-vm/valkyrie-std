@@ -1,0 +1,4 @@
+namespace package.native;
+
+#[primitive(32), alias(f32)]
+class Float32 {}

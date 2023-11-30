@@ -1,6 +1,6 @@
 namespace package.category;
 
-variant Either<L, R> {
+unite Either<L, R> {
 	Lyft { l: L },
 	Riht { r: R },
 }

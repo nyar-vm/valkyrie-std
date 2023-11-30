@@ -1,0 +1,4 @@
+namespace package.native;
+
+#[primitive(64), alias(i64)]
+class Integer64 {}

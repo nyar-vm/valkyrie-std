@@ -1,86 +1,48 @@
-namespace package.collections;
-
-@native
-@document.include('readme.md')
-class List<T>{
-    /// # Examples
-    ///
-    /// ```
-    /// let list = List⦓int⦔::new(3);
-    /// ```
-    constructor(capacity: usize) { }
-
-    subscript(self, index: Index) -> T { }
+namespace package.collections.list;
 
 
-    concat(self, rhs: Self) -> Self { }
-
-    concat_assign(mut self, rhs: Self) { }
+#native
+@document.include('List.md')
+class List<T> {
+    handler: Resource
+    _type: PhantomData<T>
 }
 
-@native
-class ListSlice⦓T⦔ {
-    private _list: ListView⦓T⦔,
-    private _slice: Slice,
+#native
+private structure ListEntry {
+    meta: MetaType!
+    data: DataCell!
 }
 
-imply ListSlice⦓T⦔: Iterator {
-    type Item = T
-    next(self) -> Option⦓T⦔ { }
+extends List<T> {
+    constructor(capacity: usize = 0) {
+        Self {
+
+        }
+    }
 }
 
-@native
-structure Slice {
-    start: Integer,
-    end: Integer,
-    step: Integer,
+
+extends List<T> {
+    get(self, index: isize): T? {
+        self.get_entry(index)?.data?.cast::<T>()
+    }
+    set(mut self, index: isize, value: T): T? {
+        let old = self.get_entry(index)?.data;
+        old?.do_swap(value)
+    }
+
+
+    insert(mut self, last: isize, value: T): Unit {
+
+    }
+    remove(mut self, index: isize, value: T): Unit {
+
+    }
+
+    append(self, value: T) {
+        self.insert(-1)
+    }
 }
 
-imply List⦓T⦔: IntoIterator {
-    type Item = T
-    type Iterator = ListSlice⦓T⦔
-
-    into_iterator(self) -> Self::Iterator { }
-}
-
-# getters
-@native
-imply List⦓T⦔: Sequence {
-    head(self) -> T? { }
-    tail(self) -> T? { }
-    rest(self) -> ListView⦓T⦔ { }
-    most(self) -> ListView⦓T⦔ { }
-}
-
-self.head ?= 1
-
-
-@native
-imply List⦓T⦔ {
-    /// # Examples
-    ///
-    /// ```
-    /// let a = new List⦓int⦔(3) {1, 2, 3};
-    /// let b = new List⦓int⦔(3) {4, 5, 6};
-    /// @debug.assert_equal(a ++ b, [1, 2, 3, 4, 5, 6]);
-    operator `++`(self, rhs: Self) { }
-    operator `++=`(mut self, rhs: Self) { }
-    /// # Examples
-    ///
-    /// ```
-    /// let list = List⦓int⦔::new(3);
-    /// list.append(1, 2, 3);
-    /// list ++= [4, 5, 6];
-    /// @debug.assert_equal(list, [1, 2, 3, 4, 5, 6]);
-    /// ```
-    append(mut self, **terms: List⦓T⦔) { }
-    prepend(mut self, **terms: List⦓T⦔) { }
-
-
-    clear(mut self) { }
-
-    remove(mut self, index: usize) { }
-
-
-}
 

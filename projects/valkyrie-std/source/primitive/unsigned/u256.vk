@@ -1,0 +1,4 @@
+namespace package.native;
+
+#[primitive(256), alias(u256)]
+class Unsign256 {}

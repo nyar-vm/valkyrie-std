@@ -1,6 +1,6 @@
 namespace package.category;
 
-variant Option<T> {
+unite Option<T> {
     Some {
         value: T,
     },

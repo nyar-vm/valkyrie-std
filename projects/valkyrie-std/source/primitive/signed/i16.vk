@@ -1,0 +1,4 @@
+namespace package.native;
+
+#[primitive(16), alias(i16)]
+class Integer16 {}

@@ -1,0 +1,4 @@
+namespace package.native;
+
+#[primitive(128), alias(u128)]
+class Unsign128 {}

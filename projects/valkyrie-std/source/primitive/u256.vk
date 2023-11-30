@@ -1,5 +1,0 @@
-namespace package.native;
-
-#native(32byte)
-#derive(Copy, Clone)
-class u256 {}

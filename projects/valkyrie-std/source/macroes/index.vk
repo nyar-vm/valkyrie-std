@@ -2,7 +2,7 @@ namespace package.macroes;
 
 /// Mark the implementation as native
 /// The following part uses pseudo-code, and does not represent actual implementation.
-#token::navigation(jump = false)
+#token.navigation(jump = false)
 macro native derive native(
     ///
     receptor: AnyNode,
@@ -13,7 +13,7 @@ macro native derive native(
 )
 
 ///
-#token::navigation(jump = false)
+#token.navigation(jump = false)
 macro native derive navigation(
     ///
     namepath: LiteralNode,

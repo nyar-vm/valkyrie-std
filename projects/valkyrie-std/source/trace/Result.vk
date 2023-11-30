@@ -1,6 +1,6 @@
 namespace package.category;
 
-#token_navigation(Option::Some, color = Variant)
+#token_navigation(Option::Some, color = unite)
 def macro Success(e: Expression) {
     quote {
         new Result::Success {
@@ -9,7 +9,7 @@ def macro Success(e: Expression) {
     }
 }
 
-#token_navigation(Option::None, color = Variant)
+#token_navigation(Option::None, color = unite)
 def macro Failure(e: Expression) {
     ¶ {
         new Result::Failure {
@@ -19,7 +19,7 @@ def macro Failure(e: Expression) {
 }
 
 #documentation(include="Result.vnote")
-variant Result[T, E] raise T {
+unite Result[T, E] raise T {
     ///
     Success {
         ///

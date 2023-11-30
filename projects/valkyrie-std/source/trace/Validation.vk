@@ -1,6 +1,6 @@
 namespace package.category;
 
-variant Validation[T, E] / T {
+unite Validation[T, E] / T {
     Fine {
         value: T,
         error: [E],

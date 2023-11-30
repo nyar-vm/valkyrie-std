@@ -1,0 +1,4 @@
+namespace package.native;
+
+#[primitive(32), alias(u32)]
+class Unsign32 {}

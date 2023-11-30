@@ -1,0 +1,4 @@
+namespace package.native;
+
+#[primitive(8), alias(i8)]
+class Signed8 { }

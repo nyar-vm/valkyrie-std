@@ -1,0 +1,4 @@
+namespace package.native;
+
+#[primitive(256), alias(i256)]
+class Interger256 {}
