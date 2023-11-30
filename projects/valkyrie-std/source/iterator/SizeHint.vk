@@ -1,0 +1,25 @@
+
+
+unite SizeHint {
+    Exact {
+        count: usize
+    }
+    /// in range
+    Upper {
+        max: usize,
+    }
+    Unlimited {
+        /// Recommended preallocated space
+        suggest: usize = 0
+    }
+}
+
+extends SizeHintInfo {
+    suggest_size(self) {
+        match self {
+            case Lower { count }: count
+            case Upper { max, .. }: max
+            case Unlimited { suggest }: suggest
+        }
+    }
+}

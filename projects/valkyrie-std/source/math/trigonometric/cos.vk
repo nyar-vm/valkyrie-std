@@ -4,8 +4,7 @@ trait Cosine {
     type Output;
 
     #completion(Hide)
-    #operator(Headix)
-    #functional('cos')
+    #[operator(Headix), functional('cos')]
     cosine(self) -> Self::Output;
 }
 

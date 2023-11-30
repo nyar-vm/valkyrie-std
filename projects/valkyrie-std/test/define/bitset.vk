@@ -17,7 +17,7 @@ bitflag Flags {
 def test test() {
     let e1 = Flags::A | Flags::C;
     let e2 = Flags::B | Flags::C;
-    // variant
+    // unite
     assert_eq((e1 | e2), Flags::ABC);
     // intersection
     assert_eq((e1 & e2), Flags::C);

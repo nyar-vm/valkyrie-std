@@ -5,16 +5,15 @@ class Precedence {
     power: u16,
 }
 
-union Affix(u8) {
+enumerate Affix(u8) {
     Headix = 0,
     Prefix = 1,
     Infix = 2,
     Postfix = 3,
 }
 
-union Associativity(u8) {
+enumerate Associativity(u8) {
     Not = 0,
     Left = 1,
     Right = 2,
 }
-

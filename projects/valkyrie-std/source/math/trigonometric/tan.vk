@@ -1,14 +1,10 @@
 namespace std.math.trigonometric
 
-inline micro tan(term: Tangent) -> Tangent::Output {
-    term.tangent()
-}
-
 trait Tangent {
     type Output;
 
     #completion(Hide)
-    #operator(Headix, 'tan')
+    #[operator(Headix), functional('tan')]
     tangent(self) -> Self::Output;
 }
 

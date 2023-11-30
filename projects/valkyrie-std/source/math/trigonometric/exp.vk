@@ -1,14 +1,10 @@
 namespace std.math.trigonometric
 
-inline micro exp(term: Exponent) -> Exponent::Output {
-    term.exponent()
-}
-
 trait Exponent {
     type Output;
 
     #completion(Hide)
-    #operator(Headix, 'cos')
+    #[operator(Headix), functional('exp')]
     exponent(self) -> Self::Output;
 }
 

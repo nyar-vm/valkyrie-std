@@ -1,16 +1,11 @@
 namespace std.math.trigonometric
 
-inline micro cos<T>(term: T) -> <T as Cosine>::Output {
-    term.cosine()
-}
-
-
-trait Cosine {
+trait Sine {
     type Output;
 
     #completion(Hide)
-    #operator(Headix, 'cos')
-    cosine(self) -> Self::Output;
+    #[operator(Headix), functional('sin')]
+    sine(self) -> Self::Output;
 }
 
 

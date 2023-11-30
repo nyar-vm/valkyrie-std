@@ -9,7 +9,7 @@ trait Logarithm {
     type Output;
 
     #completion(Hide)
-    #operator(Headix, 'cos')
+    #[operator(Headix), functional('log')]
     logarithm(self) -> Self::Output;
 }
 
