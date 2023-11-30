@@ -3,7 +3,7 @@ namespace leetcode;
 /// 给定一个整数数组 nums 和一个整数目标值 target，
 /// 请你在该数组中找出和为目标值 target 的那 *两个* 整数, 并返回它们的数组下标。
 #test([2, 7, 11, 15], 9)
-def two_sum(nums: [u32], target: u32) {
+micro two_sum(nums: [u32], target: u32) {
     let mut map: HashMap[u32, u32] = [];
     for index, num in nums.enumerate() {
         let r = target - num;

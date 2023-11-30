@@ -6,6 +6,6 @@ let a = 123.4
 let b: b | b = 123.4
 
 
-def a(a: f32, b) {
+micro a(a: f32, b) {
 
 }

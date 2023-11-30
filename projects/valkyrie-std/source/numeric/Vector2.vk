@@ -8,7 +8,7 @@ class Vector2 {
 
 extends Vector3: From[f32]+ From[Vector2]+ From[Vector4] {
 	from(v: f32) {
-		return Vector3 {
+		return new Vector3 {
 			x: v,
 			y: 0.0,
 			z: 0.0,

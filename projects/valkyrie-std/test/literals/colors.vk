@@ -1,7 +1,7 @@
 namespace test1;
 using std.image.Color;
 
-def cmyk() {
+micro cmyk() {
     ©
     ©1
     ©12
@@ -14,7 +14,7 @@ def cmyk() {
     ©123456789
 }
 
-def rgba() {
+micro rgba() {
     ®
     ®1
     ®12
@@ -27,6 +27,6 @@ def rgba() {
     ®123456789
 }
 
-def color() {
+micro color() {
     Color(0, 0, 0)
 }

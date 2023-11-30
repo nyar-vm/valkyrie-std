@@ -1,0 +1,38 @@
+
+
+class Asynchronous {
+
+}
+trait Awaitable {
+    type Output;
+    await(self): Self::Output;
+    block(self): Self::Output;
+}
+
+// a.await
+// a.block
+
+
+
+
+
+#[native, token.kind(keyword)]
+macro async(block: AnyNode) {
+
+}
+
+
+module::async;
+package::async;
+
+
+micro async_read(path: Path) -> T / Asynchronous {
+    async {
+        File::read(path)
+    }
+}
+
+match async_read(file) {
+    when Asynchronous:
+        G
+}

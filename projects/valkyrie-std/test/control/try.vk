@@ -24,15 +24,15 @@ try Option<T> {
 }
 
 trait Biased {
-    def biased(self): bool;
+    micro biased(self): bool;
 }
 
 extend<T> Option<T>: Biased {
-    def biased(self) = @matches(self, Some(_))
+    micro biased(self) = @matches(self, Some(_))
 }
 
 extend<T> Result<T>: Biased {
-    def biased(self) = @matches(self, Success(_))
+    micro biased(self) = @matches(self, Success(_))
 }
 
 match a {

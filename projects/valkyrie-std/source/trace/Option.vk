@@ -13,10 +13,10 @@ extends Option {
     /// ```
     ///
     /// ```
-    def is_some(self) {
+    micro is_some(self) {
         @matches(self, Some(_))
     }
-    def is_none() {
+    micro is_none() {
         @matches(self, None)
     }
 }
@@ -29,7 +29,7 @@ extends Vector2D {
             block
         }
         @type_of(A)
-        return object Self {
+        return object {
 
         }
     }

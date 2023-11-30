@@ -31,10 +31,10 @@ extends char {
 
 #native
 extends bool: Negative {
-    def negative(mut self) {
+    micro negative(mut self) {
         self = self.opposite()
     }
-    def opposite(self) -> bool {
+    micro opposite(self) -> bool {
         self.is_false()
     }
 }

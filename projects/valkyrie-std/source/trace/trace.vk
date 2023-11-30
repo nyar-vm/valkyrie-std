@@ -4,6 +4,6 @@ effect Trace {
 }
 
 #effect
-def print() {
+micro print() {
 
 }

@@ -1,4 +1,4 @@
-def fibonacci(): Iterator[Integer] {
+micro fibonacci(): Iterator[Integer] {
     let mut a = 0;
     let mut b = 1;
     loop {
@@ -8,7 +8,7 @@ def fibonacci(): Iterator[Integer] {
     }
 }
 
-def main() {
+micro main() {
 for num in fibonacci().take(5) {
 print(num)
 }

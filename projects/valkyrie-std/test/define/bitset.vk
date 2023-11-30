@@ -14,7 +14,7 @@ bitflag Flags {
     中文 = 1 >> 8
 }
 
-def test test() {
+micro test test() {
     let e1 = Flags::A | Flags::C;
     let e2 = Flags::B | Flags::C;
     // unite
@@ -32,7 +32,7 @@ def test test() {
 }
 
 extends Bitflags {
-    as_bools(self) -> [bool] {
+    as_bools(self) -> Vector<bool> {
 
     }
     // always public

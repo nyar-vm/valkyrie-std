@@ -1,4 +1,4 @@
-def div42(f) {
+micro div42(f) {
     try {
         f()
     }
@@ -10,7 +10,7 @@ def div42(f) {
     }
 }
 
-def main() {
+micro main() {
     div42 {
         5 / 0
     }
@@ -22,7 +22,7 @@ class DivideZeroError {
 
 
 
-def safe_div(numerator: int, denominator: int) -> int / DivideZeroError {
+micro safe_div(numerator: int, denominator: int) -> int / DivideZeroError {
     if denominator == 0 {
         let a = raise Failure(DivZeroError(numerator))
     }

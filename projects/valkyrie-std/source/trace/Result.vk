@@ -1,7 +1,7 @@
 namespace package.category;
 
-#token_navigation(Option::Some, color = unite)
-def macro Success(e: Expression) {
+#token.navigation(Option::Some, color = unite)
+macro Success(e: Expression) {
     quote {
         new Result::Success {
             value
@@ -9,8 +9,8 @@ def macro Success(e: Expression) {
     }
 }
 
-#token_navigation(Option::None, color = unite)
-def macro Failure(e: Expression) {
+#token.navigation(Option::None, color = unite)
+macro Failure(e: Expression) {
     ¶ {
         new Result::Failure {
             §error

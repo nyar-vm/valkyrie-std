@@ -11,22 +11,22 @@ unite Boolean {
 }
 
 extends bool {
-    def is_true(self) -> bool {
+    micro is_true(self) -> bool {
         @matches(self, true)
     }
-    def is_false(self) -> bool {
+    micro is_false(self) -> bool {
         @matches(self, false)
     }
-    def then(self) -> bool {
+    micro then(self) -> bool {
 
     }
 }
 
 extends bool: Negative {
-    def negative(mut self) {
+    micro negative(mut self) {
         self = self.opposite()
     }
-    def opposite(self) -> bool {
+    micro opposite(self) -> bool {
         self.is_false()
     }
 }
