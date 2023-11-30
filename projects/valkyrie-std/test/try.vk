@@ -8,20 +8,24 @@ try {
 
 }
 
-try Option[T] {
+try Option<T> {
 
 }
 
 trait Biased {
-    micro biased(self): bool;
+     biased(self): bool;
 }
 
-extend[T] Option[T]: Biased {
-    micro biased(self) = @matches(self, Some(_))
+extend Option<T>: Biased {
+     biased(self) {
+         @matches(self, Some(_))
+     }
 }
 
-extend[T] Result[T]: Biased {
-    micro biased(self) = @matches(self, Success(_))
+extend Result<T>: Biased {
+     biased(self) {
+         @matches(self, Success(_))
+     }
 }
 
 match a {

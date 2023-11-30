@@ -1,17 +1,17 @@
 trait SemiGroup {
-    micro combine(self, rhs: Self): Self;
+     combine(self, rhs: Self): Self;
 }
 
 trait Monoid: SemiGroup {
-    micro unit();
+     unit();
 }
 
 forall T exists Option<T>: SemiGroup {
-    micro combine(self, rhs: Self) = self.or(rhs)
+     combine(self, rhs: Self) = self.or(rhs)
 }
 
 forall T exists Option<T>: Monoid {
-    micro unit() = None
+     unit() = None
 }
 
 trait HKT<U> {

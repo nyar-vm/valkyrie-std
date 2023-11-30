@@ -6,19 +6,19 @@ class ClassPoint {
 }
 
 /// 测试
-class class A3[T] {
-    ref x: T = Default::default(),
-    ref y: T = Default::default(),
-    ref z: T = Default::default(),
+`class` class A3<T> {
+    ref x: T = tacit,
+    ref y: T = tacit,
+    ref z: T = tacit,
 }
 
-class A4[T] {
+class A4<T> {
     ref x: Integer = 0,
     ref y: Integer = 0,
 }
 
 // https://crates.io/crates/custom_debug_derive
-class A3[T] {
+class A3<T> {
     #debug(rename="new_name")
     name: u32
     #debug(skip)
@@ -28,7 +28,7 @@ class A3[T] {
 
 #Serialize
 #Deserialize
-class B: Serialize + Deserialize raise C {
+class B: Serialize + Deserialize {
     a: Integer,
     b: Integer,
 }
@@ -39,7 +39,7 @@ class C {
     z,
 }
 
-let val = @type_of[a];
+let val = @type_of(a);
 let bbb = f(x).m(y)
 
 

@@ -1,12 +1,12 @@
 namespace package.category;
 
-unite Validation[T, E] / T {
+unite Validation<T, E> {
     Fine {
         value: T,
-        error: [E],
+        error: List<E>,
     },
     Fail {
         fatal: E,
-        error: [E],
+        error: List<E>,
     },
 }

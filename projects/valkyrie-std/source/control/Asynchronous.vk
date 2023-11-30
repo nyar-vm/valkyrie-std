@@ -4,16 +4,12 @@ class Asynchronous {
 
 }
 trait Awaitable {
-    type Output;
-    await(self): Self::Output;
-    block(self): Self::Output;
+    type Awaiter;
+    /// Asynchronous execution, contagious async, unless returns `!` or `()`
+    await(self): Continuation<Self::Awaiter>;
+    /// Execute synchronously and wait for the task to be completed.
+    block(self): Continuation<Self::Awaiter>;
 }
-
-// a.await
-// a.block
-
-
-
 
 
 #[native, token.kind(keyword)]
