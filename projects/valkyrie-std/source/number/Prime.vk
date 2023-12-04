@@ -2,7 +2,7 @@ namespace package.number;
 
 #refine
 structure Prime {
-    ordinal: Ordinal
+    ordinal: Ordinal,
 }
 
 extends Prime {

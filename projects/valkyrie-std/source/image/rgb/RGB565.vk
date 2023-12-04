@@ -1,7 +1,7 @@
 namespace package.image;
 
 structure RGB565 {
-    _data: u16
+    _data: u16,
     get r(): u8 {
 
     }

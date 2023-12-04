@@ -1,6 +1,3 @@
-
-
-
 class Precedence {
     power: u16,
 }

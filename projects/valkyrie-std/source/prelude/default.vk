@@ -9,7 +9,7 @@ using crate.{
     serde.{json, toml},
     native.{
         bool, true, false
-    }
+}
 };
 
 

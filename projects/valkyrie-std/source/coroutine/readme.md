@@ -1,0 +1,1 @@
+Coroutine, also known as one-shot delimited continuation.

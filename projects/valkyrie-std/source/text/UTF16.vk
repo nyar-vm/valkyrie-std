@@ -3,5 +3,5 @@ extension A {
 }
 
 extension A {
-namespace package.text;
+    namespace package.text;
 }

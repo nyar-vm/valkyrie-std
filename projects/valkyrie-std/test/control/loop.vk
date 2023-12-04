@@ -1,4 +1,10 @@
-loop {
-
+match expression {
+    case _: [...]
+}
+.for i if condition {
+    break
+}
+.match {
+    case _: return
 }
 

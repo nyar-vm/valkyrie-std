@@ -1,6 +1,6 @@
 namespace* package.collections;
 
 class IndexSet<K, V> {
-    map: IndexMap<K, ()>
+    map: IndexMap<K, ()>,
 }
 

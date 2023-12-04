@@ -7,7 +7,7 @@ using crate.bytes.{Endianess, LE};
 #derive(Clone)
 class UTF8Text {
     ///
-    get bytes: [u8];
+    get bytes: [u8,];
 }
 
 // constructor + from

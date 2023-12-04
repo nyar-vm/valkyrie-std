@@ -1,0 +1,24 @@
+trait Iterator {
+    type Item
+    next(self): Item?;
+    next(self, count: usize): Item?;
+}
+
+/// bidirectional iterator
+trait BidiIterator {
+    back(self) -> Item?;
+    back(self, count: usize): Item?;
+}
+
+/// random access iterator
+trait SkipIterator: Iterator + BidiIterator {
+    move_relative(self, n: isize): Item?;
+    move_to(self, n: isize): Item?
+}
+
+trait Collector {
+    type Item
+    collect(self) -> Item {
+
+    }
+}

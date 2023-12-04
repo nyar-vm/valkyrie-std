@@ -3,7 +3,7 @@ namespace package.math;
 trait Cotangent {
     type Output;
 
-    #completion(Hide)
+    #[ide.completion(Hide)]
     #[operator(Headix), functional('cot')]
     cotangent(self) -> Self::Output;
 }

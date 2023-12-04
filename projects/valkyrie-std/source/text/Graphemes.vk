@@ -6,7 +6,7 @@ namespace package.native;
 #derive(Copy, Clone, Display)
 class Graphemes {
     #range(1, 0x10FFFF)
-    codepoint: u32
+    codepoint: u32,
 }
 
 #native

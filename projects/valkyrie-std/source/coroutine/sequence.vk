@@ -3,8 +3,8 @@ class Dictionary;
 class Associative;
 
 class SequenceIterator {
-	term: Sequence
-	index: Integer
+	term: Sequence,
+	index: Integer,
 }
 
 extends SequenceIterator: Iterator {
@@ -39,20 +39,23 @@ trait Sequence<T>: Iterable<IteratorType: SequenceIterator, Item: T> {
 		self.get(index)
 	}
 
-	prepend(scalable self, other: Sequence) {
+	prepend(ska self, other: Sequence) {
 
 	}
-	append(scalable self, other: Sequence) {
+	append(ska self, other: Sequence) {
 
 	}
 }
+
+
+
 
 /// 可扩容的序列
 trait ScalableSequence<T>: Sequence<T> {
 	/// 保证容量至少为 `capacity`，如果容量不足则扩容
 	push(mut self, item: T)
 	/// 保证容量至少为 `capacity`，如果容量不足则扩容
-	pop(mut self) -> Sequence::Item
+	pop(mut self) -> Sequence::Item?
 	/// 能把 other 的元素逐个放到左边
 	append(mut self, other: Sequence);
 	/// 能把 other 的元素逐个放到右边
@@ -65,16 +68,13 @@ trait ScalableSequence<T>: Sequence<T> {
 		return self;
 	}
 }
-
-@silent
-exception A {
-
+trait NonEmptySequence<T>: ScalableSequence<T> {
+	override pop(ska self) -> Sequence::Item?
 }
-
 /// 可变的序列
 trait MutableSequence: Sequence {
-	micro set(mut self, index: Integer, item: Sequence::Item);
-	micro each(mut self, f: (Integer, Sequence::Item) -> ()) {
+	set(mut self, index: Integer, item: Sequence::Item);
+	each(mut self, f: (Integer, Sequence::Item) -> ()) {
 		for i in 0..self.length() {
 			f(i, self.get(i));
 		}

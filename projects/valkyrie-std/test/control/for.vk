@@ -11,9 +11,6 @@ for i in 0..=100 if i != 50 {
 for k, v in dict if v.is_ascii {
     eventA
 }
-else {
-    eventB
-}
 
 
 for mut `for`, mut in 0..=100 {

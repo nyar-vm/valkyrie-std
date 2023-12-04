@@ -1,7 +1,4 @@
-
-
-
-trait Add<R> {
+trait Add< R > {
     type Output;
     #operator(Infix, '+', 100, Left)
     add(self, rhs: R) -> Self::Output;
@@ -16,7 +13,7 @@ trait Add<R> {
 }
 
 #operator(Infix, '+=', 100, Left)
-trait AddAssign<R> {
+trait AddAssign< R > {
     add_assign(mut self, rhs: R);
 
     sum_assign(mut self, ..terms: R) {

@@ -90,7 +90,7 @@ extends Integer {
         Self::sub_i64(self)
     }
     infix `-`(self, rhs: i16): Integer {
-        @ffi("vit/number/integer/add")(self, other)
+        #ffi("vit/number/integer/add")(self, other)
     }
     infix `-`(self, rhs: i32): Integer {
         @ffi("vit/number/integer/add")(self, other)

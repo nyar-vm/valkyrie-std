@@ -1,6 +1,6 @@
 namespace* package.collections;
 
 structure HashMapKeys<K, V> {
-    map: HashMap<K, V>
+    map: HashMap<K, V>,
 }
 

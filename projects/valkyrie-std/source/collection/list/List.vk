@@ -4,14 +4,14 @@ namespace package.collections.list;
 #native
 @document.include('List.md')
 class List<T> {
-    handler: Resource
-    _type: PhantomData<T>
+    handler: Resource,
+    _type: PhantomData<T>,
 }
 
 #native
 private structure ListEntry {
-    meta: MetaType!
-    data: DataCell!
+    meta: MetaType!,
+    data: DataCell!,
 }
 
 extends List<T> {

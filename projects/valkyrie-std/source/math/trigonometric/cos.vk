@@ -3,7 +3,7 @@ namespace std.math.trigonometric
 trait Cosine {
     type Output;
 
-    #completion(Hide)
+    #[ide.completion(Hide)]
     #[operator(Headix), functional('cos')]
     cosine(self) -> Self::Output;
 }

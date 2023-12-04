@@ -1,0 +1,5 @@
+trait Iterable {
+    type Item
+    type IteratorType: Iterator
+    into_iterator(self): IteratorType;
+}

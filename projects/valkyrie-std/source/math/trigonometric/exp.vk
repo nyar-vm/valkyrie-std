@@ -3,7 +3,7 @@ namespace std.math.trigonometric
 trait Exponent {
     type Output;
 
-    #completion(Hide)
+    #[ide.completion(Hide)]
     #[operator(Headix), functional('exp')]
     exponent(self) -> Self::Output;
 }

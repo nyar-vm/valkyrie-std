@@ -3,7 +3,7 @@ namespace package.collections.list;
 @document.include('ListView.md')
 structure ListView<T> {
     list: List<T>,
-    span: Span<usize>
+    span: Span<usize>,
 
     constructor(list: List<T>, span: Span<usize>?) {
         let head = span?.head ?? 0;

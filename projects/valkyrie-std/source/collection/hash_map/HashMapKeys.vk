@@ -2,7 +2,7 @@ namespace* package.collections.hash_map;
 
 
 structure HashMapKeys<K, V> {
-    map: HashMap<K, V>
+    map: HashMap<K, V>,
 }
 
 

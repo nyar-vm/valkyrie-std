@@ -5,7 +5,7 @@ namespace std.math.trigonometric
 trait Logarithm {
     type Output;
 
-    #completion(Hide)
+    #[ide.completion(Hide)]
     #[operator(Headix), functional('log')]
     logarithm(self) -> Self::Output;
 }

@@ -1,5 +1,0 @@
-trait IntoIterator {
-	type Item
-	type IteratorType: Iterator
-	iterator: IteratorType;
-}

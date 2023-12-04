@@ -1,6 +1,6 @@
 namespace package.numeric;
 
-#alias(vec3)
+#alias(v3)
 class Vector3 {
 	x: f32,
 	y: f32,

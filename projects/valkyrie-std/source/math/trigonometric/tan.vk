@@ -3,7 +3,7 @@ namespace std.math.trigonometric
 trait Tangent {
     type Output;
 
-    #completion(Hide)
+    #[ide.completion(Hide)]
     #[operator(Headix), functional('tan')]
     tangent(self) -> Self::Output;
 }

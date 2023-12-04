@@ -1,12 +1,11 @@
 namespace package.numeric;
 
-#alias(vec2)
-class Vector2 {
+#alias(v2) {
 	x: f32,
 	y: f32,
 }
 
-extends Vector3: From[f32]+ From[Vector2]+ From[Vector4] {
+extends Vector3: From<f32>+ From<Vector2>+ From<Vector4> {
 	from(v: f32) {
 		return new Vector3 {
 			x: v,
