@@ -1,0 +1,13 @@
+namespace? package.collections.vector;
+
+
+class PrimitiveEntry<T> {
+    private pointer: usize,
+    private element: PhantomData<T>,
+}
+
+
+extends PrimitiveEntry<T> {
+    private pointer: usize,
+    private element: PhantomData<T>,
+}

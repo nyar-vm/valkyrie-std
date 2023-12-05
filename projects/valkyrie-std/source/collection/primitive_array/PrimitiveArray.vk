@@ -1,31 +1,18 @@
-namespace? package.collections.vector;
-
-
+namespace? package.collections.primitive_array;
 
 
 /// | pointer(4) | length(4) | item(size) | item(size)
-internal class PrimitiveArray<T> {
-    pointer: usize,
-    length: usize,
-    element: PhantomData<T>,
+structure PrimitiveArray<T> {
+    private pointer: Offset,
+    private length: usize,
+
 }
 
-/// | pointer(4) | occupied(4) | capacity(4) | item(size) | item(size)
-internal class PrimitiveDynamicArray<T> {
-    pointer: usize,
-    occupied: usize,
-    capacity: usize,
-    element: PhantomData<T>,
-}
-
-internal class PrimitiveEntry<T> {
-    private pointer: usize,
-    private element: PhantomData<T>,
-}
 
 extends PrimitiveArray<T> {
-    get(self, nth: usize): PrimitiveEntry<T>? {
-
+    get(self, nth: Offset): PrimitiveEntry<T> {
+        assert(nth != 0 && nth <= length, "Out of bounds error")
+        new PrimitiveEntry(size_of::<usize> * 2 + size_of::<T> * (nth - 1))
     }
     size(self): usize {
         size_of::<usize> * 3

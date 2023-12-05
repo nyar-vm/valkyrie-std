@@ -1,0 +1,42 @@
+namespace? package.collections.vector;
+
+
+
+
+/// | pointer(4) | occupied(4) | capacity(4) | item(size) | item(size)
+internal class PrimitiveArrayDynamic<T> {
+    pointer: usize,
+    occupied: usize,
+    capacity: usize,
+    element: PhantomData<T>,
+}
+class Vector<T> {
+    private memory: PrimitiveArrayDynamic<T>,
+}
+
+extends Vector<T> {
+    `[]`(self, nth: Ordinal): Option<T> {
+        if nth < self.pointer {
+            return null
+        }
+        else {
+            self.memory
+        }
+    }
+}
+
+extends PrimitiveArrayDynamic<T> {
+    get(self, nth: usize): PrimitiveEntry<T> {
+        assert(nth != 0 && nth <= length, "Out of bounds error")
+        new PrimitiveEntry(size_of::<usize> * 2 + size_of::<T> * (nth - 1))
+    }
+    size(self): usize {
+        size_of::<usize> * 3
+    }
+    heap_size(self): usize {
+        size_of::<T> * self.capacity
+    }
+
+    get(mut self)
+
+}
