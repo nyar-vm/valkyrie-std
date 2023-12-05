@@ -1,8 +1,5 @@
 namespace? package.collections.vector;
 
-
-
-
 /// | pointer(4) | occupied(4) | capacity(4) | item(size) | item(size)
 internal class PrimitiveArrayDynamic<T> {
     pointer: usize,
@@ -10,18 +7,27 @@ internal class PrimitiveArrayDynamic<T> {
     capacity: usize,
     element: PhantomData<T>,
 }
+
 class Vector<T> {
     private memory: PrimitiveArrayDynamic<T>,
 }
 
 extends Vector<T> {
-    `[]`(self, nth: Ordinal): Option<T> {
-        if nth < self.pointer {
-            return null
+    `[]`(self, nth: Ordinal?): T? {
+        self[nth as? isize]
+    }
+    `[]`(self, nth: isize?): T? {
+        switch {
+            when nth == null:
+                null
+            when nth == 0:
+                null
+            when nth < 0:
+                self.memory.get(self.memory.length - nth)
+            when nth > 0:
+                self.memory.get(nth - 1)
         }
-        else {
-            self.memory
-        }
+        .recast()
     }
 }
 

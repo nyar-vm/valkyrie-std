@@ -1,13 +1,26 @@
 namespace? package.collections.vector;
 
 
-class PrimitiveEntry<T> {
+structure PrimitiveEntry<T> {
     private pointer: usize,
     private element: PhantomData<T>,
 }
 
-
-extends PrimitiveEntry<T> {
+structure MemoryEntry {
     private pointer: usize,
-    private element: PhantomData<T>,
+    private size: usize,
+}
+
+#[native]
+extends PrimitiveEntry<T> {
+    violance constructor(pointer: usize) {
+        self.pointer = pointer;
+    }
+    violance reinterpret<U>(move self): PrimitiveEntry<U> {
+        self.element = PhantomData::<U>();
+        self
+    }
+    violance recast(move self): T {
+
+    }
 }
