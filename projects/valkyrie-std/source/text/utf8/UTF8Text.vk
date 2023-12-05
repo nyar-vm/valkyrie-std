@@ -1,0 +1,32 @@
+namespace package.text;
+
+using crate.bytes.{Endianess, LE};
+
+structure UTF8Text {
+    private bytes: Vector<u8>;
+}
+
+structure UTF8View {
+    private bytes: Vector<u8>;
+    private range: Range<usize>
+}
+
+// constructor + from
+#native
+extends UTF8Text {
+    /// bytes: input stream
+    /// order:
+    /// bom:
+    from_bytes(bytes: Vector<u8>, order: Endianess = LE, bom: bool = false) -> Result<Self, ParseError>;
+    into_bytes(self, order: Endianess = LE, bom: bool = false) -> Vector<u8>;
+}
+
+// iterators
+#native
+extends UTF8Text {
+    ///
+    codepoints() -> Iterator<Unicode>;
+    ///
+    graphemes() -> Iterator<Graphemes>;
+}
+

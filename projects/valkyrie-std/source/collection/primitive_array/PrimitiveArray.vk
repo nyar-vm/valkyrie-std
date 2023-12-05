@@ -1,0 +1,39 @@
+namespace? package.collections.vector;
+
+
+
+
+/// | pointer(4) | length(4) | item(size) | item(size)
+internal class PrimitiveArray<T> {
+    pointer: usize,
+    length: usize,
+    element: PhantomData<T>,
+}
+
+/// | pointer(4) | occupied(4) | capacity(4) | item(size) | item(size)
+internal class PrimitiveDynamicArray<T> {
+    pointer: usize,
+    occupied: usize,
+    capacity: usize,
+    element: PhantomData<T>,
+}
+
+internal class PrimitiveEntry<T> {
+    private pointer: usize,
+    private element: PhantomData<T>,
+}
+
+extends PrimitiveArray<T> {
+    get(self, nth: usize): PrimitiveEntry<T>? {
+
+    }
+    size(self): usize {
+        size_of::<usize> * 3
+    }
+    heap_size(self): usize {
+        size_of::<T> * self.capacity
+    }
+
+    get(mut self)
+
+}

@@ -1,7 +1,0 @@
-extension A {
-    namespace package.text;
-}
-
-extension A {
-    namespace package.text;
-}

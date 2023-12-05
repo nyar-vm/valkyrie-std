@@ -1,4 +1,4 @@
-namespace* package.collections.hash_map;
+namespace? package.collections.hash_map;
 
 #native
 class HashSet<K, V, S = RandomState> {

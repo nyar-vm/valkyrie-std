@@ -4,3 +4,13 @@ using self.{
     utf8.UTF8Buffer as String
 }
 
+trait Text {
+
+}
+
+
+trait MutableText: Text {
+
+}
+
+

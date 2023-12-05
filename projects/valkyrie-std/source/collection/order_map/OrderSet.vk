@@ -1,4 +1,4 @@
-namespace* package.collections;
+namespace? package.collections;
 
 class OrderSet<K, V> {
 

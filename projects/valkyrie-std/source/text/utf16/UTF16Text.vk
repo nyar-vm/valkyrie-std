@@ -1,0 +1,12 @@
+
+
+
+
+
+
+#native
+#derive(Clone)
+structure UTF16Text {
+    /// 
+    bytes: Vector<u8>;
+}
