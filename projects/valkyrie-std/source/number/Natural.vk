@@ -35,3 +35,7 @@ extends Natural {
      add_u64(self, n: u64): Self;
      add_nat(self, n: Self): Self;
 }
+
+
+
+

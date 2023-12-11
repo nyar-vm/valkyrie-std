@@ -7,7 +7,6 @@ structure UTF8Text {
 }
 
 structure UTF8View {
-    private bytes: Vector<u8>;
     private range: Range<usize>
 }
 

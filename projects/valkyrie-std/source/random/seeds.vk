@@ -1,0 +1,25 @@
+namespace package.random;
+
+/// Get a cryptographically secure random number as a random seed
+#ffi("wasi:random", "get-insecure-random-u64")
+micro random_seed_fast() : u64 {
+
+}
+
+/// Get a cryptographically secure random number as a random seed
+#ffi("wasi:random", "get-random-u64")
+micro random_seed_safe() : u64 {
+
+}
+
+/// Get a cryptographically secure random number as a random seed
+#ffi("wasi:random", "get-random-bytes")
+micro random_bytes_safe(length: u64) : Vector<u8> {
+
+}
+
+/// Get a fast random number seed
+#ffi("wasi:random", "get-insecure-random-bytes")
+micro random_bytes_fast(length: u64) : Vector<u8> {
+
+}
