@@ -1,0 +1,36 @@
+
+structure XorShift32 {
+    state: u32,
+    #constant
+    a: u32,
+    #constant
+    b: u32,
+    #constant
+    c: u32,
+}
+
+extends XorShift32 {
+    constructor(seed: u32?) {
+        self.a = 13;
+        self.b = 17;
+        self.c = 5;
+        self.state = seed ?? random_seed_safe().split_u32.2;
+    }
+    with_parameters(move self, a: u32, b: u32, c: u32): Self {
+        self.a = a;
+        self.b = b;
+        self.c = c;
+        self
+    }
+    #override(random_u32)
+    random(mut self): u32 {
+        self.state.bit_xor_assign(self.a.bit_shift_left(13));
+        self.state.bit_xor_assign(self.b.bit_shift_right(17));
+        self.state.bit_xor_assign(self.c.bit_shift_left(5));
+        self.state
+    }
+    #override(random_u32)
+    random(mut self): u64 {
+        u64::merge_u32(self.random(), self.random())
+    }
+}

@@ -1,0 +1,35 @@
+
+
+structure XorShift64 {
+    state: u64,
+    #constant
+    a: u64,
+    #constant
+    b: u64,
+    #constant
+    c: u64,
+}
+
+extends XorShift32 {
+    constructor(seed: u64?) {
+        self.a = 13;
+        self.b = 7;
+        self.c = 17;
+        self.state = seed ?? random_seed_safe();
+    }
+    with_parameters(move self, a: u64, b: u64, c: u64): Self {
+        self.a = a;
+        self.b = b;
+        self.c = c;
+        self
+    }
+    random(mut self): u32 {
+        self.random().split_u32.2
+    }
+    random(mut self): u64 {
+        self.state.bit_xor_assign(self.a.bit_shift_left(13));
+        self.state.bit_xor_assign(self.b.bit_shift_right(17));
+        self.state.bit_xor_assign(self.c.bit_shift_left(5));
+        self.state
+    }
+}
