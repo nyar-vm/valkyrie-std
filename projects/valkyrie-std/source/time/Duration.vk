@@ -1,0 +1,96 @@
+namespace package.time
+
+/// A time and date in seconds plus nanoseconds.
+/// https://doc.rust-lang.org/src/core/time.rs.html#86
+structure Duration {
+    seconds: u64,
+    nanoseconds: u32,
+}
+
+extends Duration {
+    year(years: u64) {
+        new Self { seconds: years * 31536000, nanoseconds: 0 }
+    }
+    year(years: f64): Duration {
+        cast_seconds(nanoseconds, 1.0 / 31536000)
+    }
+    month(months: u64) {
+        new Self { seconds: months * 2628000, nanoseconds: 0 }
+    }
+    month(months: f64): Duration {
+        cast_seconds(nanoseconds, 1.0 / 2628000)
+    }
+    week(weeks: u64) {
+        new Self { seconds: weeks * 604800, nanoseconds: 0 }
+    }
+    week(weeks: f64): Duration {
+        cast_seconds(nanoseconds, 1.0 / 604800)
+    }
+    day(days: u64) {
+        new Self { seconds: days * 86400, nanoseconds: 0 }
+    }
+    day(days: f64): Duration {
+        cast_seconds(nanoseconds, 1.0 / 86400)
+    }
+    hour(hours: u64) {
+        new Self { seconds: hours * 3600, nanoseconds: 0 }
+    }
+    hour(hours: f64): Duration {
+        cast_seconds(nanoseconds, 1.0 / 3600)
+    }
+    minute(minutes: u64) {
+        new Self { seconds: minutes * 60, nanoseconds: 0 }
+    }
+    minute(minutes: f64): Duration {
+        cast_seconds(nanoseconds, 1.0 / 60)
+    }
+    second(seconds: u64) {
+        new Self { seconds, nanoseconds: 0 }
+    }
+    second(seconds: f64): Duration {
+        cast_seconds(nanoseconds, 1)
+    }
+    millisecond(milliseconds: u64): Duration {
+        cast_seconds(nanoseconds, 1_000)
+    }
+    millisecond(milliseconds: f64): Duration {
+        cast_seconds(nanoseconds, 1_000)
+    }
+    microsecond(microseconds: u64): Duration {
+        cast_seconds(nanoseconds, 1_000_000)
+    }
+    microsecond(microseconds: f64): Duration {
+        cast_seconds(nanoseconds, 1_000_000)
+    }
+    nanosecond(nanoseconds: u64): Duration {
+        cast_seconds(nanoseconds, 1_000_000_000)
+    }
+    nanosecond(nanoseconds: f64): Duration {
+        cast_seconds(nanoseconds, 1_000_000_000)
+    }
+}
+
+private function cast_seconds(time: u32, rate: u32): Duration {
+    let seconds = time.floor_divide(rate) as u64;
+    let nanoseconds = time % rate;
+    new Duration { seconds, nanoseconds };
+}
+
+private function cast_seconds(time: u64, rate: u64): Duration {
+    let seconds = time.floor_divide(rate);
+    let nanoseconds = (time % rate) as u32;
+    new Duration { seconds, nanoseconds };
+}
+
+private function cast_seconds(time: f32, rate: f32): Duration {
+    let seconds = time.floor_divide(rate) as u64;
+    let nanoseconds = (nanoseconds % rate).fraction() as u32;
+    new Duration { seconds, nanoseconds };
+}
+
+private function cast_seconds(time: f64, rate: f64): Duration {
+    let seconds = time.floor_divide(rate) as u64;
+    let nanoseconds = (nanoseconds % rate).fraction() as u32;
+    new Duration { seconds, nanoseconds };
+}
+
