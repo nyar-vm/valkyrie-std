@@ -3,10 +3,22 @@
 
 
 
-
-#native
-#derive(Clone)
 structure UTF16Text {
-    /// 
-    bytes: Vector<u8>;
+    _buffer: Vector<u16>;
 }
+
+extends UTF16Text {
+    push(mut self, c: Unicode) {
+        if c.codepoint < 0x10000 {
+            self._buffer.push(c.codepoint as u16)
+        }
+        else {
+            let mut codepoint = c.codepoint - 0x10000;
+            let high = 0xD800 | ((codepoint >> 10) as u16);
+            let low = 0xDC00 | ((codepoint & 0x3FF) as u16);
+            self._buffer.push(high);
+            self._buffer.push(low);
+        }
+    }
+}
+

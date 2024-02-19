@@ -5,7 +5,6 @@ namespace? package.collections.primitive_array;
 structure PrimitiveArray<T> {
     private pointer: Offset,
     private length: usize,
-
 }
 
 

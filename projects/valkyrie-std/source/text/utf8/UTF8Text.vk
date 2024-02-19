@@ -3,7 +3,7 @@ namespace package.text;
 using crate.bytes.{Endianess, LE};
 
 structure UTF8Text {
-    private bytes: Vector<u8>;
+    _buffer: Vector<u8>;
 }
 
 structure UTF8View {
@@ -29,3 +29,28 @@ extends UTF8Text {
     graphemes() -> Iterator<Graphemes>;
 }
 
+
+
+
+extends UTF8Text {
+    push(mut self, c: Unicode) {
+        if c.codepoint < 0x80 {
+            self._buffer.push(c.codepoint as u8)
+        }
+        else if c.codepoint < 0x800 {
+            self._buffer.push(0xC0 | ((c.codepoint >> 6) as u8));
+            self._buffer.push(0x80 | ((c.codepoint & 0x3F) as u8));
+        }
+        else if c.codepoint < 0x10000 {
+            self._buffer.push(0xE0 | ((c.codepoint >> 12) as u8));
+            self._buffer.push(0x80 | (((c.codepoint >> 6) & 0x3F) as u8));
+            self._buffer.push(0x80 | ((c.codepoint & 0x3F) as u8));
+        }
+        else {
+            self._buffer.push(0xF0 | ((c.codepoint >> 18) as u8));
+            self._buffer.push(0x80 | (((c.codepoint >> 12) & 0x3F) as u8));
+            self._buffer.push(0x80 | (((c.codepoint >> 6) & 0x3F) as u8));
+            self._buffer.push(0x80 | ((c.codepoint & 0x3F) as u8));
+        }
+    }
+}

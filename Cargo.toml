@@ -1,7 +1,7 @@
 [workspace]
 members = ["projects/*"]
 default-members = [
-    "projects/valkyrie-errors",
+    "projects/valkyrie-std",
 ]
 exclude = [
     "projects/.DS_Store",

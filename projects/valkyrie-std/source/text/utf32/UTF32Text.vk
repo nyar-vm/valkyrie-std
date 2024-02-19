@@ -1,6 +1,17 @@
-#native
-#derive(Clone)
+
+
+
 structure UTF32Text {
-    ///
-    bytes: Vector<u8>;
+    _buffer: Vector<u32>;
+}
+
+
+structure Unicode {
+    codepoint: u32;
+}
+
+extends UTF32Text {
+    push(mut self, c: Unicode) {
+        self._buffer.push(c.codepoint)
+    }
 }

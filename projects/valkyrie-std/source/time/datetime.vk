@@ -1,4 +1,7 @@
-#native class Duration {
-    _secs: u64,
-    _nanos: u32,
+namespace package.time
+
+/// A time and date in seconds plus nanoseconds.
+structure DateTime {
+    seconds: u64,
+    nanos: u32,
 }
