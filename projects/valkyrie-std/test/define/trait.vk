@@ -36,14 +36,14 @@ forall A, B exists Option<A>: Functor<B> {
     }
 }
 
-/// 静态扩展
+🗨 静态扩展
 trait extension Extension {
     match A {
 
     }
 };
 
-/// 可以违反的约定
+🗨 可以违反的约定
 trait convention Extension {
     match A {
 

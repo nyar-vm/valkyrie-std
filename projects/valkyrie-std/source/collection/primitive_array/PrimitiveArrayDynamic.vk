@@ -1,6 +1,6 @@
 namespace? package.collections.vector;
 
-/// | pointer(4) | occupied(4) | capacity(4) | item(size) | item(size)
+🗨 | pointer(4) | occupied(4) | capacity(4) | item(size) | item(size)
 internal class PrimitiveArrayDynamic<T> {
     pointer: usize,
     occupied: usize,

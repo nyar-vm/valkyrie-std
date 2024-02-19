@@ -1,7 +1,7 @@
 namespace package.time
 
-/// A time and date in seconds plus nanoseconds.
-/// https://doc.rust-lang.org/src/core/time.rs.html#86
+🗨 A time and date in seconds plus nanoseconds.
+🗨 https://doc.rust-lang.org/src/core/time.rs.html#86
 structure Duration {
     seconds: u64,
     nanoseconds: u32,

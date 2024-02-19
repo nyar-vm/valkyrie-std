@@ -20,14 +20,14 @@ macro Failure(e: Expression) {
 
 #documentation(include="Result.vnote")
 unite Result[T, E] raise T {
-    ///
+    🗨
     Success {
-        ///
+        🗨
         value: T
     },
-    ///
+    🗨
     Failure {
-        ///
+        🗨
         error: E
     },
 }

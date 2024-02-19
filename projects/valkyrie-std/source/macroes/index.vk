@@ -1,24 +1,24 @@
 namespace package.macroes;
 
-/// Mark the implementation as native
-/// The following part uses pseudo-code, and does not represent actual implementation.
+🗨 Mark the implementation as native
+🗨 The following part uses pseudo-code, and does not represent actual implementation.
 #token.navigation(jump = false)
 macro native derive native(
-    ///
+    🗨
     receptor: AnyNode,
-    ///
+    🗨
     direct_size: LiteralNode,
-    ///
+    🗨
     total_size: LiteralNode,
 )
 
-///
+🗨
 #token.navigation(jump = false)
 macro native derive navigation(
-    ///
+    🗨
     namepath: LiteralNode,
     color: LiteralNode,
-    ///
+    🗨
     value jump: bool
 )
 
@@ -26,7 +26,7 @@ macro native derive derive(
 
 )
 
-/// Ensure the function returns a [`Future`]
+🗨 Ensure the function returns a [`Future`]
 macro native derive async() {
 
 }

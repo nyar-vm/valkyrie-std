@@ -9,10 +9,10 @@ unite Option<T> {
 
 
 extends Option {
-    /// # Examples
-    /// ```
-    ///
-    /// ```
+    🗨 # Examples
+    🗨 ```
+    🗨
+    🗨 ```
     micro is_some(self) {
         @matches(self, Some(_))
     }

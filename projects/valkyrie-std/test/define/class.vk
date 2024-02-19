@@ -5,7 +5,7 @@ class ClassPoint {
     public readonly y: Integer,
 }
 
-/// 测试
+🗨 测试
 `class` class A3<T> {
     ref x: T = tacit,
     ref y: T = tacit,

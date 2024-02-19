@@ -1,32 +1,31 @@
 namespace package.time
 
-/// WASI Monotonic Clock is a clock API intended to let users measure elapsed
-/// time.
-///
-/// It is intended to be portable at least between Unix-family platforms and
-/// Windows.
-///
-/// A monotonic clock is a clock which has an unspecified initial value, and
-/// successive reads of the clock will produce non-decreasing values.
-///
-/// It is intended for measuring elapsed time.
+🗨 WASI Monotonic Clock is a clock API intended to let users measure elapsed time.
+🗨
+🗨 It is intended to be portable at least between Unix-family platforms and Windows.
+🗨
+🗨 A monotonic clock is a clock which has an unspecified initial value, and
+🗨 successive reads of the clock will produce non-decreasing values.
+🗨
+🗨 It is intended for measuring elapsed time.
 structure MonotonicClock { }
 
+type Nanoseconds = u64
 
 extends MonotonicClock {
-    /// Read the current value of the clock.
-    ///
-    /// The clock is monotonic, therefore calling this function repeatedly will
-    /// produce a sequence of non-decreasing values.
+    🗨 Read the current value of the clock.
+    🗨
+    🗨 The clock is monotonic, therefore calling this function repeatedly will
+    🗨 produce a sequence of non-decreasing values.
     #ffi("wasi:clocks/wall-clock", "now")
-    function now() -> u64 {
+    function now() -> Nanoseconds {
 
     }
 
-    /// Query the resolution of the clock. Returns the duration of time
-    /// corresponding to a clock tick.
+    🗨 Query the resolution of the clock. Returns the duration of time
+    🗨 corresponding to a clock tick.
     #ffi("wasi:clocks/wall-clock", "resolution")
-    function resolution() -> u64 {
+    function resolution() -> Nanoseconds {
 
     }
 }

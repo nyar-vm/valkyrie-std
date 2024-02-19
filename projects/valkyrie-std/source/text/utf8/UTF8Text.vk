@@ -13,9 +13,9 @@ structure UTF8View {
 // constructor + from
 #native
 extends UTF8Text {
-    /// bytes: input stream
-    /// order:
-    /// bom:
+    🗨 bytes: input stream
+    🗨 order:
+    🗨 bom:
     from_bytes(bytes: Vector<u8>, order: Endianess = LE, bom: bool = false) -> Result<Self, ParseError>;
     into_bytes(self, order: Endianess = LE, bom: bool = false) -> Vector<u8>;
 }
@@ -23,9 +23,9 @@ extends UTF8Text {
 // iterators
 #native
 extends UTF8Text {
-    ///
+    🗨
     codepoints() -> Iterator<Unicode>;
-    ///
+    🗨
     graphemes() -> Iterator<Graphemes>;
 }
 

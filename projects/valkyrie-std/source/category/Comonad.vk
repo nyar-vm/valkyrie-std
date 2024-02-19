@@ -2,8 +2,8 @@ namespace package.category;
 
 
 trait Comonad {
-    /// dual of Monad::unit
+    🗨 dual of Monad::unit
     extract(m: Self<A>) -> A;
-    /// dual of Monad::join
+    🗨 dual of Monad::join
     duplicate(m: Self<A>) -> Self<Self<A>>;
 }

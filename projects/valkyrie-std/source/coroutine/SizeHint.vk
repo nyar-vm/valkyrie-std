@@ -4,12 +4,12 @@ unite SizeHint {
     Exact {
         count: usize
     },
-    /// in range
+    🗨 in range
     Upper {
         max: usize,
     },
     Unlimited {
-        /// Recommended preallocated space
+        🗨 Recommended preallocated space
         suggest: usize = 0
     },
 }

@@ -21,8 +21,8 @@ extends Tensor<T, D> {
     view() -> Tensor<T>
 }
 
-/// A view of raw tensor
-/// Edit the element will change the value in original tensor
+🗨 A view of raw tensor
+🗨 Edit the element will change the value in original tensor
 #native
 class ArrayND<T, D> {
     share: Tensor<T, D>,

@@ -14,7 +14,7 @@ structure Integer {
 }
 
 extends Integer {
-    /// Create a new Integer from u8
+    🗨 Create a new Integer from u8
     constructor(n: u8): Self {
         new_u64(n as u64)
     }

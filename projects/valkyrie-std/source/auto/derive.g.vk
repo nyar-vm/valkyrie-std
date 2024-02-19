@@ -51,27 +51,27 @@ class AsyncTask {};
 
 
 unite Poll[R, E] {
-    /// 执行中或未开始
+    🗨 执行中或未开始
     Pending,
-    /// 已完成的任务
+    🗨 已完成的任务
     Fine {
-        /// 执行完成, 写入 result 地址
+        🗨 执行完成, 写入 result 地址
         result: T,
     },
-    /// 被取消, 失败等情况
+    🗨 被取消, 失败等情况
     Fail {
-        /// 执行失败, 写入 error 地址
+        🗨 执行失败, 写入 error 地址
         error: E,
     },
 }
 
 std
-/// Αἰών, the default Global async
+🗨 Αἰών, the default Global async
 class singleton Aion {
 
 }
 
-/// 标记可以调用 await 的类型
+🗨 标记可以调用 await 的类型
 trait Awaitable {
     type Return
     type Error

@@ -10,10 +10,10 @@ if a {
 ```
 */
 trait Conditional: Into[Boolean] {
-    /// a
-    /// b
+    🗨 a
+    🗨 b
     conditional(self) -> Boolean;
-    ///
+    🗨
     into(self) -> Boolean {
         self.conditional()
     }
