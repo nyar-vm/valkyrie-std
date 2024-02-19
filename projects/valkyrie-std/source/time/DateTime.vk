@@ -1,0 +1,19 @@
+namespace package.time
+
+/// A time and date in seconds plus nanoseconds.
+structure NativeDateTime {
+    seconds: u64,
+    nanos: u32,
+}
+
+
+extends NativeDateTime {
+    from(seconds: u64) {
+        new NativeDateTime { seconds, nanos: 0 };
+    }
+    from(seconds: f64): NativeDateTime {
+        let seconds = seconds.floor() as u64;
+        let nanos = seconds.fraction() * 1_000_000_000.0 as u32;
+        new NativeDateTime { seconds, nanos };
+    }
+}

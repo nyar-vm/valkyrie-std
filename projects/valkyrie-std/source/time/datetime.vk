@@ -1,7 +1,0 @@
-namespace package.time
-
-/// A time and date in seconds plus nanoseconds.
-structure DateTime {
-    seconds: u64,
-    nanos: u32,
-}
