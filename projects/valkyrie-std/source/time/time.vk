@@ -1,4 +1,0 @@
-#external class Time {
-    _secs: u64,
-    _nanos: u32,
-}

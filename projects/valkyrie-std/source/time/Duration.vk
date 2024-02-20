@@ -48,49 +48,49 @@ extends Duration {
         new Self { seconds, nanoseconds: 0 }
     }
     second(seconds: f64): Duration {
-        cast_seconds(nanoseconds, 1)
+        cast_seconds(nanoseconds, 1.0)
     }
     millisecond(milliseconds: u64): Duration {
         cast_seconds(nanoseconds, 1_000)
     }
     millisecond(milliseconds: f64): Duration {
-        cast_seconds(nanoseconds, 1_000)
+        cast_seconds(nanoseconds, 1_000.0)
     }
     microsecond(microseconds: u64): Duration {
         cast_seconds(nanoseconds, 1_000_000)
     }
     microsecond(microseconds: f64): Duration {
-        cast_seconds(nanoseconds, 1_000_000)
+        cast_seconds(nanoseconds, 1_000_000.0)
     }
     nanosecond(nanoseconds: u64): Duration {
         cast_seconds(nanoseconds, 1_000_000_000)
     }
     nanosecond(nanoseconds: f64): Duration {
-        cast_seconds(nanoseconds, 1_000_000_000)
+        cast_seconds(nanoseconds, 1_000_000_000.0)
     }
 }
 
-private function cast_seconds(time: u32, rate: u32): Duration {
-    let seconds = time.floor_divide(rate) as u64;
+private micro cast_seconds(time: u32, rate: u32): Duration {
+    let seconds = (time // rate) as u64;
     let nanoseconds = time % rate;
     new Duration { seconds, nanoseconds };
 }
 
-private function cast_seconds(time: u64, rate: u64): Duration {
-    let seconds = time.floor_divide(rate);
-    let nanoseconds = (time % rate) as u32;
+private micro cast_seconds(time: u64, rate: u64): Duration {
+    let seconds = time // rate;
+    let nanoseconds = (time % rate) as 64;
     new Duration { seconds, nanoseconds };
 }
 
-private function cast_seconds(time: f32, rate: f32): Duration {
-    let seconds = time.floor_divide(rate) as u64;
-    let nanoseconds = (nanoseconds % rate).fraction() as u32;
+private micro cast_seconds(time: f32, rate: f32): Duration {
+    let seconds = (time // rate) as u32;
+    let nanoseconds = (nanoseconds % rate).fraction() as u64;
     new Duration { seconds, nanoseconds };
 }
 
-private function cast_seconds(time: f64, rate: f64): Duration {
-    let seconds = time.floor_divide(rate) as u64;
-    let nanoseconds = (nanoseconds % rate).fraction() as u32;
+private micro cast_seconds(time: f64, rate: f64): Duration {
+    let seconds = (time // rate) as u32;
+    let nanoseconds = (nanoseconds % rate).fraction() as u64;
     new Duration { seconds, nanoseconds };
 }
 

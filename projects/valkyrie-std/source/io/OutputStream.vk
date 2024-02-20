@@ -1,0 +1,18 @@
+namespace package.io;
+
+
+#ffi("wasi:io/streams", "output-stream")
+resource class OutputStream {}
+
+extends OutputStream {
+    #ffi("wasi:io/streams", "write")
+    function write(data: String) -> void {}
+}
+
+
+#ffi("wasi:cli/stdout", "get-stdout")
+function standard_output() -> OutputStream {}
+
+#ffi("wasi:cli/stdout", "get-stdin")
+function standard_error() -> OutputStream {}
+

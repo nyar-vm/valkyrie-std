@@ -1,0 +1,11 @@
+namespace package.io;
+
+#ffi("wasi:io/error", "error")
+resource class IoError {}
+
+extends IoError {
+    #ffi("wasi:io/error", "[method]to-debug-string")
+    private to_debug_string(self) -> String {
+
+    }
+}

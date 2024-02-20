@@ -8,7 +8,7 @@ structure LinearCongruential {
 }
 
 extends LinearCongruential {
-    constructor(seed: u64?, a: u64 = 25214903917, b: u64 = 11, c: u64 = 2^48) {
+    constructor(seed: u64? = null, a: u64 = 25214903917, b: u64 = 11, c: u64 = 2^48) {
         self.seed = seed ?? random_seed_safe();
         self.a = a;
         self.b = b;
